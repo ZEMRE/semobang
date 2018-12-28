@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="UserDAO">
+	
+	<!-- user 테이블에 대한 SQL 구문 작성 -->
+	
+	<insert id="insertUser" parameterType="UserVO">
+		insert into user (user_email, user_pass, user_name, user_level)
+		values (#{user_email}, #{user_pass}, ${user_name}, ${user_level})		
+	</insert>
+	
+	<select id="duplicateCheck" parameterType="String">
+		select count(*)
+		from user
+		where #{key} = #{value}
+	</select>	
+	
+	<!-- validateUser() 없음, 이메일로 getUser()로 vo 가져와서 vo.user_pass 확인 -->
+	
+	<select id="getUser" resultType="UserVO" parameterType="String">
+		select *
+		from user
+		where user_email = #{user_email}
+	</select>	
+	
+	<update id="updateUserColumn" parameterType="String">
+		update user
+		<choose>
+			<when test="#{value} == 'Timestamp'">
+				set #{key} = now()
+			</when>
+			<otherwise>
+				set #{key} = #{value}
+			</otherwise>
+		</choose>			
+		where user_email = #{user_email}
+	</update>
+	
+	<update id="updateUserProfileWithPhoto" parameterType="UserVO">
+		update user
+		set user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
+			user_telephone = #{user_telephone}, user_mobile = #{user_mobile}, user_photo = #{user_photo}, 
+			user_about = #{user_about}, user_fb = #{user_fb}, user_ig = #{user_ig}, user_tw = #{user_tw},  
+			user_interest_city = #{user_interest_city}, user_interest_category = #{user_interest_category}, user_interest_type = #{user_interest_type}
+		where user_email = #{user_email}
+	</update>
+	
+	<update id="updateUserProfile" parameterType="UserVO">
+		update user
+		set user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
+			user_telephone = #{user_telephone}, user_mobile = #{user_mobile},
+			user_about = #{user_about}, user_fb = #{user_fb}, user_ig = #{user_ig}, user_tw = #{user_tw},  
+			user_interest_city = #{user_interest_city}, user_interest_category = #{user_interest_category}, user_interest_type = #{user_interest_type}
+		where user_email = #{user_email}
+	</update>
+	
+	<select id="getUserPropertyCount" parameterType="String">
+		select count(*)
+		from user u join property p
+		on u.user_email = p.property_user
+		and user_email = #{user_email}
+	</select>
+	
+	<delete id="deleteUser" parameterType="String">
+		delete from user
+		where user_email = #{user_email}
+	</delete>
+	
+	<select id="getUserList" resultType="UserVO">
+		select *
+		from user
+	</select>
+	
+	<select id="getPopularUserList" resultType="UserVO">
+		select *
+		from user
+		order by user_sold_count desc
+	</select>
+	
+	<update id="updateUserSoldCount" parameterType="String">
+		update user
+		set user_sold_count = #{count}
+		where user_email = #{user_email} 
+	</update>	
+</mapper>

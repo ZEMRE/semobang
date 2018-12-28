@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 
+	PUBLIC "-//mybatis.org//DTD config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration> 
+	<typeAliases> 
+		<typeAlias alias="UserVO" type="com.semobang.user.domain.UserVO"/> 		
+		<typeAlias alias="UserDAO" type="com.semobang.user.persistence.UserDAO"/> 
+		
+		<typeAlias alias="PropertyVO" type="com.semobang.property.domain.PropertyVO"/> 		
+		<typeAlias alias="PropertyDAO" type="com.semobang.property.persistence.PropertyDAO"/> 
+		
+		<typeAlias alias="LoveVO" type="com.semobang.love.domain.LoveVO"/> 		
+		<typeAlias alias="LoveDAO" type="com.semobang.love.persistence.LoveDAO"/> 
+	</typeAliases> 
+</configuration>
