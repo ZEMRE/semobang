@@ -1,13 +1,14 @@
 package com.semobang.property.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.semobang.property.domain.PropertyVO;
-import com.semobang.user.domain.UserVO;
 
 @Repository
 public class PropertyDAOImpl implements PropertyDAO {
@@ -29,8 +30,17 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public int updateLoveCount(int property_id) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int count = sqlSession.selectOne("getLoveCount", property_id);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("property_id", property_id);
+		map.put("property_badge", count);
+		
+		int result = sqlSession.update("updateLoveCount", map);
+		
+		return result;
 	}
 
 	@Override
@@ -52,8 +62,13 @@ public class PropertyDAOImpl implements PropertyDAO {
 	}
 
 	@Override
-	public List<PropertyVO> getPropertyList(int showAmount) {
-		// TODO Auto-generated method stub
+	public List<PropertyVO> getPropertyList(int startRow, int propertyPerPage) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("startRow", startRow);
+		map.put("propertyPerPage", propertyPerPage);
+		
 		return null;
 	}
 
@@ -65,25 +80,54 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public List<PropertyVO> getPropertyListByBadge(int showAmount, String property_badge) {
-		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("showAmount", showAmount);
+		map.put("property_badge", property_badge);
+		
 		return null;
 	}
 
 	@Override
-	public List<PropertyVO> getRecommendPropertyList(int showAmount, PropertyVO vo) {
-		// TODO Auto-generated method stub
+	public List<PropertyVO> getRecommendPropertyList(int startRow, int propertyPerPage, boolean login, PropertyVO vo) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("startRow", startRow);
+		map.put("propertyPerPage", propertyPerPage);
+		map.put("login", login);
+		map.put("property_category", vo.getProperty_category());
+		map.put("getProperty_type", vo.getProperty_type());
+		map.put("property_city", vo.getProperty_city());
+		
 		return null;
 	}
 
 	@Override
-	public List<PropertyVO> getPopularPropertyList(int showAmount, PropertyVO vo) {
-		// TODO Auto-generated method stub
+	public List<PropertyVO> getPopularPropertyList(int startRow, int propertyPerPage, boolean login, PropertyVO vo) {
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("startRow", startRow);
+		map.put("propertyPerPage", propertyPerPage);
+		map.put("login", login);
+		map.put("property_category", vo.getProperty_category());
+		map.put("getProperty_type", vo.getProperty_type());
+		map.put("property_city", vo.getProperty_city());
+		
 		return null;
 	}
 
 	@Override
 	public List<PropertyVO> getPropertyListByAgent(int startRow, int propertyPerPage, String property_user) {
-		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("startRow", startRow);
+		map.put("propertyPerPage", propertyPerPage);
+		map.put("property_user", property_user);
+		
 		return null;
 	}
 
@@ -94,9 +138,20 @@ public class PropertyDAOImpl implements PropertyDAO {
 	}
 
 	@Override
-	public List<PropertyVO> getPropertyListByCondition(int startRow, int propertyPerPage, UserVO vo, String key,
+	public List<PropertyVO> getPropertyListByCondition(int startRow, int propertyPerPage, boolean login, PropertyVO vo, String key,
 			String value) {
-		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("startRow", startRow);
+		map.put("propertyPerPage", propertyPerPage);
+		map.put("login", login);
+		map.put("property_category", vo.getProperty_category());
+		map.put("getProperty_type", vo.getProperty_type());
+		map.put("property_city", vo.getProperty_city());
+		map.put("key", key);
+		map.put("value", value);
+		
 		return null;
 	}
 

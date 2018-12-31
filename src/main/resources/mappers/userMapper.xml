@@ -12,7 +12,7 @@
 		values (#{user_email}, #{user_pass}, ${user_name}, ${user_level})		
 	</insert>
 	
-	<select id="duplicateCheck" parameterType="String">
+	<select id="duplicateCheck" parameterType="java.util.Map">
 		select count(*)
 		from user
 		where #{key} = #{value}
@@ -26,7 +26,7 @@
 		where user_email = #{user_email}
 	</select>	
 	
-	<update id="updateUserColumn" parameterType="String">
+	<update id="updateUserColumn" parameterType="java.util.Map">
 		update user
 		<choose>
 			<when test="#{value} == 'Timestamp'">
@@ -80,7 +80,7 @@
 		order by user_sold_count desc
 	</select>
 	
-	<update id="updateUserSoldCount" parameterType="String">
+	<update id="updateUserSoldCount" parameterType="java.util.Map">
 		update user
 		set user_sold_count = #{count}
 		where user_email = #{user_email} 

@@ -1,5 +1,8 @@
 package com.semobang.love.persistence;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,8 +24,13 @@ public class LoveDAOImpl implements LoveDAO {
 
 	@Override
 	public LoveVO getLove(int love_user, int love_property) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("love_user", love_user);
+		map.put("love_property", love_property);		
+		
+		return sqlSession.selectOne("getLove", map);
 	}
 
 	@Override
