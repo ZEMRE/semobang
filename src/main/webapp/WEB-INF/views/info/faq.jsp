@@ -8,5 +8,6 @@
 	
 	<body>
 		<h1>faq 뷰 페이지: 자주 묻는 질문과 답변</h1>
+		<p>GIT TEST!!!</p>
 	</body>
 </html>
