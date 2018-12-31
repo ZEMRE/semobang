@@ -12,7 +12,7 @@
 		values (#{love_id}, #{love_user}, #{love_property})
 	</insert>
 	
-	<select id="getLove" parameterType="int" resultType="LoveVO">
+	<select id="getLove" parameterType="java.util.Map" resultType="LoveVO">
 		select *
 		from love
 		where love_user = #{love_user}

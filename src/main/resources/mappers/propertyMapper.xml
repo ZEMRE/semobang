@@ -24,13 +24,13 @@
 		where property_id = #{property_id}
 	</update>
 	
-	<update id="updateLoveCount" parameterType="int">
+	<update id="updateLoveCount" parameterType="java.util.Map">
 		update property
 		set property_love_count = #{count}
 		where property_id = #{property_id}
 	</update>
 	
-	<select id="getProperty" parameterType="int">
+	<select id="getProperty" parameterType="int" resultType="PropertyVO">
 		select *
 		from property
 		where property_id = #{property_id} 
@@ -41,6 +41,107 @@
 		where property_id = #{property_id} 
 	</delete>
 	
+	<update id="updatePropertyByAdmin" parameterType="PropertyVO">
+		update property
+		set property_badge = #{property_badge}, property_status = #{property_status}
+		where property_id = #{property_id}
+	</update>
+	
+	<select id="getPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
+		select *
+		from property
+		where property_status = 'open'
+		order by property_date desc
+		limit #{startRow}, #{propertyPerPage}
+	</select>
+	
+	<select id="getPropertyListByAdmin" resultType="PropertyVO">
+		select *
+		from property
+		order by property_date desc
+	</select>
+	
+	<select id="getPropertyListByBadge" parameterType="java.util.Map" resultType="PropertyVO">
+		select *
+		from property
+		where property_badge = #{property_badge}
+		and property_status = 'open'
+		order by property_date desc
+		limit 0, #{showAmount}
+	</select>
+	
+	<select id="getRecommendPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
+		select *
+		from property
+		where property_status = 'open'
+		<if test="#{login} == true">
+			and property_category = #{property_category}
+			and property_type = #{property_type}
+			and property_city = #{property_city}
+		</if>		  
+		order by property_love_count desc, property_date desc
+		limit #{startRow}, #{propertyPerPage}
+	</select>
+	
+	<select id="getPopularPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
+		select *
+		from property
+		where property_status = 'open'
+		<if test="#{login} == true">
+			and property_category = #{property_category}
+			and property_type = #{property_type}
+			and property_city = #{property_city}
+		</if>
+		order by property_read_count desc, property_date desc
+		limit #{startRow}, #{propertyPerPage}
+	</select>
+	
+	<select id="getPropertyListByAgent" parameterType="java.util.Map" resultType="PropertyVO">
+		select *
+		from property
+		where property_user = #{property_user}
+		and property_status = 'open'
+		order by property_date desc
+		limit #{startRow}, #{propertyPerPage}
+	</select>
+	
+	<select id="getPropertyListBySearch" parameterType="java.util.Map" resultType="PropertyVO">
+	</select>
+	
+	<select id="getPropertyListByCondition" parameterType="java.util.Map" resultType="PropertyVO">
+		select *
+		from property
+		where property_status = 'open'
+		<if test="#{login} == true">
+			and property_category = #{property_category}
+			and property_type = #{property_type}
+			and property_city = #{property_city}
+		</if>
+		and #{key} = #{value}
+		order by property_date desc
+		limit #{startRow}, #{propertyPerPage}
+		
+	</select>
+	
+	<select id="getPropertyListByUser" parameterType="String" resultType="PropertyVO">
+		select *
+		from property
+		where property_status = 'open'
+		and property_user = #{user_email}
+		order by property_date desc;
+	</select>
+	
+	<select id="getPropertyListByLove" parameterType="String" resultType="PropertyVO">
+		select distinct property.*
+		from property
+		join love
+		on property_id = love_property
+		join user
+		on love_user = #{user_email}
+		and property_status = 'open'
+		order by love_id desc;
+	</select>
+		
 	<select id="getPropertySoldCount" parameterType="String">
 		select count(*)
 		from property
