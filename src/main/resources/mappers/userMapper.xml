@@ -7,13 +7,21 @@
 	
 	<!-- user 테이블에 대한 SQL 구문 작성 -->
 	
+	<!-- 로그인 -->
+	<select id="loginUser" resultType="UserVO" parameterType="String">
+		select *
+		from user
+		where user_email = #{user_email} and user_pass = #{user_pass}
+	</select>
+	
+	
 	<insert id="insertUser" parameterType="UserVO">
-		insert into user (user_email, user_pass, user_name, user_level)
-		values (#{user_email}, #{user_pass}, ${user_name}, ${user_level})		
+		insert into user(user_email, user_pass, user_name, user_level) 
+		values(#{user_email}, #{user_pass}, #{user_name}, #{user_level})		
 	</insert>
 	
-	<select id="duplicateCheck" parameterType="String">
-		select count(*)
+	<select id="duplicateCheck" parameterType="java.lang.String" resultType="java.lang.String">
+		select user_email
 		from user
 		where #{key} = #{value}
 	</select>	
@@ -25,8 +33,8 @@
 		from user
 		where user_email = #{user_email}
 	</select>	
-	
-	<update id="updateUserColumn" parameterType="String">
+	                                            
+	<update id="updateUserColumn" parameterType="java.util.Map">
 		update user
 		<choose>
 			<when test="#{value} == 'Timestamp'">
@@ -80,7 +88,7 @@
 		order by user_sold_count desc
 	</select>
 	
-	<update id="updateUserSoldCount" parameterType="String">
+	<update id="updateUserSoldCount" parameterType="java.util.Map">
 		update user
 		set user_sold_count = #{count}
 		where user_email = #{user_email} 

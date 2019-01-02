@@ -26,6 +26,7 @@ public class UserVO {
 	private int user_sold_count;
 	
 	
+	
 	public String getUser_email() {
 		return user_email;
 	}
