@@ -14,10 +14,8 @@
 	            </div>
 	            <div class="col-md-4 col-md-offset-4 col-sm-3 col-sm-offset-1 col-xs-12">
 	                <div class="header-half header-social pull-right">
-	                    <ul class="list-inline">
-	                     <!-- 세션값이 없으면 [로그인] [회원가입] 버튼이 보이게 설정 -->	
-	                     <c:if test="${sessionScope.uvo == null}">
-	                    	
+	                    <ul class="list-inline">	
+	                    <c:if test="${sessionScope.uvo == null}">
 	                        <li><a href="user/register" class="wow bounceInRight" data-wow-delay="0.45s"><i class="icon ion-person-add"></i> 회원가입 </a></li>
 	                		<li><a href="user/login" class="wow fadeInRight" data-wow-delay="0.48s"><i class="icon ion-person"></i> 로그인 </a></li>
 	                    </c:if>
@@ -25,7 +23,6 @@
 	                    
 	                    <ul class="list-inline">
 	                    <c:if test="${sessionScope.uvo != null}">
-	                        <li> 「${uvo.user_email}님 환영합니다」</li>
 	                        <li><a href="account/profile" class="wow bounceInRight" data-wow-delay="0.45s"><i class="icon ion-person"></i> 내 정보 </a></li>
 	                		<li><a href="user/logout" class="wow fadeInRight" data-wow-delay="0.48s"><i class="icon ion-log-out"></i> 로그아웃 </a></li>
 	                    </c:if>
