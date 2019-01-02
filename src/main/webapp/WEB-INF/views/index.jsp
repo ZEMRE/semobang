@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -43,6 +44,8 @@
     <style>
 	    .footer-area { background: #fff;	/* 푸터 배경 이미지 삭제 */ }		
 		.form-control:focus { color: #535353;	/* 푸터 퀵 서치 글자색 변경 */ }
+		#addressForm1,#addressForm2{width : 145px;}	/*시,구 셀렉트 너비 변경*/
+
     </style>
     
     <body>
@@ -70,33 +73,52 @@
                                                 
                         <div class="search-form wow pulse" data-wow-delay="0.8s">
 
-                            <form action="" class=" form-inline">
+                            <form action="./list/searchList2" class=" form-inline" name="searchForm" method="post">
+                            
+                            	<input type="hidden" name="search_option" id="search_option">
+                            
                                 <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Key word">
-                                </div>
-                                <div class="form-group">                                   
-                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
-
-                                        <option>New york, CA</option>
-                                        <option>Paris</option>
-                                        <option>Casablanca</option>
-                                        <option>Tokyo</option>
-                                        <option>Marraekch</option>
-                                        <option>kyoto , shibua</option>
+                                 <div class="form-group">                                   
+                                    <select id="lunchBegins" name="search_category" class="selectpicker" title="Select your category">
+                                        <option value="월세">월세</option>
+                                        <option value="전세">전세</option>
+                                        <option value="매매">매매</option>
                                     </select>
                                 </div>
                                 <div class="form-group">                                     
-                                    <select id="basic" class="selectpicker show-tick form-control">
-                                        <option> -Status- </option>
-                                        <option>Rent </option>
-                                        <option>Boy</option>
-                                        <option>used</option>  
+                                    <select id="basic" name="search_type" class="selectpicker show-tick form-control" title="Select your type">
+                                        <option value="원룸+">원룸+ </option>
+                                        <option value="오피스텔">오피스텔 </option>
+                                        <option value="빌라">빌라</option>
+                                        <option value="아파트">아파트</option>
+                                        <option value="상가/사무실">상가/사무실</option>  
 
                                     </select>
                                 </div>
-                                <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                
+                                <div class="form-group" id="addressForm1">                                   
+                                    <select id="lunchBegins" name="search_city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
+
+                                        <option>Seoul</option>
+                                        <option>Busan</option>
+                                        <option>Daegu</option>
+                                        <option>Incheon</option>
+                                        <option>Junju</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group" id="addressForm2">                                   
+                                    <select id="lunchBegins" name="search_gu" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your district">
+
+                                        <option>Haeundae</option>
+                                        <option>Suyeong</option>
+                                        <option>Busanjin</option>
+                                        <option>Dongnae</option>
+                                    </select>
+                                </div>
+                                
+                                <button class="btn search-btn" id="getCheckedAll"><i class="fa fa-search"></i></button>
 
                                 <div style="display: none;" class="search-toggle">
 
@@ -104,21 +126,23 @@
 
                                         <div class="form-group mar-r-20">
                                             <label for="price-range">Price range ($):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
+                                            <input type="text" class="span2" value="," data-slider-min="0" 
                                                    data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[0,450]" id="price-range" ><br />
+                                                   data-slider-value="[0,450]" id="price-range" name="search_price"><br />
                                             <b class="pull-left color">2000$</b> 
                                             <b class="pull-right color">100000$</b>
                                         </div>
                                         <!-- End of  -->  
 
                                         <div class="form-group mar-l-20">
-                                            <label for="property-geo">Property geo (m2) :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[50,450]" id="property-geo" ><br />
-                                            <b class="pull-left color">40m</b> 
-                                            <b class="pull-right color">12000m</b>
+                                        	<div id="hidetest">
+	                                            <label for="property-geo">Property geo (m2) :</label>
+	                                            <input type="text" class="span2" value="," data-slider-min="0" 
+	                                                   data-slider-max="600" data-slider-step="5" 
+	                                                   data-slider-value="[50,450]" id="property-geo" name="search_deposit"><br />
+	                                            <b class="pull-left color">40m</b> 
+	                                            <b class="pull-right color">12000m</b>
+                                            </div>
                                         </div>
                                         <!-- End of  --> 
                                     </div>
@@ -127,9 +151,9 @@
 
                                         <div class="form-group mar-r-20">
                                             <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
+                                            <input type="text" class="span2" value="," data-slider-min="0" 
                                                    data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-baths" ><br />
+                                                   data-slider-value="[250,450]" id="min-baths" name="search_size"><br />
                                             <b class="pull-left color">1</b> 
                                             <b class="pull-right color">120</b>
                                         </div>
@@ -137,9 +161,9 @@
 
                                         <div class="form-group mar-l-20">
                                             <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
+                                            <input type="text" class="span2" value="," data-slider-min="0" 
                                                    data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-bed" ><br />
+                                                   data-slider-value="[250,450]" id="min-bed" name="search_bedroom"><br />
                                             <b class="pull-left color">1</b> 
                                             <b class="pull-right color">120</b>
                                         </div>
@@ -152,7 +176,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Fire Place(3100)
+                                                    <input type="checkbox" id="opFull" name="optionValue" value="1"> FullOption
                                                 </label>
                                             </div>
                                         </div>
@@ -161,7 +185,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Dual Sinks(500)
+                                                    <input type="checkbox" id="opParking" name="optionValue" value="2"> 주차
                                                 </label>
                                             </div>
                                         </div>
@@ -170,7 +194,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Hurricane Shutters(99)
+                                                    <input type="checkbox" id="opEle" name="optionValue" value="4"> 엘리베이터
                                                 </label>
                                             </div>
                                         </div>
@@ -179,10 +203,10 @@
 
                                     <div class="search-row">  
 
-                                        <div class="form-group">
+                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Swimming Pool(1190)
+                                                    <input type="checkbox" id="opPet" name="optionValue" value="8"> 반려동물
                                                 </label>
                                             </div>
                                         </div>
@@ -191,7 +215,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> 2 Stories(4600)
+                                                    <input type="checkbox" id="opHeat" name="optionValue" value="16"> 개별난방
                                                 </label>
                                             </div>
                                         </div>
@@ -200,7 +224,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Emergency Exit(200)
+                                                    <input type="checkbox" id="opVer" name="optionValue" value="32"> 베란다
                                                 </label>
                                             </div>
                                         </div>
@@ -209,10 +233,10 @@
 
                                     <div class="search-row">  
 
-                                        <div class="form-group">
+                                      <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Laundry Room(10073)
+                                                    <input type="checkbox" id="opInternet" name="optionValue" value="64"> 인터넷
                                                 </label>
                                             </div>
                                         </div>
@@ -221,7 +245,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Jog Path(1503)
+                                                    <input type="checkbox" id="opSta" name="optionValue" value="128"> 역세권
                                                 </label>
                                             </div>
                                         </div>
@@ -230,7 +254,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> 26' Ceilings(1200)
+                                                    <input type="checkbox" id="opSouth" name="optionValue" value="256"> 남향
                                                 </label>
                                             </div>
                                         </div>
@@ -261,106 +285,21 @@
 
                 <div class="row">
                     <div class="proerty-th">
+                        <c:forEach var="mainList" items="${mainList}">
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-two proerty-item">
                                 <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="resources/assets/img/demo/property-1.jpg"></a>
+                                    <a href="#" ><img src="resources/assets/img/demo/property-2.jpg"></a>
                                 </div>
                                 <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
+                                    <h5><a href="./${mainList.property_id}" >${mainList.property_title} </a></h5>
                                     <div class="dot-hr"></div>
                                     <span class="pull-left"><b>Area :</b> 120m </span>
                                     <span class="proerty-price pull-right">$ 300,000</span>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="resources/assets/img/demo/property-2.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src="resources/assets/img/demo/property-3.jpg"></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="resources/assets/img/demo/property-4.jpg"></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src="resources/assets/img/demo/property-2.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="resources/assets/img/demo/property-4.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="resources/assets/img/demo/property-3.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
+						</c:forEach>
 
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-tree more-proerty text-center">
@@ -503,69 +442,6 @@
             </div>
         </div>
 
-        <!-- Count area -->
-        <div class="count-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
-                        <h2>You can trust Us </h2> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 percent-blocks m-main" data-waypoint-scroll="true">
-                        <div class="row">
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-users"></span>
-                                    </div>
-                                    <div class="chart" data-percent="5000">
-                                        <h2 class="percent" id="counter">0</h2>
-                                        <h5>HAPPY CUSTOMER </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-home"></span>
-                                    </div>
-                                    <div class="chart" data-percent="12000">
-                                        <h2 class="percent" id="counter1">0</h2>
-                                        <h5>Properties in stock</h5>
-                                    </div>
-                                </div> 
-                            </div> 
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-flag"></span>
-                                    </div>
-                                    <div class="chart" data-percent="120">
-                                        <h2 class="percent" id="counter2">0</h2>
-                                        <h5>City registered </h5>
-                                    </div>
-                                </div> 
-                            </div> 
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-graph2"></span>
-                                    </div>
-                                    <div class="chart" data-percent="5000">
-                                        <h2 class="percent"  id="counter3">5000</h2>
-                                        <h5>DEALER BRANCHES</h5>
-                                    </div>
-                                </div> 
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- boy-sale area -->
         <div class="boy-sale-area">
             <div class="container">
@@ -652,7 +528,31 @@
 					
 		    		alert("허위매물 신고 처리");
 				});
-		     })
+		    	
+		    	
+		    	$("#lunchBegins").change(function() {
+		    		if($("#lunchBegins").val() == '전세' | $("#lunchBegins").val() == '매매'){
+					$("#hidetest").hide();
+		    		}else{
+		    			$("#hidetest").show();
+		    		}
+				});
+		    	
+		    	$("#getCheckedAll").click(function() {
+
+					sum=0;
+					
+					$("input[name=optionValue]:checked").each(function() {
+						
+						propertyOptionValue = parseInt($(this).val());
+						sum += propertyOptionValue;
+					});
+
+					document.searchForm.search_option.value = sum;
+					document.searchForm.submit();
+				});
+		    	
+		     });
 		</script>
     </body>
 </html>

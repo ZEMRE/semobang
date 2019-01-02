@@ -30,7 +30,7 @@
 		where property_id = #{property_id}
 	</update>
 	
-	<select id="getProperty" parameterType="int">
+	<select id="getProperty" parameterType="int" resultType="com.semobang.property.domain.PropertyVO">
 		select *
 		from property
 		where property_id = #{property_id} 
@@ -47,4 +47,12 @@
 		where property_user = #{user_email}
 		and property_status = 'sold'
 	</select>
+	
+	<!-- 로그인X 상황 main에 띄워줄 list -->
+	<select id="mainList" parameterType="Map" resultType="com.semobang.property.domain.PropertyVO">
+		select * from property 
+		where property_badge=#{property_badge} 
+		order by property_id desc limit #{showAmount}
+	</select>
+	
 </mapper>

@@ -1,6 +1,8 @@
 package com.semobang.property.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 	@Override
 	public PropertyVO getProperty(int property_id) {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("getProperty",property_id);
 	}
 
 	@Override
@@ -65,8 +67,11 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public List<PropertyVO> getPropertyListByBadge(int showAmount, String property_badge) {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String, Object> map = new HashMap();
+		map.put("showAmount", showAmount);
+		map.put("property_badge", property_badge);
+		
+		return sqlSession.selectList("mainList", map);
 	}
 
 	@Override
