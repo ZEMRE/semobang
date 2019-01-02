@@ -8,25 +8,25 @@
 	<!-- love 테이블에 대한 SQL 구문 작성 -->
 
 	<insert id="insertLove" parameterType="LoveVO">
-		insert into love
-		values (#{love_id}, #{love_user}, #{love_property})
+		INSERT INTO love
+		VALUES (#{love_id}, #{love_user}, #{love_property})
 	</insert>
 	
 	<select id="getLove" parameterType="int" resultType="LoveVO">
-		select *
-		from love
-		where love_user = #{love_user}
-		and love_property = #{love_property}
+		SELECT *
+		FROM love
+		WHERE love_user = #{love_user}
+		AND love_property = #{love_property}
 	</select>
 	
 	<delete id="deleteLove" parameterType="int">
-		delete from love
-		where love_id = #{love_id}
+		DELETE FROM love
+		WHERE love_id = #{love_id}
 	</delete>
 	
 	<select id="getLoveCount" parameterType="int">
-		select count(*)
-		from love
-		where love_property = #{property_id}
+		SELECT count(*)
+		FROM love
+		WHERE love_property = #{property_id}
 	</select>
 </mapper>
