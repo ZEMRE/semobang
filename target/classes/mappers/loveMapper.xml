@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="LoveDAO">
+
+	<!-- love 테이블에 대한 SQL 구문 작성 -->
+
+	<insert id="insertLove" parameterType="LoveVO">
+		insert into love
+		values (#{love_id}, #{love_user}, #{love_property})
+	</insert>
+	
+	<select id="getLove" parameterType="int" resultType="LoveVO">
+		select *
+		from love
+		where love_user = #{love_user}
+		and love_property = #{love_property}
+	</select>
+	
+	<delete id="deleteLove" parameterType="int">
+		delete from love
+		where love_id = #{love_id}
+	</delete>
+	
+	<select id="getLoveCount" parameterType="int">
+		select count(*)
+		from love
+		where love_property = #{property_id}
+	</select>
+</mapper>

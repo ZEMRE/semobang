@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="PropertyDAO">
+
+	<!-- property 테이블에 대한 SQL 구문 작성 -->
+	
+	<insert id="openProperty" parameterType="PropertyVO">
+		insert into property (property_user, property_title, property_address, property_content, 
+							  property_carousel, property_video, property_category, property_type, 
+							  property_city, property_gu, property_price, property_deposit,
+							  property_cost, property_size, property_bedroom, property_bathroom, property_option) 
+		values (#{property_user}, #{property_title}, #{property_address}, #{property_content}, 
+				#{property_carousel}, #{property_video}, #{property_category}, #{property_type}, 
+				#{property_city}, #{property_gu}, #{property_price}, #{property_deposit},
+				#{property_cost}, #{property_size}, #{property_bedroom}, #{property_bathroom}, #{property_option})
+	</insert>
+	
+	<update id="increasePropertyHits" parameterType="int">
+		update property
+		set property_read_count = property_read_count + 1
+		where property_id = #{property_id}
+	</update>
+	
+	<update id="updateLoveCount" parameterType="int">
+		update property
+		set property_love_count = #{count}
+		where property_id = #{property_id}
+	</update>
+	
+	<select id="getProperty" parameterType="int">
+		select *
+		from property
+		where property_id = #{property_id} 
+	</select>
+	
+	<delete id="deleteProperty" parameterType="int">
+		delete from property
+		where property_id = #{property_id} 
+	</delete>
+	
+	<select id="getPropertySoldCount" parameterType="String">
+		select count(*)
+		from property
+		where property_user = #{user_email}
+		and property_status = 'sold'
+	</select>
+</mapper>
