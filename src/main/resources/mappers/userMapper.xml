@@ -8,81 +8,81 @@
 	<!-- user 테이블에 대한 SQL 구문 작성 -->
 	
 	<insert id="insertUser" parameterType="UserVO">
-		insert into user (user_email, user_pass, user_name, user_level)
-		values (#{user_email}, #{user_pass}, ${user_name}, ${user_level})		
+		INSERT INTO user (user_email, user_pass, user_name, user_level)
+		VALUES (#{user_email}, #{user_pass}, ${user_name}, ${user_level})		
 	</insert>
 	
 	<select id="duplicateCheck" parameterType="java.util.Map">
-		select count(*)
-		from user
-		where #{key} = #{value}
+		SELECT count(*)
+		FROM user
+		WHERE #{key} = #{value}
 	</select>	
 	
 	<!-- validateUser() 없음, 이메일로 getUser()로 vo 가져와서 vo.user_pass 확인 -->
 	
 	<select id="getUser" resultType="UserVO" parameterType="String">
-		select *
-		from user
-		where user_email = #{user_email}
+		SELECT *
+		FROM user
+		WHERE user_email = #{user_email}
 	</select>	
 	
 	<update id="updateUserColumn" parameterType="java.util.Map">
-		update user
+		UPDATE user
 		<choose>
-			<when test="#{value} == 'Timestamp'">
-				set #{key} = now()
+			<when test="value == 'Timestamp'">
+				SET #{key} = now()
 			</when>
 			<otherwise>
-				set #{key} = #{value}
+				SET #{key} = #{value}
 			</otherwise>
 		</choose>			
-		where user_email = #{user_email}
+		WHERE user_email = #{user_email}
 	</update>
 	
 	<update id="updateUserProfileWithPhoto" parameterType="UserVO">
-		update user
-		set user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
+		UPDATE user
+		SET user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
 			user_telephone = #{user_telephone}, user_mobile = #{user_mobile}, user_photo = #{user_photo}, 
 			user_about = #{user_about}, user_fb = #{user_fb}, user_ig = #{user_ig}, user_tw = #{user_tw},  
 			user_interest_city = #{user_interest_city}, user_interest_category = #{user_interest_category}, user_interest_type = #{user_interest_type}
-		where user_email = #{user_email}
+		WHERE user_email = #{user_email}
 	</update>
 	
 	<update id="updateUserProfile" parameterType="UserVO">
-		update user
-		set user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
+		UPDATE user
+		SET user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
 			user_telephone = #{user_telephone}, user_mobile = #{user_mobile},
 			user_about = #{user_about}, user_fb = #{user_fb}, user_ig = #{user_ig}, user_tw = #{user_tw},  
 			user_interest_city = #{user_interest_city}, user_interest_category = #{user_interest_category}, user_interest_type = #{user_interest_type}
-		where user_email = #{user_email}
+		WHERE user_email = #{user_email}
 	</update>
 	
 	<select id="getUserPropertyCount" parameterType="String">
-		select count(*)
-		from user u join property p
-		on u.user_email = p.property_user
-		and user_email = #{user_email}
+		SELECT count(*)
+		FROM user u JOIN property p
+		ON u.user_email = p.property_user
+		AND user_email = #{user_email}
 	</select>
 	
 	<delete id="deleteUser" parameterType="String">
-		delete from user
-		where user_email = #{user_email}
+		DELETE FROM user
+		WHERE user_email = #{user_email}
 	</delete>
 	
 	<select id="getUserList" resultType="UserVO">
-		select *
-		from user
+		SELECT *
+		FROM user
 	</select>
 	
 	<select id="getPopularUserList" resultType="UserVO">
-		select *
-		from user
-		order by user_sold_count desc
+		SELECT *
+		FROM user
+		ORDER BY user_sold_count DESC
 	</select>
 	
 	<update id="updateUserSoldCount" parameterType="java.util.Map">
-		update user
-		set user_sold_count = #{count}
-		where user_email = #{user_email} 
+		UPDATE user
+		SET user_sold_count = #{count}
+		WHERE user_email = #{user_email} 
 	</update>	
 </mapper>
