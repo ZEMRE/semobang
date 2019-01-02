@@ -25,6 +25,77 @@ public class UserVO {
 	private String user_interest_type;
 	private int user_sold_count;
 	
+	@Override
+	public String toString() {
+		
+		return "UserVO [user_email="+user_email+", "
+					 + "user_password"+user_pass+", "
+					 + "user_name"+user_name+", "
+					 + "user_company"+user_company+", "
+					 + "user_address"+user_address+", "
+					 + "user_agent_id"+user_agent_id+", "
+					 + "user_telephone"+user_telephone+", "
+					 + "user_mobile"+user_mobile+", "
+					 + "user_photo"+user_photo+", "
+					 + "user_about"+user_about+", "
+					 + "user_fb"+user_fb+", "
+					 + "user_ig"+user_ig+", "
+					 + "user_tw"+user_tw+", "
+					 + "user_level"+user_level+", "
+					 + "user_register_time"+user_register_time+", "   
+					 + "user_login_time"+user_login_time+", " 
+					 + "user_interest_city"+user_interest_city+", " 
+					 + "user_interest_category"+user_interest_category+", "
+					 + "user_interest_type"+user_interest_type+", "
+					 + "user_sold_count"+user_sold_count+", "
+					 +"]";
+	}
+	
+	public UserVO() {}
+	
+	public UserVO(String user_email,
+	String user_pass,	
+	String user_name,
+	String user_company,
+	String user_address,
+	String user_agent_id,
+	String user_telephone,
+	String user_mobile,
+	String user_photo,
+	String user_about,
+	String user_fb,
+	String user_ig,
+	String user_tw,
+	String user_level,
+	Timestamp user_register_time,
+	Timestamp user_login_time,
+	String user_interest_city,
+	String user_interest_category,
+	String user_interest_type,
+	int user_sold_count) {
+		super();
+		
+		this.user_email= user_email;
+		this.user_pass = user_pass;
+		this.user_name = user_name;
+		this.user_company = user_company;
+		this.user_address = user_address;
+		this.user_agent_id = user_agent_id;
+		this.user_telephone = user_telephone;
+		this.user_mobile = user_mobile;
+		this.user_photo = user_photo;
+		this.user_about = user_about;
+		this.user_fb = user_fb;
+		this.user_ig = user_ig;
+		this.user_tw = user_tw;
+		this.user_level = user_level;
+		this.user_register_time = user_register_time;
+		this.user_login_time = user_login_time;
+		this.user_interest_city = user_interest_city;
+		this.user_interest_category = user_interest_category;
+		this.user_interest_type = user_interest_type;
+		this.user_sold_count = user_sold_count;
+	}
 	
 	public String getUser_email() {
 		return user_email;

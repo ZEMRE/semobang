@@ -2,6 +2,7 @@ package com.semobang.user.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.semobang.user.domain.UserVO;
 import com.semobang.user.persistence.UserDAO;
@@ -10,11 +11,19 @@ import com.semobang.user.persistence.UserDAO;
 public class RegisterUserService {
 
 	@Autowired
-	private UserDAO dao;
+	private UserDAO udao;
 	
-	public void service(UserVO vo)
+	public void service(UserVO uvo)
 	{
+		
 		System.out.println("사용자 등록");
-		dao.insertUser(vo);
+		udao.insertUser(uvo);
+		
+		
 	}
+	
+	
+	
+	
+	
 }

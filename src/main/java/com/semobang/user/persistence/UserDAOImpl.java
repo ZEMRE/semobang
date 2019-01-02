@@ -1,6 +1,8 @@
 package com.semobang.user.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +17,27 @@ public class UserDAOImpl implements UserDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int insertUser(UserVO vo) 
+	public int insertUser(UserVO uvo) 
 	{
-		int result = sqlSession.update("insertUser", vo);
+		int result = sqlSession.update("insertUser", uvo);
 		
 		return result;
 	}
 
 	@Override
 	public int duplicateCheck(String key, String value) {
-		// TODO Auto-generated method stub
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("key", key);
+		map.put("value", value);
+		
 		return 0;
+	}
+	
+	@Override
+	public UserVO loginUser(UserVO uvo) {
+		return sqlSession.selectOne("loginUser", uvo);
 	}
 
 	@Override
@@ -67,7 +79,13 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int updateUserColumn(String user_email, String key, String value) {
-		// TODO Auto-generated method stub
+
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("user_email", user_email);
+		map.put("key", key);
+		map.put("value", value);
+		
 		return 0;
 	}
 
@@ -109,8 +127,11 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public int updateUserSoldCount(String user_email, int count) {
-
-		// 실제 SQL 실행시에는 count를 String으로 넘겨줌
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("user_email", user_email);
+		map.put("count", count);
 		
 		return 0;
 	}

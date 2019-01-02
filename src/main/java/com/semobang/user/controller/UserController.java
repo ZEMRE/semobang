@@ -1,9 +1,17 @@
 package com.semobang.user.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.semobang.user.domain.UserVO;
 import com.semobang.user.service.DeleteUserService;
@@ -98,13 +106,13 @@ public class UserController {
 	
 	// DB에 사용자 등록 (insert) 처리
 	// register 페이지에서 사용
-	@RequestMapping("/registerUser")
-	public String registerUser(UserVO vo)
+	@RequestMapping(value="/registerUser", method=RequestMethod.POST)
+	public String registerUser(UserVO uvo)
 	{
-		registerUser.service(vo);
+		registerUser.service(uvo);
 		
 		// 로그인 페이지로 이동
-		return "user/login";
+		return "redirect:/";
 	}
 	
 	
@@ -124,25 +132,31 @@ public class UserController {
 	// 로그인 페이지에서 사용
 	// 로그인 시간 기록
 	// 세션영역에 저장
-	@RequestMapping("/loginUser")
-	public String loginUser()
+	@RequestMapping(value = "/loginUser", method=RequestMethod.POST)
+	public ModelAndView loginUser(HttpServletResponse response, @ModelAttribute UserVO uvo)throws IOException
 	{
-		loginUser.service();
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav = loginUser.service(uvo, response);
 		
 		// 메인 페이지로 이동
-		return "redirect:index";
+		return mav;
 	}
 	
 	
 	// 로그아웃 요청 처리 (세션영역 무효화 처리)
 	// 메인, Account 페이지에서 로그아웃 링크 클릭
 	@RequestMapping("/logout")
-	public String logout()
+	public String logout(HttpSession session) throws IOException
 	{
-		logout.service();
+		
+		//로그아웃 작업
+		session.invalidate();
+		
 		
 		// 메인 페이지로 이동
-		return "redirect:index";
+		return "redirect:/";
 	}
 	
 	

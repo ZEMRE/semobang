@@ -7,7 +7,7 @@ import com.semobang.user.domain.UserVO;
 public interface UserDAO {
 
 	// 회원 가입 (등록) 메서드
-	public int insertUser(UserVO vo);
+	public int insertUser(UserVO uvo);
 	
 	// 중복 또는 존재하는지 체크 (이메일, 등록번호 등)
 	// key에 따른 value가 DB에 존재하는지 검사
@@ -60,4 +60,7 @@ public interface UserDAO {
 	// property_status가 sold로 변경되면 카운트 변경
 	// 관리자 페이지
 	public int updateUserSoldCount(String user_email, int count);
+
+	//로그인
+	public UserVO loginUser(UserVO uvo);
 }
