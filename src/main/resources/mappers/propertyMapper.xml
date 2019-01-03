@@ -55,6 +55,12 @@
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
 	
+	<select id="getPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+	</select>
+	
 	<select id="getPropertyListByAdmin" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -83,6 +89,17 @@
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
 	
+	<select id="getRecommendPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="login == true">
+			AND property_category = #{property_category}
+			AND property_type = #{property_type}
+			AND property_city = #{property_city}
+		</if>
+	</select>
+	
 	<select id="getPopularPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -96,6 +113,17 @@
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
 	
+	<select id="getPopularPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="login == true">
+			AND property_category = #{property_category}
+			AND property_type = #{property_type}
+			AND property_city = #{property_city}
+		</if>
+	</select>
+	
 	<select id="getPropertyListByAgent" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -103,6 +131,13 @@
 		AND property_status = 'open'
 		ORDER BY #{orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
+	</select>
+	
+	<select id="getPropertyListByAgentCount" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_user = #{property_user}
+		AND property_status = 'open'
 	</select>
 	
 	<select id="getSimilarPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
@@ -181,6 +216,69 @@
 		LIMIT #{search_startRow}, #{search_propertyPerPage}		
 	</select>
 	
+	<select id="getPropertyListBySearchCount" parameterType="SearchVO" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="search_category != null and search_category != ''">
+			AND property_category = #{search_category}
+		</if>
+		<if test="search_type != null and search_type != ''">
+			AND property_type = #{search_type}
+		</if>
+		<if test="search_city != null and search_city != ''">
+			AND property_city = #{search_city}
+		</if>
+		<if test="search_gu != null and search_gu != ''">
+			AND property_gu = #{search_gu}
+		</if>
+		<choose>
+			<when test="(search_min_price == null or search_min_price == '') and (search_max_price != null or search_max_price != '')">
+				AND property_price BETWEEN 0 AND #{search_max_price}
+			</when>
+			<when test="(search_min_price != null or search_min_price != '') and (search_max_price == null or search_max_price == '')">
+				AND property_price >= #{search_min_price}
+			</when>
+			<when test="(search_min_price != null or search_min_price != '') and (search_max_price != null or search_max_price != '')">
+				AND property_price BETWEEN #{search_min_price} AND #{search_max_price}
+			</when>			
+		</choose>
+		<choose>
+			<when test="(search_min_deposit == null or search_min_deposit == '') and (search_max_deposit != null or search_max_deposit != '')">
+				AND property_deposit BETWEEN 0 AND #{search_max_deposit}
+			</when>
+			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit == null or search_max_deposit == '')">
+				AND property_deposit >= #{search_min_deposit}
+			</when>
+			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit != null or search_max_deposit != '')">
+				AND property_deposit BETWEEN #{search_min_deposit} AND #{search_max_deposit}
+			</when>			
+		</choose>
+		<choose>
+			<when test="search_min_size == null or search_min_size == '') and search_max_size != null or search_max_size != '')">
+				AND property_size BETWEEN 0 AND #{search_max_size}
+			</when>
+			<when test="search_min_size != null or search_min_size != '') and search_max_size == null or search_max_size == '')">
+				AND property_size >= #{search_min_size}
+			</when>
+			<when test="search_min_size != null or search_min_size != '') and search_max_size != null or search_max_size != '')">
+				AND property_size BETWEEN #{search_min_size} AND #{search_max_size}
+			</when>			
+		</choose>
+		<choose>
+			<when test="search_min_bedroom == null or search_min_bedroom == '') and search_max_bedroom != null or search_max_bedroom != '')">
+				AND property_bedroom BETWEEN 0 AND #{search_max_bedroom}
+			</when>
+			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom == null or search_max_bedroom == '')">
+				AND property_bedroom >= #{search_min_bedroom}
+			</when>
+			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom != null or search_max_bedroom != '')">
+				AND property_bedroom BETWEEN #{search_min_bedroom} AND #{search_max_bedroom}
+			</when>			
+		</choose>		
+		AND property_option = #{search_option}	
+	</select>
+	
 	<select id="getPropertyListByCondition" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -193,6 +291,18 @@
 		AND #{key} = #{value}
 		ORDER BY #{orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}		
+	</select>
+	
+	<select id="getPropertyListByConditionCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="login == true">
+			AND property_category = #{property_category}
+			AND property_type = #{property_type}
+			AND property_city = #{property_city}
+		</if>
+		AND #{key} = #{value}		
 	</select>
 	
 	<select id="getPropertyListByUser" parameterType="String" resultType="PropertyVO">

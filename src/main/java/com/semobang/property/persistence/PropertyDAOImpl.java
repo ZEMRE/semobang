@@ -74,6 +74,12 @@ public class PropertyDAOImpl implements PropertyDAO {
 		
 		return null;
 	}
+	
+	@Override
+	public int getPropertyListCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public List<PropertyVO> getPropertyListByAdmin() {
@@ -107,6 +113,19 @@ public class PropertyDAOImpl implements PropertyDAO {
 		
 		return null;
 	}
+	
+	@Override
+	public int getRecommendPropertyListCount(boolean login, UserVO vo) {
+
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("login", login);
+		map.put("property_category", vo.getUser_interest_category());
+		map.put("property_type", vo.getUser_interest_type());
+		map.put("property_city", vo.getUser_interest_city());
+		
+		return 0;
+	}
 
 	@Override
 	public List<PropertyVO> getPopularPropertyList(int startRow, int propertyPerPage, boolean login, UserVO vo, String orderBy) {
@@ -123,6 +142,19 @@ public class PropertyDAOImpl implements PropertyDAO {
 		
 		return null;
 	}
+	
+	@Override
+	public int getPopularPropertyListCount(boolean login, UserVO vo) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("login", login);
+		map.put("property_category", vo.getUser_interest_category());
+		map.put("property_type", vo.getUser_interest_type());
+		map.put("property_city", vo.getUser_interest_city());
+		
+		return 0;
+	}
 
 	@Override
 	public List<PropertyVO> getPropertyListByAgent(int startRow, int propertyPerPage, String property_user, String orderBy) {
@@ -135,6 +167,12 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("orderBy", orderBy);
 		
 		return null;
+	}
+	
+	@Override
+	public int getPropertyListByAgentCount(String property_user) {
+		// TODO Auto-generated method stub		
+		return 0;
 	}
 	
 	@Override
@@ -159,6 +197,12 @@ public class PropertyDAOImpl implements PropertyDAO {
 		
 		return null;
 	}
+	
+	@Override
+	public int getPropertyListBySearchCount(SearchVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public List<PropertyVO> getPropertyListByCondition(int startRow, int propertyPerPage, boolean login, UserVO vo, String key,
@@ -177,6 +221,21 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("orderBy", orderBy);
 		
 		return null;
+	}
+	
+	@Override
+	public int getPropertyListByConditionCount(boolean login, UserVO vo, String key, String value) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("login", login);
+		map.put("property_category", vo.getUser_interest_category());
+		map.put("property_type", vo.getUser_interest_type());
+		map.put("property_city", vo.getUser_interest_city());
+		map.put("key", key);
+		map.put("value", value);
+		
+		return 0;
 	}
 
 	@Override
