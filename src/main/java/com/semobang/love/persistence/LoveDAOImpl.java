@@ -23,7 +23,7 @@ public class LoveDAOImpl implements LoveDAO {
 	}
 
 	@Override
-	public LoveVO getLove(int love_user, int love_property) {
+	public LoveVO getLove(String love_user, int love_property) {
 		
 		Map<String, Object> map = new HashMap<>();
 		

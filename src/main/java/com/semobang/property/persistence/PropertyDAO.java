@@ -42,6 +42,9 @@ public interface PropertyDAO {
 	// 최신 매물 리스트 페이지
 	public List<PropertyVO> getPropertyList(int startRow, int propertyPerPage, String orderBy);
 	
+	// 전체 (최신) 매물 리스트 개수 계산하기
+	public int getPropertyListCount();
+	
 	// 전체 매물 리스트 가져오기
 	// property_status: 모든 상태
 	// 관리자 페이지 
@@ -58,6 +61,9 @@ public interface PropertyDAO {
 	// property_status: open
 	// 서치 결과 페이지 사이드, 추천 매물 리스트 페이지
 	public List<PropertyVO> getRecommendPropertyList(int startRow, int propertyPerPage, boolean login, UserVO vo, String orderBy);
+	
+	// 추천 매물 리스트 개수 계산하기
+	public int getRecommendPropertyListCount(boolean login, UserVO vo);
 		
 	// 인기 매물 리스트 가져오기
 	// 로그인인 경우 (관심 도시, 카테고리, 타입) + 조회수 높은 것
@@ -66,11 +72,17 @@ public interface PropertyDAO {
 	// 매물 상세보기 페이지 하단, 인기 매물 리스트 페이지
 	public List<PropertyVO> getPopularPropertyList(int startRow, int propertyPerPage, boolean login, UserVO vo, String orderBy);
 	
+	// 인기 매물 리스트 개수 계산하기
+	public int getPopularPropertyListCount(boolean login, UserVO vo);
+	
 	// 에이전트별 매물 리스트 가져오기
 	// property_status: open
 	// 메인, 상세보기에서 에이전트 사진이나 이름을 클릭한 경우
 	// 에이전트 매물 리스트 페이지, 매물 상세보기 페이지 사이드
 	public List<PropertyVO> getPropertyListByAgent(int startRow, int propertyPerPage, String property_user, String orderBy);
+	
+	// 에이전트별 매물 리스트 개수 계산하기
+	public int getPropertyListByAgentCount(String property_user);
 	
 	// 비슷한 매물 리스트 가져오기
 	// 같은 도시, 카테고리, 타입으로 검색한 것 중 조회수 높은 것
@@ -86,7 +98,10 @@ public interface PropertyDAO {
 	// 2. 등록순: orderBy -> "property_date ASC"
 	// 3. 가격 낮은순: orderBy -> "property_price DESC"
 	// 4. 가격 높은순: orderBy -> "property_price ASC"
-	public List<PropertyVO> getPropertyListBySearch(int startRow, int propertyPerPage, SearchVO vo, String orderBy);	
+	public List<PropertyVO> getPropertyListBySearch(int startRow, int propertyPerPage, SearchVO vo, String orderBy);
+	
+	// 검색한 매물 리스트 개수 계산하기
+	public int getPropertyListBySearchCount(SearchVO vo);
 	
 	// 조건별 매물 리스트 가져오기
 	// 로그인인 경우 (관심 도시, 카테고리, 타입) + 조건
@@ -94,6 +109,8 @@ public interface PropertyDAO {
 	// property_status: open
 	// 메인 화면에서 검색, 서치 결과 페이지
 	public List<PropertyVO> getPropertyListByCondition(int startRow, int propertyPerPage, boolean login, UserVO vo, String key, String value, String orderBy);
+	
+	public int getPropertyListByConditionCount(boolean login, UserVO vo, String key, String value);
 		
 	// 특정 사용자가 올린 매물 리스트 가져오기
 	// 에이전트가 로그인 한 경우에만 해당
@@ -106,10 +123,7 @@ public interface PropertyDAO {
 	// property_status: open
 	// 마이 리스트 페이지
 	public List<PropertyVO> getPropertyListByLove(String user_email);
-	
-	// 매물 개수 계산하기
-	// List이름.size()로 대체
-		
+			
 	// 특정 사용자가 거래완료한 매물 개수 가져오기
 	// property_status: sold
 	// 메인화면, 프로필화면, 매물 상세보기 화면
