@@ -75,9 +75,17 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+		<choose>
+			<when test="property_category != null and property_category != ''">
+				AND property_category = #{property_category}
+			</when>
+			<when test="property_type != null and property_type != ''">
+				AND property_type = #{property_type}
+			</when>
+			<when test="property_city != null and property_city != ''">
+				AND property_city = #{property_city}
+			</when>			
+		</choose>	
 		</if>		  
 		ORDER BY property_love_count DESC, #{orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
@@ -88,9 +96,17 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+			<choose>
+			<when test="property_category != null and property_category != ''">
+				AND property_category = #{property_category}
+			</when>
+			<when test="property_type != null and property_type != ''">
+				AND property_type = #{property_type}
+			</when>
+			<when test="property_city != null and property_city != ''">
+				AND property_city = #{property_city}
+			</when>			
+		</choose>	
 		</if>
 		ORDER BY property_read_count DESC, #{orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
@@ -224,21 +240,14 @@
 	<select id="getCityList" resultType="String">
 		SELECT property_city
 		FROM property
-		ORDER BY property_city ASC 
+		GROUP BY property_city 
 	</select>
 
 	<select id="getGuList" parameterType="String" resultType="String">
 		SELECT property_gu
 		FROM property
 		WHERE property_city = #{property_city}
-		ORDER BY property_gu ASC
-	</select>
-	
-	<!-- 로그인X 상황 main에 띄워줄 list -->
-	<select id="mainList" parameterType="Map" resultType="com.semobang.property.domain.PropertyVO">
-		select * from property 
-		where property_badge=#{property_badge} 
-		order by property_id desc limit #{showAmount}
+		GROUP BY property_gu
 	</select>
 	
 </mapper>

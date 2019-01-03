@@ -37,7 +37,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public UserVO getUser(String user_email) {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("getUser",user_email);
 	}
 
 	@Override
@@ -104,7 +104,7 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public List<UserVO> getPopularUserList() {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("getPopularUserList");
 	}
 
 	@Override

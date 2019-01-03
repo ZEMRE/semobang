@@ -9,7 +9,7 @@ public interface LoveDAO {
 	public int insertLove(LoveVO vo);
 	
 	// 러브 정보 가져오기
-	public LoveVO getLove(int love_user, int love_property);
+	public LoveVO getLove(String love_user, int love_property);
 		
 	// 러브 삭제하기
 	// 매물 상세보기 화면에서 러브 클릭	

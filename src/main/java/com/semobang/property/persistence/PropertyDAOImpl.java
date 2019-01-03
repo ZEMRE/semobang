@@ -87,7 +87,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("showAmount", showAmount);
 		map.put("property_badge", property_badge);
 		
-		return sqlSession.selectList("mainList", map);
+		return sqlSession.selectList("getPropertyListByBadge", map);
 	}
 
 	@Override
@@ -103,7 +103,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
 		map.put("orderBy", orderBy);
-		return null;
+		return sqlSession.selectList("getRecommendPropertyList", map);
 	}
 
 	@Override
@@ -133,7 +133,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("property_user", property_user);
 		map.put("orderBy", orderBy);
 
-		return null;
+		return sqlSession.selectList("getPropertyListByAgent", map);
 	}
 
 	@Override
@@ -201,13 +201,13 @@ public class PropertyDAOImpl implements PropertyDAO {
 	@Override
 	public List<String> getCityList() {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("getCityList");
 	}
 
 	@Override
 	public List<String> getGuList(String city) {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("getGuList", city);
 	}
 	
 }

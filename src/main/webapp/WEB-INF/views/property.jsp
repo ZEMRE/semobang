@@ -17,8 +17,6 @@
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
-        <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
-
 
          <link rel="stylesheet" href="resources/assets/css/normalize.css">
         <link rel="stylesheet" href="resources/assets/css/font-awesome.min.css">
@@ -38,6 +36,7 @@
         <link rel="stylesheet" href="resources/assets/css/lightslider.min.css">
         
        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         
         
         <style type="text/css">
@@ -51,43 +50,22 @@
         	.property-info-label{
         		margin-top: 5px;
         	}
+        	.favorite-and-print i{color: #fff; font-size:35px;}
+        	.favorite-and-print i:hover {cursor: pointer; color: #f00;}
+        	#propertyID {font-size: 17px;}
         </style>
         
     </head>
     <body>
-
+	<h1>${member.user_email}</h1>
         <div id="preloader">
             <div id="status">&nbsp;</div>
         </div>
         <!-- Body content -->
+		<!-- Start Header -->
+		<jsp:include page="header.jsp"></jsp:include>
+		<!-- End Header -->
 
-        <div class="header-connect">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5 col-sm-8  col-xs-12">
-                        <div class="header-half header-call">
-                            <p>
-                                <span><i class="pe-7s-call"></i> +1 234 567 7890</span>
-                                <span><i class="pe-7s-mail"></i> your@company.com</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-2 col-md-offset-5  col-sm-3 col-sm-offset-1  col-xs-12">
-                        <div class="header-half header-social">
-                            <ul class="list-inline">
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-vine"></i></a></li>
-                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>        
-        <!--End top header -->
 
 
         <div class="page-head"> 
@@ -113,39 +91,45 @@
                                 <div class="light-slide-item">
                                 
                                 <div class="favorite-and-print">
-                                            <a class="add-to-fav2" href="#login-modal" data-toggle="modal" >
-                                                <i class="far fa-star" style="font-size:35px;"></i>
+                                            <a class="add-to-fav2" id="love">
+                                                <i class="fa fa-heart-o" id="heart"></i>
                                             </a> &nbsp;
 
                                             <a class="printer-icon2 "  data-toggle="modal" data-target="#myModal">
-                                                <i class="far fa-angry" style="font-size:35px;"></i> 
+                                                <i class="fa fa-warning"></i> 
                                             </a>
                           		 </div> 
                                         
                                          <!-- MODAL -->
                                         <div class="modal fade" id="myModal" role="dialog">
 										    <div class="modal-dialog">
-										    
-										      Modal content
 										      <div class="modal-content">
 										        <div class="modal-header">
 										          <button type="button" class="close" data-dismiss="modal">&times;</button>
-										          <h4 class="modal-title">메일보내기</h4>
+										          <h4 class="modal-title">신고하기</h4>
 										        </div>
 										        <div class="modal-body">
 										          	<table class="table">
 										          		<tr>
 										          			<td>작성자</td>
-										          			<td> <input class="form-control" id="userName" type="text"> </td>
+										          			<td> <input class="form-control" id="userName" type="text" value="${member.getUser_email()}"> </td>
+										          		</tr>
+										          		<tr>
+										          			<td>매물번호</td>
+										          			<td> <input class="form-control" id="propertyId" type="text" value="${pvo.property_id}" readonly="readonly"> </td>
+										          		</tr>
+										          		<tr>
+										          			<td>중개인</td>
+										          			<td> <input class="form-control" id="propertyUser" type="text" value="${pvo.property_user}" readonly="readonly"> </td>
 										          		</tr>
 										          		<tr>
 										          			<td>내용</td>
-										          			<td> <textarea class="form-control" id="modalcontents" rows="10"></textarea> </td>
+										          			<td> <textarea class="form-control" id="contents" rows="10"></textarea> </td>
 										          		</tr>
 										          	</table>
 										        </div>
 										        <div class="modal-footer">
-										          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										          <button id="modalclose" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 										          <button id="modalsubmit" type="button" class="btn btn-submit">전송</button>
 										        </div>
  
@@ -157,17 +141,17 @@
                                             
                                     <div class="clearfix">
                                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                           <li data-thumb="resources/images/property/demo/property-1.jpg"> 
-                                                <img src="resources/images/property/demo/property-1.jpg" /> 
+                                           <li data-thumb="resources/images/property/demo/property1.jpg"> 
+                                                <img src="resources/images/property/demo/property1.jpg" /> 
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property-2.jpg"> 
-                                                <img src="resources/images/property/demo/property-2.jpg" />
+                                            <li data-thumb="resources/images/property/demo/property2.jpg"> 
+                                                <img src="resources/images/property/demo/property2.jpg" />
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property-3.jpg"> 
-                                                <img src="resources/images/property/demo/property-3.jpg" />
+                                            <li data-thumb="resources/images/property/demo/property3.jpg"> 
+                                                <img src="resources/images/property/demo/property3.jpg" />
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property-4.jpg"> 
-                                                <img src="resources/images/property/demo/property-4.jpg" />
+                                            <li data-thumb="resources/images/property/demo/property4.jpg"> 
+                                                <img src="resources/images/property/demo/property4.jpg" />
                                             </li>                                         
                                         </ul>
                                     </div>
@@ -342,13 +326,16 @@
                             <div class="dealer-widget">
                                 <div class="dealer-content">
                                     <div class="inner-wrapper">
-                                        <div class="single-property-header">                                          
-                                            <h1 class="property-title">Villa in Coral Gables</h1>
-                                            <span class="property-price">$825,000</span>
+                                        <div class="single-property-header">  
+                                        	<h1 class="property-title" id="propertyID">매물번호 : ${pvo.property_id}</h1>                                        
+                                            <h1 class="property-title">${pvo.property_title}</h1>
+                                            <span class="property-price">${pvo.property_price}</span>  
                                         </div>
 
                                          <div class="property-meta entry-meta clearfix ">   
-
+                                         
+                                         <span class="property-info-label">옵션</span> <br>
+	
                                             <div class="col-xs-4 col-sm-4 col-md-4 p-b-15" id="search_option1">
                                                 <span class="property-info-icon icon-tag">                                                                                      
                                                     <img src="resources/images/icon/full_orange.png"><br>
@@ -442,7 +429,7 @@
                                             </div>
                                             <div class="col-xs-8 col-sm-8 ">
                                                 <h3 class="dealer-name">
-                                                    <a href="">Nathan James</a>
+                                                    <a href="">${pvo.property_user}</a> <br>
                                                     <span>Real Estate Agent</span>        
                                                 </h3>
                                                 <div class="dealer-social-media">
@@ -465,6 +452,7 @@
                                                 <li><i class="pe-7s-map-marker strong"> </i> 9089 your adress her</li>
                                                 <li><i class="pe-7s-mail strong"> </i> email@yourcompany.com</li>
                                                 <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
+                                                <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
                                             </ul>
                                             <p>Duis mollis  blandit tempus porttitor curabiturDuis mollis  blandit tempus porttitor curabitur , est non…</p>
                                         </div>
@@ -476,10 +464,11 @@
                             
                       <div class="panel panel-default sidebar-menu similar-property-wdg wow fadeInRight animated">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title">Similar Properties</h3>
+                                    <h3 class="panel-title">Agent Properties</h3>
                                 </div>
                                 <div class="panel-body recent-property-widget">
                                         <ul>
+                                         <c:forEach var="agentList" items="${agentList}">
                                         <li>
                                             <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
                                                 <a href="single.html"><img src="resources/images/property/demo/small-property-2.jpg"></a>
@@ -489,51 +478,11 @@
                                                 </span>
                                             </div>
                                             <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                                <h6> <a href="single.html">Super nice villa </a></h6>
-                                                <span class="property-price">3000000$</span>
+                                                <h6> <a href="single.html">${agentList.property_title} </a></h6>
+                                                <span class="property-price">${agentList.property_price}</span>
                                             </div>
                                         </li>
-                                        <li>
-                                            <div class="col-md-3 col-sm-3  col-xs-3 blg-thumb p0">
-                                                <a href="single.html"><img src="resources/images/property/demo/small-property-1.jpg"></a>
-                                                <span class="property-seeker">
-                                                    <b class="b-1">A</b>
-                                                    <b class="b-2">S</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                                <h6> <a href="single.html">Super nice villa </a></h6>
-                                                <span class="property-price">3000000$</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                                <a href="single.html"><img src="resources/images/property/demo/small-property-3.jpg"></a>
-                                                <span class="property-seeker">
-                                                    <b class="b-1">A</b>
-                                                    <b class="b-2">S</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                                <h6> <a href="single.html">Super nice villa </a></h6>
-                                                <span class="property-price">3000000$</span>
-                                            </div>
-                                        </li>
-
-                                        <li>
-                                            <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                                <a href="single.html"><img src="resources/images/property/demo/small-property-2.jpg"></a>
-                                                <span class="property-seeker">
-                                                    <b class="b-1">A</b>
-                                                    <b class="b-2">S</b>
-                                                </span>
-                                            </div>
-                                            <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                                <h6> <a href="single.html">Super nice villa </a></h6>
-                                                <span class="property-price">3000000$</span>
-                                            </div>
-                                        </li>
-
+										</c:forEach>
                                     </ul>
                                 </div>
                             </div>  
@@ -544,31 +493,28 @@
                                     <h3 class="panel-title">Smart search</h3>
                                 </div>
                                 <div class="panel-body search-widget">
-                                    <form action="" class=" form-inline"> 
+                                    <form action="./list/searchList2" class=" form-inline"> 
 
                                         <fieldset>
                                             <div class="row">
                                                 <div class="col-xs-6">
 
-                                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Your City">
-
-                                                        <option>New york, CA</option>
-                                                        <option>Paris</option>
-                                                        <option>Casablanca</option>
-                                                        <option>Tokyo</option>
-                                                        <option>Marraekch</option>
-                                                        <option>kyoto , shibua</option>
-                                                    </select>
+                                                    <select id="lunchBegins" name="search_category" class="selectpicker" title="Select Your category">
+                                                        <option value="월세">월세</option>
+				                                        <option value="전세">전세</option>
+				                                        <option value="매매">매매</option>
+				                                    </select>
                                                 </div>
                                                 <div class="col-xs-6">
 
-                                                    <select id="basic" class="selectpicker show-tick form-control">
-                                                        <option> -Status- </option>
-                                                        <option>Rent </option>
-                                                        <option>Boy</option>
-                                                        <option>used</option>  
-
-                                                    </select>
+                                                    <select id="basic" name="search_type" class="selectpicker show-tick form-control" title="Select your type">
+                                                        <option value="원룸+">원룸+ </option>
+				                                        <option value="오피스텔">오피스텔 </option>
+				                                        <option value="빌라">빌라</option>
+				                                        <option value="아파트">아파트</option>
+				                                        <option value="상가/사무실">상가/사무실</option>  
+				
+				                                    </select>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -577,24 +523,18 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
 
-                                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Your City">
+                                                    <select id="searchCity" name="search_city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Your City">
 
-                                                        <option>New york, CA</option>
-                                                        <option>Paris</option>
-                                                        <option>Casablanca</option>
-                                                        <option>Tokyo</option>
-                                                        <option>Marraekch</option>
-                                                        <option>kyoto , shibua</option>
+                                                        <c:forEach var="cityList" items="${cityList}"> 
+				                                        <option>${cityList}</option>
+				                                        </c:forEach>
+				                                        
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-6">
 
-                                                    <select id="basic" class="selectpicker show-tick form-control">
+                                                    <select id="searchGu" name="search_gu" class="show-tick form-control">
                                                         <option> -Status- </option>
-                                                        <option>Rent </option>
-                                                        <option>Boy</option>
-                                                        <option>used</option>  
-
                                                     </select>
                                                 </div>
                                             </div>
@@ -934,16 +874,69 @@
             if((${pvo.property_option}&128) != 0){	 $("#search_option8").show();}
             if((${pvo.property_option}&256) != 0){	 $("#search_option9").show();}
         	
+           if(${heartval} == 1){$('#heart').prop("class","fa fa-heart");}
+            
+            $('#love').on("click", function() {				
+				var sendData = {'property_id' : ${pvo.property_id}, 'user_email' : '${member.user_email}'};
+				$.ajax({
+					url:'./love/onLove',
+					type : 'POST',
+					data : sendData,
+					success : function(data){
+	                    if(data==0) {
+	                    	alert("좋아요증가")
+	                        $('#heart').prop("class","fa fa-heart");
+	                    }
+	                    else{
+	                    	alert("좋아요감소")
+	                        $('#heart').prop("class","fa fa-heart-o");
+	                    } 
+	                }
+				});
+				
+			});
+            
+            
        	    $("#modalsubmit").on("click", function(){
+       	    		var sendData = {'userName' : $("#userName").val(), 'propertyId' : $("#propertyId").val(), 
+       	    						'propertyUser' : $("#propertyUser").val(), 'contents' : $("#contents").val()};
+       	    	
 		 		 	   $.ajax({
 		 		 		dataType : 'json',
 						url:'./email',
 						type : 'POST',
-						data : {'contents' : '메롱'},
-						success : function(){$("#mymodal").modal('toggle');}
+						data : sendData,
+						success : function(data){
+							alert("메일보내기 성공")
+							$("#userName").val("${member.user_email}");
+							$("#contents").val("");
+							$("#myModal").modal("toggle");
+						}
 					});
-                }); 
+		 		 	
+                });
+       	    
+       	    
+       	 $("#searchCity").change(function() {
+	    		
+	    		$("#searchGu").empty();
+	    		
+	    		$.ajax({
+	 		 		dataType : 'json',
+					url:'./searchGu',
+					type : 'POST',
+					data : {'propertyCity' : $("#searchCity").val()},
+					success : function(data){
+
+						$.each(data, function( index, value ) {
+			                  var option = "<option>"+value+"</option>";
+			                   $("#searchGu").append(option);
+			                });		
+						}			
+				});
 			});
+       	    
+		});
 
         </script> 
 

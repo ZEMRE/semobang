@@ -12,7 +12,7 @@
 		VALUES (#{love_id}, #{love_user}, #{love_property})
 	</insert>
 	
-	<select id="getLove" parameterType="int" resultType="LoveVO">
+	<select id="getLove" parameterType="Map" resultType="LoveVO">
 		SELECT *
 		FROM love
 		WHERE love_user = #{love_user}
