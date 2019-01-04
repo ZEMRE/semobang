@@ -68,21 +68,20 @@ public class HomeController {
 		return "index";
 	}
 	
+	//메인화면에서 '시'를 선택하면 해당 시의 '구'리스트 리턴 
 	@ResponseBody
 	@RequestMapping(value = "/searchGu", method = RequestMethod.POST, produces="application/json; charset=utf-8")
 	public List<String> searchGu(HttpServletRequest request,HttpSession session) throws Exception {
 
 		String propertyCity = request.getParameter("propertyCity");
 		
-		System.out.println(propertyCity);
-		
 		List<String> guList = pdao.getGuList(propertyCity);
 		
 		return guList;
 	}
 	
-	
-	
+/*	
+	// 사용자가 선택한 매물 상세보기로 이동
 	@RequestMapping("/list/searchList1/{searchoption}")
 	public String searchOption(Model model, @PathVariable String searchoption){
 		System.out.println(searchoption);
@@ -92,12 +91,12 @@ public class HomeController {
 		// property_option=2 : select * from property where (property_option&2) != 0  AND property_type='commerce';
 		// property_option=8 : select * from property where (property_option&8) != 0 AND property_type='one-room';
 		return null;
-	}
+	}*/
 	
 	// 사용자가 선택한 매물 상세보기로 이동
 	@RequestMapping("/{property_id}")
 	public String property(Model model,@PathVariable("property_id") int property_id,HttpSession session,@ModelAttribute SearchVO svo)
-	{
+	{	
 		int heartval = 0;
 		//시 리스트 얻기
 		List<String> cityList = pdao.getCityList();
@@ -110,44 +109,38 @@ public class HomeController {
 		//세션영역에서 memberVO객체 받아오기
 		UserVO member = (UserVO)session.getAttribute("member");
 		
+		//로그인 되어있는 사람이라면, 하트누른 게시물인지 판별하기 위해 러브정보 얻어오기
 		if(member != null) {
 			LoveVO lvo = ldao.getLove(member.getUser_email(), property_id);
 			if(lvo != null) {heartval = 1;}
 		}
 		
-		System.out.println(heartval);
-		
+		//사용자가 검색한 '시'의  '구'리스트 얻기
+		List<String> guList = pdao.getGuList(svo.getSearch_city());
+
 		model.addAttribute("pvo",pvo);
 		model.addAttribute("agentList",agentList);
 		model.addAttribute("member",member);
 		model.addAttribute("heartval",heartval);
 		model.addAttribute("svo",svo);
 		model.addAttribute("cityList",cityList);
+		model.addAttribute("guList",guList);
+		
+		System.out.println(svo.getSearch_category());
 		
 		return "property";
 	}
 	
 	
-	@RequestMapping("/list/searchList2")
+	@RequestMapping("/list")
 	public String searchPropertyOption(Model model, @ModelAttribute SearchVO svo){
-		
-		System.out.println("SearchPropertyBedroom1 :"+svo.getSearch_min_bedroom());
-		System.out.println("SearchPropertyBedroom2 :"+svo.getSearch_max_bedroom());
-		System.out.println("SearchPropertyCategory :"+svo.getSearch_category());
-		System.out.println("SearchPropertyCity : "+svo.getSearch_city());
-		System.out.println("SearchPropertyDeposit1 : "+svo.getSearch_min_deposit());
-		System.out.println("SearchPropertyDeposit2 : "+svo.getSearch_max_deposit());
-		System.out.println("SearchPropertyGu : "+svo.getSearch_gu());
-		System.out.println("PropertyOption : "+svo.getSearch_option());
-		System.out.println("PropertyPrice1 : "+svo.getSearch_min_price());
-		System.out.println("PropertyPrice2 : "+svo.getSearch_max_price());
-		System.out.println("SearchPropertySize1 : "+svo.getSearch_min_size());
-		System.out.println("SearchPropertySize2 : "+svo.getSearch_max_size());
-		System.out.println("SearchPropertyType"+svo.getSearch_type());
+
+		List<PropertyVO> propertylist = pdao.getPropertyListByAdmin();
 		
 		model.addAttribute("svo", svo);
+		model.addAttribute("propertylist",propertylist);
 	
-		return null;
+		return "testlist";
 	}
 	
 	 

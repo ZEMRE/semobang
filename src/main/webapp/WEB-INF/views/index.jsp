@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> --%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -48,7 +48,7 @@
 		.fa1{font-size: 50px; margin-top: 5px;}	/*tema search 아이콘 크기 변경*/
 		.welcome-estate a{fill: #FFF; color: #777;}
 		.welcome-icon:hover a{color: #fff;}
-		#searchGu{font-size: 13px;
+	/* 	#searchGu{font-size: 13px;
 				box-sizing: border-box;
 				height : 40px;
 				line-height: 1.42857;
@@ -60,7 +60,7 @@
     			width: 100%;
     			text-align: left;
 		}
-
+ */
     </style>
     
     <body>
@@ -88,7 +88,7 @@
                                                 
                         <div class="search-form wow pulse" data-wow-delay="0.8s">
 
-                            <form action="./list/searchList2" class=" form-inline" name="searchForm" method="post">
+                            <form action="./list" class=" form-inline" name="searchForm" method="post">
                             
                             	<input type="hidden" name="search_option" id="search_option">
                             
@@ -123,7 +123,7 @@
                                 
                                 <div class="form-group" id="addressForm2" data-live-search="true" data-live-search-style="begins" title="Select your district">  
                                                                
-                                  <select id="searchGu" name="search_gu">
+                                  <select id="searchGu" class="form-control" name="search_gu">
                                   	<option>---</option>
                                   </select>
                                 </div>
@@ -134,36 +134,46 @@
 
                                     <div class="search-row">   
 
-                                        <div class="form-group mar-r-20">
-                                            <label for="price-range">Price range ($):</label>
-                                            <input type="text" class="span2" value="," data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[0,450]" id="price-range" name="search_price"><br />
-                                            <b class="pull-left color">2000$</b> 
-                                            <b class="pull-right color">100000$</b>
+                                        <div class="form-group mar-r-20" id="priceRange1">
+                                            <label for="price-range">가격 (￦/만원) : </label>
+                                            <input type="text" class="span2" value="1000,100000" data-slider-min="1000" 
+                                                   data-slider-max="100000" data-slider-step="500" 
+                                                   data-slider-value="[10000,30000]" id="price-range" name="search_price"><br />
+                                            <b class="pull-left color">1000</b> 
+                                            <b class="pull-right color">100000 이상</b>
                                         </div>
                                         <!-- End of  -->  
-
-                                        <div class="form-group mar-l-20">
+                                   
+                                        <div class="form-group mar-l-20" id="priceRange2" style="margin-left:-5px; margin-right: 15px;">
+	                                            <label for="property-geo">월세 (￦/만원) : </label>
+	                                            <input type="text" class="span2" value="30,500" data-slider-min="30" 
+	                                                   data-slider-max="500" data-slider-step="5" 
+	                                                   data-slider-value="[50,100]" id="property-geo" name="search_price2"><br />
+	                                            <b class="pull-left color">30 이하</b> 
+	                                            <b class="pull-right color">500 이상</b>
+                                        </div>
+                                        
+                                          <div class="form-group mar-l-20">
                                         	<div id="hidetest">
-	                                            <label for="property-geo">Property geo (m2) :</label>
-	                                            <input type="text" class="span2" value="," data-slider-min="0" 
-	                                                   data-slider-max="600" data-slider-step="5" 
-	                                                   data-slider-value="[50,450]" id="property-geo" name="search_deposit"><br />
-	                                            <b class="pull-left color">40m</b> 
-	                                            <b class="pull-right color">12000m</b>
+	                                            <label for="property-geo2">보증금 (￦/만원) : </label>
+	                                            <input type="text" class="span2" value="500,10000" data-slider-min="500" 
+	                                                   data-slider-max="10000" data-slider-step="100" 
+	                                                   data-slider-value="[1000,3000]" id="property-geo2" name="search_deposit"><br />
+	                                            <b class="pull-left color">500 이하</b> 
+	                                            <b class="pull-right color">10000 이상</b>
                                             </div>
                                         </div>
+                                        
                                         <!-- End of  --> 
                                     </div>
 
                                     <div class="search-row">
 
                                         <div class="form-group mar-r-20">
-                                            <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="," data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-baths" name="search_size"><br />
+                                            <label for="price-range">수용면적 (평형)  :</label>
+                                            <input type="text" class="span2" value="0,100" data-slider-min="0" 
+                                                   data-slider-max="100" data-slider-step="5" 
+                                                   data-slider-value="[10,30]" id="min-baths" name="search_size"><br />
                                             <b class="pull-left color">1</b> 
                                             <b class="pull-right color">120</b>
                                         </div>
@@ -171,15 +181,16 @@
 
                                         <div class="form-group mar-l-20">
                                             <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="," data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-bed" name="search_bedroom"><br />
+                                            <input type="text" class="span2" value="1,10" data-slider-min="1" 
+                                                   data-slider-max="10" data-slider-step="1" 
+                                                   data-slider-value="[1,3]" id="min-bed" name="search_bedroom"><br />
                                             <b class="pull-left color">1</b> 
                                             <b class="pull-right color">120</b>
                                         </div>
                                         <!-- End of  --> 
 
                                     </div>
+                                    
                                     <br>
                                     <div class="search-row">  
 
@@ -476,12 +487,21 @@
 		    		alert("허위매물 신고 처리");
 				});
 		    	
+		    	$("#priceRange2").hide();
 		    	
 		    	$("#lunchBegins").change(function() {
 		    		if($("#lunchBegins").val() == '전세' | $("#lunchBegins").val() == '매매'){
 					$("#hidetest").hide();
+					$("#priceRange2").hide();
+					$("#priceRange1").show();
+
 		    		}else{
 		    			$("#hidetest").show();
+		    			
+		    			$("#priceRange1").hide();	
+		    			$("#priceRange1").attr("style","display:none");
+		    			$("#priceRange2").show();
+
 		    		}
 				});
 		    	

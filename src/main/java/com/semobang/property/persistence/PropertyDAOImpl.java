@@ -78,7 +78,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 	@Override
 	public List<PropertyVO> getPropertyListByAdmin() {
 		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("getPropertyListByAdmin");
 	}
 
 	@Override

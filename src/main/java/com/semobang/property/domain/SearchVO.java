@@ -10,6 +10,9 @@ public class SearchVO {
 	private String search_price;
 	private String search_min_price;
 	private String search_max_price;
+	private String search_price2;
+	private String search_min_price2;
+	private String search_max_price2;
 	private String search_deposit;
 	private String search_min_deposit;
 	private String search_max_deposit;
@@ -69,6 +72,28 @@ public class SearchVO {
 	}
 	public void setSearch_max_price(String search_max_price) {
 		this.search_max_price = search_max_price;
+	}
+	public String getSearch_price2() {
+		return search_price2;
+	}
+	public void setSearch_price2(String search_price2) {
+		this.search_price2 = search_price2;
+		
+		String[] propertyPrice2 = new String(search_price2).split(",");
+		this.search_min_price2 = propertyPrice2[0];
+		this.search_max_price2 = propertyPrice2[1];
+	}
+	public String getSearch_min_price2() {
+		return search_min_price2;
+	}
+	public void setSearch_min_price2(String search_min_price2) {
+		this.search_min_price2 = search_min_price2;
+	}
+	public String getSearch_max_price2() {
+		return search_max_price2;
+	}
+	public void setSearch_max_price2(String search_max_price2) {
+		this.search_max_price2 = search_max_price2;
 	}
 	public String getSearch_deposit() {
 		return search_deposit;

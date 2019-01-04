@@ -37,8 +37,7 @@
         
        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        
-        
+
         <style type="text/css">
         	.item-thumb img{
         		max-width : 100%;
@@ -499,7 +498,7 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
 
-                                                    <select id="lunchBegins" name="search_category" class="selectpicker" title="Select Your category">
+                                                    <select name="search_category" id="search_category" class="show-tick form-control" title="Select Your category">
                                                         <option value="월세">월세</option>
 				                                        <option value="전세">전세</option>
 				                                        <option value="매매">매매</option>
@@ -507,7 +506,7 @@
                                                 </div>
                                                 <div class="col-xs-6">
 
-                                                    <select id="basic" name="search_type" class="selectpicker show-tick form-control" title="Select your type">
+                                                    <select name="search_type" id="search_type" class="show-tick form-control" title="Select your type">
                                                         <option value="원룸+">원룸+ </option>
 				                                        <option value="오피스텔">오피스텔 </option>
 				                                        <option value="빌라">빌라</option>
@@ -523,19 +522,20 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
 
-                                                    <select id="searchCity" name="search_city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select Your City">
+                                                    <select id="searchCity" name="search_city" class="form-control" data-live-search="true" data-live-search-style="begins" title="Select Your City">
 
                                                         <c:forEach var="cityList" items="${cityList}"> 
-				                                        <option>${cityList}</option>
+				                                        <option value="${cityList}">${cityList}</option>
 				                                        </c:forEach>
 				                                        
                                                     </select>
                                                 </div>
                                                 <div class="col-xs-6">
-
-                                                    <select id="searchGu" name="search_gu" class="show-tick form-control">
-                                                        <option> -Status- </option>
-                                                    </select>
+													<select id="searchGu" class="form-control" name="search_gu">
+				                                  		<c:forEach var="guList" items="${guList}"> 
+				                                        <option value="${guList}">${guList}</option>
+				                                        </c:forEach>
+				                                  	</select>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -543,20 +543,35 @@
                                         <fieldset class="padding-5">
                                             <div class="row">
                                                 <div class="col-xs-6">
-                                                    <label for="price-range">보증금</label>
-                                                    <input type="text" class="span2" value="" data-slider-min="0" 
-                                                           data-slider-max="600" data-slider-step="5" 
-                                                           data-slider-value="[0,450]" id="price-range" ><br />
-                                                    <b class="pull-left color">2000$</b> 
-                                                    <b class="pull-right color">100000$</b>                                                
+                                                
+                                                <div id="priceRange1">
+		                                            <label for="price-range">가격 (￦/만원) : </label>
+		                                            <input type="text" class="span2" value="${svo.search_min_price },${svo.search_max_price }" data-slider-min="1000" 
+		                                                   data-slider-max="100000" data-slider-step="500" 
+		                                                   data-slider-value="[${svo.search_min_price },${svo.search_max_price }]" id="price-range" name="search_price"><br />
+		                                            <b class="pull-left color">1000</b> 
+		                                            <b class="pull-right color">100000 이상</b>
+		                                        </div>
+
+		                                        <div id="priceRange2">
+		                                            <label for="property-geo">월세 (￦/만원) : </label>
+		                                            <input type="text" class="span2" value="${svo.search_min_price2 },${svo.search_max_price2 }" data-slider-min="30" 
+		                                                   data-slider-max="500" data-slider-step="10" 
+		                                                   data-slider-value="[${svo.search_min_price2 },${svo.search_max_price2 }]" id="property-geo" name="search_price2"><br />
+		                                            <b class="pull-left color">30 이하</b> 
+		                                            <b class="pull-right color">500 이상</b>
+		                                        </div>
+                                                                                               
                                                 </div>
                                                 <div class="col-xs-6">
-                                                    <label for="property-geo">월세</label>
-                                                    <input type="text" class="span2" value="" data-slider-min="0" 
-                                                           data-slider-max="600" data-slider-step="5" 
-                                                           data-slider-value="[50,450]" id="property-geo" ><br />
-                                                    <b class="pull-left color">40m</b> 
-                                                    <b class="pull-right color">12000m</b>                                                
+                                                <div id="hidetest">
+                                                    <label for="property-geo">보증금</label>
+                                                    <input type="text" class="span2" value="${svo.search_min_deposit },${svo.search_max_deposit }" data-slider-min="500" 
+                                                           data-slider-max="10000" data-slider-step="100" 
+                                                           data-slider-value="[${svo.search_min_deposit },${svo.search_max_deposit }]" id="property-geo2" ><br />
+                                                    <b class="pull-left color">500 이하</b> 
+                                                    <b class="pull-right color">10000 이상</b>                                                
+                                                </div>
                                                 </div>                                            
                                             </div>
                                         </fieldset>                                
@@ -565,22 +580,23 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <label for="price-range">수용면적 (평형) :</label>
-                                                    <input type="text" class="span2" value="" data-slider-min="0" 
-                                                           data-slider-max="100" data-slider-step="1" 
-                                                           data-slider-value="[10,30]" id="min-baths" ><br />
+                                                    <input type="text" class="span2" value="${svo.search_min_size },${svo.search_max_size}" data-slider-min="0" 
+                                                           data-slider-max="100" data-slider-step="5" 
+                                                           data-slider-value="[${svo.search_min_size },${svo.search_max_size}]" id="min-baths" ><br />
                                                     <b class="pull-left color">1</b> 
                                                     <b class="pull-right color">100</b>                                                
                                                 </div>
 
                                                 <div class="col-xs-6">
                                                     <label for="property-geo">방개수 </label>
-                                                    <input type="text" class="span2" value="" data-slider-min="1" 
+                                                    <input type="text" class="span2" value="${svo.search_min_bedroom },${svo.search_max_bedroom}" data-slider-min="1" 
                                                            data-slider-max="10" data-slider-step="1" 
-                                                           data-slider-value="[1,3]" id="min-bed" ><br />
+                                                           data-slider-value="[${svo.search_min_bedroom },${svo.search_max_bedroom}]" id="min-bed" ><br />
                                                     <b class="pull-left color">1</b> 
                                                     <b class="pull-right color">10</b>
-
                                                 </div>
+                                                
+                                                
                                             </div>
                                         </fieldset>
 
@@ -851,30 +867,64 @@
        	
         });						   
         </script>
+
         
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $("#search_option1").hide();
-            $("#search_option2").hide();
-            $("#search_option3").hide();
-            $("#search_option4").hide();
-            $("#search_option5").hide();
-            $("#search_option6").hide();
-            $("#search_option7").hide();
-            $("#search_option8").hide();
-            $("#search_option9").hide();
-            
-            if((${pvo.property_option}&1) != 0){	 $("#search_option1").show();}
-            if((${pvo.property_option}&2) != 0){	 $("#search_option2").show();}
-            if((${pvo.property_option}&4) != 0){	 $("#search_option3").show();}
-            if((${pvo.property_option}&8) != 0){	 $("#search_option4").show();}
-            if((${pvo.property_option}&16) != 0){	 $("#search_option5").show();}
-            if((${pvo.property_option}&32) != 0){	 $("#search_option6").show();}
-            if((${pvo.property_option}&64) != 0){	 $("#search_option7").show();}
-            if((${pvo.property_option}&128) != 0){	 $("#search_option8").show();}
-            if((${pvo.property_option}&256) != 0){	 $("#search_option9").show();}
-        	
-           if(${heartval} == 1){$('#heart').prop("class","fa fa-heart");}
+		<script type="text/javascript">
+	        $(document).ready(function () {
+	            $("#search_option1").hide();
+	            $("#search_option2").hide();
+	            $("#search_option3").hide();
+	            $("#search_option4").hide();
+	            $("#search_option5").hide();
+	            $("#search_option6").hide();
+	            $("#search_option7").hide();
+	            $("#search_option8").hide();
+	            $("#search_option9").hide();
+	            
+	            if((${pvo.property_option}&1) != 0){	 $("#search_option1").show();}
+	            if((${pvo.property_option}&2) != 0){	 $("#search_option2").show();}
+	            if((${pvo.property_option}&4) != 0){	 $("#search_option3").show();}
+	            if((${pvo.property_option}&8) != 0){	 $("#search_option4").show();}
+	            if((${pvo.property_option}&16) != 0){	 $("#search_option5").show();}
+	            if((${pvo.property_option}&32) != 0){	 $("#search_option6").show();}
+	            if((${pvo.property_option}&64) != 0){	 $("#search_option7").show();}
+	            if((${pvo.property_option}&128) != 0){	 $("#search_option8").show();}
+	            if((${pvo.property_option}&256) != 0){	 $("#search_option9").show();}
+	            
+	        	$("#search_category").val('${svo.search_category}');
+	        	$("#search_type").val('${svo.search_type}');
+	        	$("#searchCity").val('${svo.search_city}');	
+ 	       		$("#searchGu").val('${svo.search_gu}');
+
+	            
+       			if($("#search_category").val() == '전세' | $("#search_category").val() == '매매'){
+      				$("#hidetest").hide();
+					$("#priceRange2").hide();
+					$("#priceRange1").show();
+      			}else{
+      				$("#hidetest").show();
+	    			
+	    			$("#priceRange1").hide();	
+	    			$("#priceRange2").show();
+      			}
+	            
+	            
+  	            $("#search_category").change(function() {
+		    		if($("#search_category").val() == '전세' | $("#search_category").val() == '매매'){
+					$("#hidetest").hide();
+					$("#priceRange2").hide();
+					$("#priceRange1").show();
+
+		    		}else{
+		    			$("#hidetest").show();
+		    			
+		    			$("#priceRange1").hide();	
+		    			$("#priceRange2").show();
+
+		    		}
+				});  
+
+            if(${heartval} == 1){$('#heart').prop("class","fa fa-heart");}
             
             $('#love').on("click", function() {				
 				var sendData = {'property_id' : ${pvo.property_id}, 'user_email' : '${member.user_email}'};
