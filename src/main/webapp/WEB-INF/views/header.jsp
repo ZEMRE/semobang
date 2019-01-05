@@ -60,10 +60,10 @@
 	                <li class="dropdown ymm-sw " data-wow-delay="0.4s">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">부동산 가이드 <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
-                            <li><a href="info/tips">분양정보 / 법률지식</a></li>
-                            <li><a href="info/tips">부동산 상식</a></li>
-                            <li><a href="info/tips">이사 꿀팁</a></li>
-                            <li><a href="info/tips">생활 꿀팁</a></li>
+                            <li><a href="info/tips2">분양정보 / 법률지식</a></li>
+                            <li><a href="info/tips1">부동산 상식</a></li>
+                            <li><a href="info/tips4">이사 꿀팁</a></li>
+                            <li><a href="info/tips3">생활 꿀팁</a></li>
                         </ul>
                     </li> 
 	                
