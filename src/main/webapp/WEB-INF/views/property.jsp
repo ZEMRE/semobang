@@ -11,6 +11,10 @@
         <meta name="author" content="SEMOBANG">
         <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 
@@ -35,8 +39,9 @@
         <link rel="stylesheet" href="resources/assets/css/responsive.css">
         <link rel="stylesheet" href="resources/assets/css/lightslider.min.css">
         
-       <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css" />
+       	<link rel="stylesheet" href="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css" />
+  
 
         <style type="text/css">
         	.item-thumb img{
@@ -140,17 +145,17 @@
                                             
                                     <div class="clearfix">
                                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                           <li data-thumb="resources/images/property/demo/property1.jpg"> 
-                                                <img src="resources/images/property/demo/property1.jpg" /> 
+                                           <li data-thumb="resources/images/property/demo/property-1.jpg"> 
+                                                <img src="resources/images/property/demo/property-1.jpg" /> 
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property2.jpg"> 
-                                                <img src="resources/images/property/demo/property2.jpg" />
+                                            <li data-thumb="resources/images/property/demo/property-2.jpg"> 
+                                                <img src="resources/images/property/demo/property-2.jpg" />
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property3.jpg"> 
-                                                <img src="resources/images/property/demo/property3.jpg" />
+                                            <li data-thumb="resources/images/property/demo/property-3.jpg"> 
+                                                <img src="resources/images/property/demo/property-3.jpg" />
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property4.jpg"> 
-                                                <img src="resources/images/property/demo/property4.jpg" />
+                                            <li data-thumb="resources/images/property/demo/property-4.jpg"> 
+                                                <img src="resources/images/property/demo/property-4.jpg" />
                                             </li>                                         
                                         </ul>
                                     </div>
@@ -213,12 +218,15 @@
                                 </div>
                                 <!-- End features area  -->
 
-								<div class="section property-video"> 
+								<div class="section property-video" id="propertyVideo"> 
                                     <h4 class="s-property-title">Property Video</h4> 
                                     <div class="video-thumb">
-                                        <a class="video-popup" href="yout" title="Virtual Tour">
-                                            <img src="assets/img/property-video.jpg" class="img-responsive wp-post-image" alt="Exterior">            
-                                        </a>
+                                        <video width="100%" controls>
+										  <source src="resources/images/property/demo/${pvo.property_video}" type="video/mp4">
+										  <source src="mov_bbb.ogg" type="video/ogg">
+										  Your browser does not support HTML5 video.
+										</video>
+
                                     </div>
 								</div>
 
@@ -604,13 +612,21 @@
                                             <div class="row">
                                                 <div class="col-xs-6">
                                                     <div class="checkbox">
-                                                        <label> <input type="checkbox" checked> Full Option</label>
-                                                    </div> 
+		                                                <label>
+		                                                    <input type="checkbox" id="opFull" name="optionValue" value="1"
+		                                                    <c:if test="${searchOption1}"> checked="checked"</c:if>> FullOption
+		                                                </label>
+		                                            </div> 
                                                 </div>
 
                                                 <div class="col-xs-6">
                                                     <div class="checkbox">
-                                                        <label> <input type="checkbox"> 주차</label>
+                                                         <label>
+                                                         
+                                                         
+                                                         	<input type="checkbox" id="opParking" name="optionValue" value="2" 
+                                                         	<c:if test="${searchOption2}"> checked="checked"</c:if>> 주차
+		                                                </label>
                                                     </div>
                                                 </div>                                            
                                             </div>
@@ -620,27 +636,18 @@
                                             <div class="row">
                                                 <div class="col-xs-6"> 
                                                     <div class="checkbox">
-                                                        <label> <input type="checkbox" checked> 엘리베이터</label>
+                                                         <label>
+		                                                    <input type="checkbox" id="opEle" name="optionValue" value="4"
+		                                                    <c:if test="${searchOption4}"> checked="checked"</c:if>> 엘리베이터
+		                                                </label>
                                                     </div>
                                                 </div>  
                                                 <div class="col-xs-6"> 
                                                     <div class="checkbox">
-                                                        <label> <input type="checkbox" checked> 반려동물 </label>
-                                                    </div>
-                                                </div>  
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset class="padding-5">
-                                            <div class="row">
-                                                <div class="col-xs-6"> 
-                                                    <div class="checkbox">
-                                                        <label><input type="checkbox"> 개별 난방 </label>
-                                                    </div>
-                                                </div>  
-                                                <div class="col-xs-6"> 
-                                                    <div class="checkbox">
-                                                        <label> <input type="checkbox"> 베란다</label>
+                                                         <label>
+		                                                    <input type="checkbox" id="opPet" name="optionValue" value="8"
+		                                                    <c:if test="${searchOption8}"> checked="checked"</c:if>> 반려동물
+		                                                </label>
                                                     </div>
                                                 </div>  
                                             </div>
@@ -650,12 +657,39 @@
                                             <div class="row">
                                                 <div class="col-xs-6"> 
                                                     <div class="checkbox">
-                                                        <label>  <input type="checkbox" checked> 인터넷 </label>
+                                                         <label>
+		                                                    <input type="checkbox" id="opHeat" name="optionValue" value="16"
+		                                                    <c:if test="${searchOption16}"> checked="checked"</c:if>> 개별난방
+		                                                </label>
                                                     </div>
                                                 </div>  
                                                 <div class="col-xs-6"> 
                                                     <div class="checkbox">
-                                                        <label>  <input type="checkbox"> 역세권 </label>
+                                                        <label>
+		                                                    <input type="checkbox" id="opVer" name="optionValue" value="32"
+		                                                    <c:if test="${searchOption32}"> checked="checked"</c:if>> 베란다
+		                                                </label>
+                                                    </div>
+                                                </div>  
+                                            </div>
+                                        </fieldset>
+
+                                        <fieldset class="padding-5">
+                                            <div class="row">
+                                                <div class="col-xs-6"> 
+                                                    <div class="checkbox">
+                                                         <label>
+		                                                    <input type="checkbox" id="opInternet" name="optionValue" value="64"
+		                                                    <c:if test="${searchOption64}"> checked="checked"</c:if>> 인터넷
+		                                                </label>
+                                                    </div>
+                                                </div>  
+                                                <div class="col-xs-6"> 
+                                                    <div class="checkbox">
+                                                         <label>
+		                                                    <input type="checkbox" id="opSta" name="optionValue" value="128"
+		                                                    <c:if test="${searchOption128}"> checked="checked"</c:if>> 역세권
+		                                                </label>
                                                     </div>
                                                 </div>  
                                             </div>
@@ -665,7 +699,10 @@
                                             <div class="row">
                                                 <div class="col-xs-12"> 
                                                     <div class="checkbox">
-                                                        <label>  <input type="checkbox"> 남향 </label>
+                                                         <label>
+		                                                    <input type="checkbox" id="opSouth" name="optionValue" value="256"
+		                                                    <c:if test="${searchOption256}"> checked="checked"</c:if>> 남향
+		                                                </label>
                                                     </div>
                                                 </div>  
                                             </div>
@@ -847,7 +884,11 @@
 
         <script src="resources/assets/js/main.js"></script>
         <script type="text/javascript" src="resources/assets/js/lightslider.min.js"></script>
-        
+        	
+        	
+        	
+	<script src="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.js"></script>
+      
 
         <script>
         $(document).ready(function () {
@@ -871,6 +912,10 @@
         
 		<script type="text/javascript">
 	        $(document).ready(function () {
+	        	
+	        	 $.toast.config.align = 'right';
+	        	 $.toast.config.width = 200;
+	        	 
 	            $("#search_option1").hide();
 	            $("#search_option2").hide();
 	            $("#search_option3").hide();
@@ -879,7 +924,7 @@
 	            $("#search_option6").hide();
 	            $("#search_option7").hide();
 	            $("#search_option8").hide();
-	            $("#search_option9").hide();
+	            $("#search_option9").hide();	            
 	            
 	            if((${pvo.property_option}&1) != 0){	 $("#search_option1").show();}
 	            if((${pvo.property_option}&2) != 0){	 $("#search_option2").show();}
@@ -891,10 +936,14 @@
 	            if((${pvo.property_option}&128) != 0){	 $("#search_option8").show();}
 	            if((${pvo.property_option}&256) != 0){	 $("#search_option9").show();}
 	            
+	            if(${pvo.property_video}==null){$("#propertyVideo").hide();}
+	            
 	        	$("#search_category").val('${svo.search_category}');
 	        	$("#search_type").val('${svo.search_type}');
 	        	$("#searchCity").val('${svo.search_city}');	
  	       		$("#searchGu").val('${svo.search_gu}');
+ 	       		
+ 	       	 	
 
 	            
        			if($("#search_category").val() == '전세' | $("#search_category").val() == '매매'){
@@ -934,11 +983,17 @@
 					data : sendData,
 					success : function(data){
 	                    if(data==0) {
-	                    	alert("좋아요증가")
+	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">좋아요 추가</div>', {
+					            duration: 3000,
+					            type: 'info'
+					          });
 	                        $('#heart').prop("class","fa fa-heart");
 	                    }
 	                    else{
-	                    	alert("좋아요감소")
+	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">좋아요 감소</div>', {
+					            duration: 3000,
+					            type: 'info'
+					          });
 	                        $('#heart').prop("class","fa fa-heart-o");
 	                    } 
 	                }

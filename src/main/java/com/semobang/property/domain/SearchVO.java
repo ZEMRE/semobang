@@ -22,7 +22,7 @@ public class SearchVO {
 	private String search_bedroom;
 	private String search_min_bedroom;
 	private String search_max_bedroom;
-	private String search_option;
+	private int search_option;
 	private int search_startRow;
 	private int search_propertyPerPage;
 	private String search_order_by;
@@ -161,10 +161,10 @@ public class SearchVO {
 	public void setSearch_max_bedroom(String search_max_bedroom) {
 		this.search_max_bedroom = search_max_bedroom;
 	}
-	public String getSearch_option() {
+	public int getSearch_option() {
 		return search_option;
 	}
-	public void setSearch_option(String search_option) {
+	public void setSearch_option(int search_option) {
 		this.search_option = search_option;
 	}
 	public int getSearch_startRow() {
