@@ -9,13 +9,13 @@
 	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO user (user_email, user_pass, user_name, user_level)
-		VALUES (#{user_email}, #{user_pass}, ${user_name}, ${user_level})			
+		VALUES (#{user_email}, #{user_pass}, #{user_name}, #{user_level})			
 	</insert>
 	
-	<select id="duplicateCheck" parameterType="String">
+	<select id="duplicateCheck" parameterType="java.util.Map">
 		SELECT count(*)
 		FROM user
-		WHERE #{key} = #{value}
+		WHERE ${key} = #{value}
 	</select>	
 	
 	<!-- validateUser() 없음, 이메일로 getUser()로 vo 가져와서 vo.user_pass 확인 -->
@@ -30,10 +30,10 @@
 		UPDATE user
 		<choose>
 			<when test="value == 'Timestamp'">
-				SET #{key} = now()
+				SET ${key} = now()
 			</when>
 			<otherwise>
-				SET #{key} = #{value}
+				SET ${key} = #{value}
 			</otherwise>
 		</choose>			
 		WHERE user_email = #{user_email}
@@ -41,7 +41,7 @@
 	
 	<update id="updateUserProfileWithPhoto" parameterType="UserVO">
 		UPDATE user
-		SET user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address},  
+		SET user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
 			user_telephone = #{user_telephone}, user_mobile = #{user_mobile}, user_photo = #{user_photo}, 
 			user_about = #{user_about}, user_fb = #{user_fb}, user_ig = #{user_ig}, user_tw = #{user_tw},  
 			user_interest_city = #{user_interest_city}, user_interest_category = #{user_interest_category}, user_interest_type = #{user_interest_type}
@@ -50,14 +50,14 @@
 	
 	<update id="updateUserProfile" parameterType="UserVO">
 		UPDATE user
-		SET user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address},  
+		SET user_name = #{user_name}, user_company = #{user_company}, user_address = #{user_address}, 
 			user_telephone = #{user_telephone}, user_mobile = #{user_mobile},
 			user_about = #{user_about}, user_fb = #{user_fb}, user_ig = #{user_ig}, user_tw = #{user_tw},  
 			user_interest_city = #{user_interest_city}, user_interest_category = #{user_interest_category}, user_interest_type = #{user_interest_type}
 		WHERE user_email = #{user_email}
 	</update>
 	
-	<select id="getUserPropertyCount" parameterType="String">
+	<select id="getUserPropertyCount" parameterType="String" resulType="int">
 		SELECT count(*)
 		FROM user u JOIN property p
 		ON u.user_email = p.property_user
@@ -80,7 +80,7 @@
 		ORDER BY user_sold_count DESC
 	</select>
 	
-	<update id="updateUserSoldCount" parameterType="String">
+	<update id="updateUserSoldCount" parameterType="java.util.Map">
 		UPDATE user
 		SET user_sold_count = #{count}
 		WHERE user_email = #{user_email} 

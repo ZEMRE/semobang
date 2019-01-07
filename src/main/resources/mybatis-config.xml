@@ -10,8 +10,8 @@
 		
 		<typeAlias alias="PropertyVO" type="com.semobang.property.domain.PropertyVO"/> 		
 		<typeAlias alias="PropertyDAO" type="com.semobang.property.persistence.PropertyDAO"/> 
-		
-		<typeAlias alias="SearchVO" type="com.semobang.property.domain.SearchVO"/> 
+
+		<typeAlias alias="SearchVO" type="com.semobang.property.domain.SearchVO"/> 	
 		
 		<typeAlias alias="LoveVO" type="com.semobang.love.domain.LoveVO"/> 		
 		<typeAlias alias="LoveDAO" type="com.semobang.love.persistence.LoveDAO"/> 
