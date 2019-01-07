@@ -171,7 +171,7 @@ public class HomeController {
 		
 		if(pvo.getProperty_video().isEmpty()) {
 			pvo.setProperty_video("null");
-		}
+		}		
 		
 		int searchOption = svo.getSearch_option();
 		boolean searchOption1 = (searchOption&1) !=0;
@@ -233,10 +233,10 @@ public class HomeController {
 		String propertyUser = request.getParameter("propertyUser");
 		String contents = request.getParameter("contents");
 		
-/*		System.out.println(userName);
+		System.out.println(userName);
 		System.out.println(propertyId);
 		System.out.println(propertyUser);
-		System.out.println(contents);*/
+		System.out.println(contents);
 		
 		return 0;
 	}

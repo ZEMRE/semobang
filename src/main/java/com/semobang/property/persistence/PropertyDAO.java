@@ -2,6 +2,7 @@ package com.semobang.property.persistence;
 
 import java.util.List;
 
+import com.semobang.property.domain.Criteria;
 import com.semobang.property.domain.PropertyVO;
 import com.semobang.property.domain.SearchVO;
 import com.semobang.user.domain.UserVO;
@@ -40,7 +41,7 @@ public interface PropertyDAO {
 	// 최근글 리스트 showAmount 개수만큼 가져오기(limit 0, ?)
 	// property_status: open
 	// 최신 매물 리스트 페이지
-	public List<PropertyVO> getPropertyList(int startRow, int propertyPerPage, String orderBy);
+	public List<PropertyVO> getPropertyList(Criteria cri);
 	
 	// 전체 매물 리스트 가져오기
 	// property_status: 모든 상태

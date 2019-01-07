@@ -88,7 +88,7 @@
                                                 
                         <div class="search-form wow pulse" data-wow-delay="0.8s">
 
-                            <form action="./list" class=" form-inline" name="searchForm" method="post">
+                            <form action="./list/searchList" class=" form-inline" name="searchForm" method="post">
                             
                             	<input type="hidden" name="search_option" id="search_option">
                             
@@ -121,10 +121,10 @@
                                     </select>
                                 </div>
                                 
-                                <div class="form-group" id="addressForm2" data-live-search="true" data-live-search-style="begins" title="Select your district">  
+                                <div class="form-group" id="addressForm2" class="form-control" data-live-search="true" data-live-search-style="begins" title="Select your district">  
+                               
                                                                
                                   <select id="searchGu" class="form-control" name="search_gu">
-                                  	<option>---</option>
                                   </select>
                                 </div>
                                 
@@ -350,7 +350,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                                         <!-- /.feature title -->
-                                        <h2>GARO ESTATE </h2>
+                                        <h2>TEMA SEARCH </h2>
                                     </div>
                                 </div>
                             </div>
@@ -423,11 +423,11 @@
                                 
                                 <div class="item">
                                     <div class="client-text">                                
-                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
-                                        <h4><strong>${popularUserList.user_email }, </strong><i>Web Designer</i></h4>
+                                        <p>${popularUserList.user_about}</p>
+                                        <h4><strong>${popularUserList.user_email }, </strong><i>${popularUserList.user_company}</i></h4>
                                     </div>
                                     <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
-                                        <img src="resources/images/user/client-face1.png" alt="">
+                                        <img src="resources/images/user/${popularUserList.user_photo }" alt="">
                                     </div>
                                 </div>
                                </c:forEach>

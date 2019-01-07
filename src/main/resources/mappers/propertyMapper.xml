@@ -5,6 +5,7 @@
 	
 <mapper namespace="PropertyDAO">
 
+
 	<!-- property 테이블에 대한 SQL 구문 작성 -->
 	
 	<insert id="openProperty" parameterType="PropertyVO">
@@ -53,13 +54,22 @@
 		ORDER BY property_date DESC
 	</select>
 	
-	<select id="getPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
+	<select id="getPropertyList" resultType="PropertyVO">
+		<![CDATA[
+		select * 
+		from property
+		order by property_id DESC
+		limit #{pageStart}, #{perPageNum}
+		]]>
+	</select>
+	
+<!-- 	<select id="getPropertyList" parameterType="Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
-		ORDER BY #{orderBy}
+		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
-	</select>
+	</select> -->
 	
 	<select id="getPropertyListByBadge" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
@@ -117,7 +127,7 @@
 		FROM property
 		WHERE property_user = #{property_user}
 		AND property_status = 'open'
-		ORDER BY #{orderBy}
+		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
 	
@@ -215,7 +225,7 @@
 			AND property_city = #{property_city}
 		</if>
 		AND #{key} = #{value}
-		ORDER BY #{orderBy}
+		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}		
 	</select>
 		

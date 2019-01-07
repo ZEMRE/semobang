@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.semobang.property.domain.Criteria;
 import com.semobang.property.domain.PropertyVO;
 import com.semobang.property.domain.SearchVO;
 import com.semobang.user.domain.UserVO;
@@ -70,15 +71,15 @@ public class PropertyDAOImpl implements PropertyDAO {
 	}
 
 	@Override
-	public List<PropertyVO> getPropertyList(int startRow, int propertyPerPage, String orderBy) {
-		// TODO Auto-generated method stub
+	public List<PropertyVO> getPropertyList(Criteria cri) {
+/*		// TODO Auto-generated method stub
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("startRow", startRow);
 		map.put("propertyPerPage", propertyPerPage);
-		map.put("orderBy", orderBy);
+		map.put("orderBy", orderBy);*/
 		
-		return null;
+		return sqlSession.selectList("getPropertyList", cri);
 	}
 
 	@Override
@@ -89,7 +90,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public List<PropertyVO> getPropertyListByBadge(int showAmount, String property_badge) {
-		Map<String, Object> map = new HashMap();
+		Map<String, Object> map = new HashMap<>();
 		map.put("showAmount", showAmount);
 		map.put("property_badge", property_badge);
 		
