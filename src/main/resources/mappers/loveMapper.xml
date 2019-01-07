@@ -24,7 +24,7 @@
 		WHERE love_id = #{love_id}
 	</delete>
 	
-	<select id="getLoveCount" parameterType="int">
+	<select id="getLoveCount" parameterType="int" resultType="Integer">
 		SELECT count(*)
 		FROM love
 		WHERE love_property = #{property_id}

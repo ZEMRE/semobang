@@ -310,7 +310,7 @@
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-two proerty-item">
                                 <div class="item-thumb">
-                                    <a href="#" ><img src="resources/images/property/demo/property-2.jpg"></a>
+                                    <a href="./${mainList.property_id}" ><img src="resources/images/property/demo/property-2.jpg"></a>
                                 </div>
                                 <div class="item-entry overflow">
                                     <h5><a href="./${mainList.property_id}" >${mainList.property_title} </a></h5>

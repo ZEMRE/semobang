@@ -26,18 +26,22 @@ public class LoveController {
 	
 	@RequestMapping(value = "/onLove", method = RequestMethod.POST, produces="application/json; charset=utf-8")
 	public @ResponseBody int onLove(HttpServletRequest request) throws Exception {
-		 
+		
 		int love_property = Integer.parseInt(request.getParameter("property_id"));
 	     String love_user = request.getParameter("user_email");
-	     
+
 	     LoveVO lvo = new LoveVO();
 	     
 	     lvo.setLove_property(love_property);
 	     lvo.setLove_user(love_user);
 		
-		int result = onLove.service(lvo);
+		int result = 10;		
 		
-		System.out.println(result);
+		 if(love_user.isEmpty()) {
+	    	 result = 100;
+	     }else {
+	    	 result = onLove.service(lvo);
+	     }
 
 		return result;
 	}

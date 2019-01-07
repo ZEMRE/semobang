@@ -1,5 +1,6 @@
 package com.semobang.semobang;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -104,6 +105,22 @@ public class HomeController {
 		//사용자가 클릭한 매물의 정보 얻기
 		PropertyVO pvo = pdao.getProperty(property_id);
 		
+		//사용자가 클릭한 매물의 property_carousel값 얻기
+		String property_carousel = pvo.getProperty_carousel();
+		List<String> carouselList = new ArrayList<>();
+
+		if(pvo.getProperty_carousel().isEmpty()) {
+			carouselList.add("property4.jpg");
+		}else {
+			String[] propertyCarousel = new String(property_carousel).split(",");
+			for(String propertycarousel: propertyCarousel) {
+				carouselList.add(propertycarousel);
+			}
+		}
+		
+		//사용자가 클릭한 중개인 정보 얻기
+		UserVO uvo = udao.getUser(pvo.getProperty_user());
+		
 		//사용자가 클릭한 매물의 중개인 매물 리스트 얻기
 		List<PropertyVO> agentList = pdao.getPropertyListByAgent(0, 4, pvo.getProperty_user(), "property_date DESC");
 		//세션영역에서 memberVO객체 받아오기
@@ -115,11 +132,15 @@ public class HomeController {
 			if(lvo != null) {heartval = 1;}
 		}
 		
+		//Similar List 얻기
+		List<PropertyVO> similarList = pdao.getSimilarPropertyList(6, pvo);
+		
+		
 		//사용자가 검색한 '시'의  '구'리스트 얻기
 		List<String> guList = pdao.getGuList(svo.getSearch_city());
 		
 		if(svo.getSearch_max_bedroom() == null) {
-			svo.setSearch_max_bedroom("10");}
+			svo.setSearch_max_bedroom("3");}
 		if(svo.getSearch_max_deposit() == null) {
 			svo.setSearch_max_deposit("3000");		
 		}
@@ -130,7 +151,7 @@ public class HomeController {
 			svo.setSearch_max_price2("100");
 		}
 		if(svo.getSearch_max_size()==null) {
-			svo.setSearch_max_size("50");
+			svo.setSearch_max_size("30");
 		}
 		if(svo.getSearch_min_bedroom()==null) {
 			svo.setSearch_min_bedroom("1");
@@ -145,7 +166,7 @@ public class HomeController {
 			svo.setSearch_min_price2("50");
 		}
 		if(svo.getSearch_min_size()==null) {
-			svo.setSearch_min_size("30");
+			svo.setSearch_min_size("10");
 		}
 		
 		if(pvo.getProperty_video().isEmpty()) {
@@ -180,9 +201,9 @@ public class HomeController {
 		model.addAttribute("searchOption64", searchOption64);
 		model.addAttribute("searchOption128", searchOption128);
 		model.addAttribute("searchOption256", searchOption256);
-		
-		System.out.println(svo.getSearch_max_bedroom());
-		System.out.println(svo.getSearch_min_bedroom());
+		model.addAttribute("similarList", similarList);
+		model.addAttribute("carouselList", carouselList);
+		model.addAttribute("uvo", uvo);
 		
 		return "property";
 	}
@@ -212,10 +233,10 @@ public class HomeController {
 		String propertyUser = request.getParameter("propertyUser");
 		String contents = request.getParameter("contents");
 		
-		System.out.println(userName);
+/*		System.out.println(userName);
 		System.out.println(propertyId);
 		System.out.println(propertyUser);
-		System.out.println(contents);
+		System.out.println(contents);*/
 		
 		return 0;
 	}

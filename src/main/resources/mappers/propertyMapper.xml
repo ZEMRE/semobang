@@ -24,7 +24,7 @@
 		WHERE property_id = #{property_id}
 	</update>
 	
-	<update id="updateLoveCount" parameterType="int">
+	<update id="updateLoveCount" parameterType="Map">
 		UPDATE property
 		SET property_love_count = #{count}
 		WHERE property_id = #{property_id}
@@ -125,9 +125,17 @@
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
-		AND property_category = #{property_category}
-		AND property_type = #{property_type}
-		AND property_city = #{property_city} 
+		<choose>
+			<when test="property_category != null and property_category != ''">
+				AND property_category = #{property_category}
+			</when>
+			<when test="property_type != null and property_type != ''">
+				AND property_type = #{property_type}
+			</when>
+			<when test="property_city != null and property_city != ''">
+				AND property_city = #{property_city}
+			</when>			
+		</choose>	
 		ORDER BY property_read_count DESC
 		LIMIT 0, #{showAmount}
 	</select>	

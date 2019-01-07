@@ -21,7 +21,7 @@ public interface PropertyDAO {
 	
 	// 러브 카운트 업데이트
 	// 사용자가 러브 누르는 경우 업데이트
-	public int updateLoveCount(int property_id);
+	public int updateLoveCount(int property_id, int count);
 	
 	// 선택한 매물정보 가져오기
 	// 푸터의 퀵 서치창

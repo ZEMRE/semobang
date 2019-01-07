@@ -41,6 +41,6 @@ public class LoveDAOImpl implements LoveDAO {
 	@Override
 	public int getLoveCount(int property_id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("getLoveCount",property_id);
 	}
 }

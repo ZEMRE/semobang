@@ -61,7 +61,6 @@
         
     </head>
     <body>
-	<h1>${member.user_email}</h1>
         <div id="preloader">
             <div id="status">&nbsp;</div>
         </div>
@@ -145,18 +144,11 @@
                                             
                                     <div class="clearfix">
                                         <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                           <li data-thumb="resources/images/property/demo/property-1.jpg"> 
-                                                <img src="resources/images/property/demo/property-1.jpg" /> 
+                                        <c:forEach var="carouselList" items="${carouselList}">
+                                           <li data-thumb="resources/images/property/demo/${carouselList}"> 
+                                                <img src="resources/images/property/demo/${carouselList}" /> 
                                             </li>
-                                            <li data-thumb="resources/images/property/demo/property-2.jpg"> 
-                                                <img src="resources/images/property/demo/property-2.jpg" />
-                                            </li>
-                                            <li data-thumb="resources/images/property/demo/property-3.jpg"> 
-                                                <img src="resources/images/property/demo/property-3.jpg" />
-                                            </li>
-                                            <li data-thumb="resources/images/property/demo/property-4.jpg"> 
-                                                <img src="resources/images/property/demo/property-4.jpg" />
-                                            </li>                                         
+                                        </c:forEach>                                      
                                         </ul>
                                     </div>
                                 </div>
@@ -168,9 +160,9 @@
 								 
 								</div>
                                 <div class="section">
-                                    <h4 class="s-property-title">Description</h4>
+                                    <h4 class="s-property-title">매물 설명</h4>
                                     <div class="s-property-content">
-                                        <p>Nulla quis dapibus nisl. Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies                                </p>
+                                        <p>${pvo.property_content } </p>
                                     </div>
                                 </div>
                                 <!-- End description area  -->
@@ -182,48 +174,47 @@
                                     <ul class="additional-details-list clearfix">
                                         <li>
                                             <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">주소</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_address }</span>
                                         </li>
 
                                         <li>
                                             <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">카테고리</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2003</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_category }</span>
                                         </li>
                                         <li>
                                             <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">타입</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">2 Or More Spaces,Covered Parking,Valet Parking</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_type }</span>
+                                        </li>
+                                        
+                                        <li>
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">관리비</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_cost }</span>
+                                        </li>
+                                        
+                                        <li>
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">수용면적</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_size }</span>
                                         </li>
 
+										<li>
+                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">방 개수</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_bedroom }</span>
+                                        </li>
+                                        
                                         <li>
                                             <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">화장실</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">Yes</span>
+                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_bathroom }</span>
                                         </li>
 
                                     </ul>
                                 </div>  
                                 <!-- End additional-details area  -->
 
-                                <div class="section property-features">      
-
-                                    <h4 class="s-property-title">Features</h4>                            
-                                    <ul>
-                                        <li><a href="properties.html">Swimming Pool</a></li>   
-                                        <li><a href="properties.html">3 Stories</a></li>
-                                        <li><a href="properties.html">Central Cooling</a></li>
-                                        <li><a href="properties.html">Jog Path 2</a></li>
-                                        <li><a href="properties.html">2 Lawn</a></li>
-                                        <li><a href="properties.html">Bike Path</a></li>
-                                    </ul>
-
-                                </div>
-                                <!-- End features area  -->
-
 								<div class="section property-video" id="propertyVideo"> 
                                     <h4 class="s-property-title">Property Video</h4> 
                                     <div class="video-thumb">
                                         <video width="100%" controls>
 										  <source src="resources/images/property/demo/${pvo.property_video}" type="video/mp4">
-										  <source src="mov_bbb.ogg" type="video/ogg">
 										  Your browser does not support HTML5 video.
 										</video>
 
@@ -231,7 +222,9 @@
 								</div>
 
 						<!-- 지도 -->
-						<div class="section property-video"> 
+						<div class="section property-video map"> 
+							 <h4 class="s-property-title">Map</h4> 
+						
 						<div id="map" style="width:100%;height:350px;"></div>
 						
 						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b4fe286f637aa130ecff82f060b73320&libraries=services"></script>
@@ -249,7 +242,7 @@
 						var geocoder = new daum.maps.services.Geocoder();
 						
 						// 주소로 좌표를 검색합니다
-						geocoder.addressSearch('부산 부산진구 동천로 109', function(result, status) {
+						geocoder.addressSearch('${pvo.property_address}', function(result, status) {
 						
 						    // 정상적으로 검색이 완료됐으면 
 						     if (status === daum.maps.services.Status.OK) {
@@ -262,15 +255,18 @@
 						            position: coords
 						        });
 						
-						        // 인포윈도우로 장소에 대한 설명을 표시합니다
-						        var infowindow = new daum.maps.InfoWindow({
+						      /*   // 인포윈도우로 장소에 대한 설명을 표시합니다
+						         var infowindow = new daum.maps.InfoWindow({
 						            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-						        });
-						        infowindow.open(map, marker);
+						        }); 
+						         
+						        infowindow.open(map, marker); */
 						
 						        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
 						        map.setCenter(coords);
-						    } 
+						    }else{
+						         $(".map").hide();
+						    }
 						});    
 						</script>
 						</div>                         
@@ -279,51 +275,23 @@
                         </div>
 
                         <div class="similar-post-section padding-top-40"> 
+                            	 <h4 class="s-property-title">지금 보고 있는 방과 비슷한 방</h4>
                             <div id="prop-smlr-slide_0"> 
-                                <div class="box-two proerty-item">
-                                    <div class="item-thumb">
-                                        <a href="property-1.html" ><img src="resources/images/property/demo/property-1.jpg"></a>
-                                    </div>
-                                    <div class="item-entry overflow">
-                                        <h5><a href="property-1.html"> Super nice villa </a></h5>
-                                        <div class="dot-hr"></div>
-                                        <span class="pull-left"><b> Area :</b> 120m </span>
-                                        <span class="proerty-price pull-right"> $ 300,000</span> 
-                                    </div>
-                                </div> 
+
+                                <c:forEach var="similarList" items="${similarList}">
                                 <div class="box-two proerty-item">
                                     <div class="item-thumb">
                                         <a href="property-1.html" ><img src="resources/images/property/demo/property-2.jpg"></a>
                                     </div>
                                     <div class="item-entry overflow">
-                                        <h5><a href="property-1.html"> Super nice villa </a></h5>
+                                        <h5><a href="property-1.html"> ${similarList.property_title} </a></h5>
                                         <div class="dot-hr"></div>
                                         <span class="pull-left"><b> Area :</b> 120m </span>
                                         <span class="proerty-price pull-right"> $ 300,000</span> 
                                     </div>
                                 </div> 
-                                <div class="box-two proerty-item">
-                                    <div class="item-thumb">
-                                        <a href="property-1.html" ><img src="resources/images/property/demo/property-3.jpg"></a>
-                                    </div>
-                                    <div class="item-entry overflow">
-                                        <h5><a href="property-1.html"> Super nice villa </a></h5>
-                                        <div class="dot-hr"></div>
-                                        <span class="pull-left"><b> Area :</b> 120m </span>
-                                        <span class="proerty-price pull-right"> $ 300,000</span> 
-                                    </div>
-                                </div> 
-                                <div class="box-two proerty-item">
-                                    <div class="item-thumb">
-                                        <a href="property-1.html" ><img src="resources/images/property/demo/property-4.jpg"></a>
-                                    </div>
-                                    <div class="item-entry overflow">
-                                        <h5><a href="property-1.html"> Super nice villa </a></h5>
-                                        <div class="dot-hr"></div>
-                                        <span class="pull-left"><b> Area :</b> 120m </span>
-                                        <span class="proerty-price pull-right"> $ 300,000</span> 
-                                    </div>
-                                </div> 
+                                </c:forEach>
+                          
                             </div>
                         </div>
                     </div>
@@ -336,7 +304,14 @@
                                         <div class="single-property-header">  
                                         	<h1 class="property-title" id="propertyID">매물번호 : ${pvo.property_id}</h1>                                        
                                             <h1 class="property-title">${pvo.property_title}</h1>
-                                            <span class="property-price">${pvo.property_price}</span>  
+                                            <c:set var="propertyCategory" value="${pvo.property_category}"></c:set>
+                                            <c:if test="${propertyCategory == '월세'}" >
+                                            <span class="property-price">보증금 :  ${pvo.property_deposit}</span>  <br>
+                                            <span class="property-price">월세 :  ${pvo.property_price}</span> 
+                                            </c:if>
+                                            <c:if test="${propertyCategory == '전세' || propertyCategory == '매매'}">
+                                            <span class="property-price">가격 :  ${pvo.property_price}</span>
+                                            </c:if>
                                         </div>
 
                                          <div class="property-meta entry-meta clearfix ">   
@@ -431,22 +406,22 @@
                                         <div class="clear">
                                             <div class="col-xs-4 col-sm-4 dealer-face">
                                                 <a href="">
-                                                    <img src="resources/images/user/client-face1.png" class="img-circle">
+                                                    <img src="resources/images/user/${uvo.user_photo}" class="img-circle">
                                                 </a>
                                             </div>
                                             <div class="col-xs-8 col-sm-8 ">
                                                 <h3 class="dealer-name">
                                                     <a href="">${pvo.property_user}</a> <br>
-                                                    <span>Real Estate Agent</span>        
+                                                    <span>${uvo.user_company }</span>        
                                                 </h3>
                                                 <div class="dealer-social-media">
-                                                    <a class="twitter" target="_blank" href="">
+                                                    <a class="twitter" target="_blank" href="https://twitter.com/${uvo.user_tw}">
                                                         <i class="fa fa-twitter"></i>
                                                     </a>
-                                                    <a class="facebook" target="_blank" href="">
+                                                    <a class="facebook" target="_blank" href="https://www.facebook.com/${uvo.user_fb}">
                                                         <i class="fa fa-facebook"></i>
                                                     </a>
-                                                    <a class="instagram" target="_blank" href="">
+                                                    <a class="instagram" target="_blank" href="https://www.instagram.com/${uvo.user_ig}">
                                                         <i class="fa fa-instagram"></i>
                                                     </a>       
                                                 </div>
@@ -456,12 +431,12 @@
 
                                         <div class="clear">
                                             <ul class="dealer-contacts">                                       
-                                                <li><i class="pe-7s-map-marker strong"> </i> 9089 your adress her</li>
-                                                <li><i class="pe-7s-mail strong"> </i> email@yourcompany.com</li>
-                                                <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
-                                                <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
+                                                <li><i class="pe-7s-map-marker strong"> </i> ${uvo.user_address }</li>
+                                                <li><i class="pe-7s-mail strong"> </i>${uvo.user_email }</li>
+                                                <li><i class="pe-7s-call strong"> </i> ${uvo.user_telephone }</li>
+                                                <li><i class="pe-7s-phone strong"> </i> ${uvo.user_mobile }</li>                      
+                                                <li><i class="pe-7s-call strong"> </i> 통화가능 시간 : <%-- ${uvo.user_telephone_time } --%></li>
                                             </ul>
-                                            <p>Duis mollis  blandit tempus porttitor curabiturDuis mollis  blandit tempus porttitor curabitur , est non…</p>
                                         </div>
 
                                     </div>
@@ -478,14 +453,10 @@
                                          <c:forEach var="agentList" items="${agentList}">
                                         <li>
                                             <div class="col-md-3 col-sm-3 col-xs-3 blg-thumb p0">
-                                                <a href="single.html"><img src="resources/images/property/demo/small-property-2.jpg"></a>
-                                                <span class="property-seeker">
-                                                    <b class="b-1">A</b>
-                                                    <b class="b-2">S</b>
-                                                </span>
+                                                <a href="./${agentList.property_id}"><img src="resources/images/property/demo/small-property-2.jpg"></a>
                                             </div>
                                             <div class="col-md-8 col-sm-8 col-xs-8 blg-entry">
-                                                <h6> <a href="single.html">${agentList.property_title} </a></h6>
+                                                <h6> <a href="./${agentList.property_id}">${agentList.property_title} </a></h6>
                                                 <span class="property-price">${agentList.property_price}</span>
                                             </div>
                                         </li>
@@ -912,7 +883,7 @@
         
 		<script type="text/javascript">
 	        $(document).ready(function () {
-	        	
+
 	        	 $.toast.config.align = 'right';
 	        	 $.toast.config.width = 200;
 	        	 
@@ -975,29 +946,36 @@
 
             if(${heartval} == 1){$('#heart').prop("class","fa fa-heart");}
             
-            $('#love').on("click", function() {				
-				var sendData = {'property_id' : ${pvo.property_id}, 'user_email' : '${member.user_email}'};
-				$.ajax({
-					url:'./love/onLove',
-					type : 'POST',
-					data : sendData,
-					success : function(data){
-	                    if(data==0) {
-	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">좋아요 추가</div>', {
-					            duration: 3000,
-					            type: 'info'
-					          });
-	                        $('#heart').prop("class","fa fa-heart");
-	                    }
-	                    else{
-	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">좋아요 감소</div>', {
-					            duration: 3000,
-					            type: 'info'
-					          });
-	                        $('#heart').prop("class","fa fa-heart-o");
-	                    } 
-	                }
-				});
+            $('#love').on("click", function() {	
+            	
+            	
+            		var sendData = {'property_id' : ${pvo.property_id}, 'user_email' : '${member.user_email}'};
+    				$.ajax({
+    					url:'./love/onLove',
+    					type : 'POST',
+    					data : sendData,
+    					success : function(data){
+    	                    if(data==0) {
+    	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">좋아요 추가</div>', {
+    					            duration: 3000,
+    					            type: 'info'
+    					          });
+    	                        $('#heart').prop("class","fa fa-heart");
+    	                    }else if(data == 100){
+    	                    	$.toast('<div style="text-align: center; width:150px; height: 30px; margin-top:10px;">로그인이 필요한 서비스입니다.</div>', {
+    					            duration: 3000,
+    					            type: 'danger'
+    					          });
+    	                    }
+    	                    else{
+    	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">좋아요 감소</div>', {
+    					            duration: 3000,
+    					            type: 'info'
+    					          });
+    	                        $('#heart').prop("class","fa fa-heart-o");
+    	                    } 
+    	                }
+    				});
 				
 			});
             

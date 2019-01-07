@@ -27,14 +27,20 @@ public class OnLoveService {
 				if(getLoveVo == null) {	//Love 테이블에 정보가 없으면
 					System.out.println("러브추가");
 					ldao.insertLove(lvo);
+					
+					//매물의 좋아요 총 수 가져오기
+					int loveCount = ldao.getLoveCount(lvo.getLove_property());		
 					//좋아요 카운트 증가시키기
 					System.out.println("좋아요 증가");
-					pdao.updateLoveCount(lvo.getLove_property());
+					pdao.updateLoveCount(lvo.getLove_property(),loveCount);
 				}else {
 					System.out.println("러브삭제");
 					ldao.deleteLove(getLoveVo.getLove_id());
+					//매물의 좋아요 총 수 가져오기
+					int loveCount = ldao.getLoveCount(getLoveVo.getLove_property());	
+					//좋아요 카운트 감소시키기
 					System.out.println("좋아요 감소");
-					pdao.updateLoveCount(getLoveVo.getLove_property());
+					pdao.updateLoveCount(getLoveVo.getLove_property(),loveCount);
 					result = 1;
 				}
 		

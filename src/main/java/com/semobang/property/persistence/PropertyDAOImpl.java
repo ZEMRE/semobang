@@ -40,9 +40,15 @@ public class PropertyDAOImpl implements PropertyDAO {
 	}
 
 	@Override
-	public int updateLoveCount(int property_id) {
+	public int updateLoveCount(int property_id, int count) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("property_id", property_id);
+		map.put("count", count);
+		
+		return sqlSession.update("updateLoveCount", map);
 	}
 
 	@Override
@@ -146,7 +152,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("property_type", vo.getProperty_type());
 		map.put("property_city", vo.getProperty_city());
 
-		return null;
+		return sqlSession.selectList("getSimilarPropertyList", map);
 	}
 
 	@Override
