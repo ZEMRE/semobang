@@ -21,7 +21,7 @@ public interface PropertyDAO {
 	
 	// 러브 카운트 업데이트
 	// 사용자가 러브 누르는 경우 업데이트
-	public int updateLoveCount(int property_id);
+	public int updateLoveCount(int property_id, int count);
 	
 	// 선택한 매물정보 가져오기
 	// 푸터의 퀵 서치창
@@ -83,7 +83,7 @@ public interface PropertyDAO {
 	
 	// 에이전트별 매물 리스트 개수 계산하기
 	public int getPropertyListByAgentCount(String property_user);
-	
+
 	// 비슷한 매물 리스트 가져오기
 	// 같은 도시, 카테고리, 타입으로 검색한 것 중 조회수 높은 것
 	// property_status: open
@@ -102,14 +102,15 @@ public interface PropertyDAO {
 	
 	// 검색한 매물 리스트 개수 계산하기
 	public int getPropertyListBySearchCount(SearchVO vo);
-	
+
 	// 조건별 매물 리스트 가져오기
 	// 로그인인 경우 (관심 도시, 카테고리, 타입) + 조건
 	// 로그인 아니면 조건
 	// property_status: open
 	// 메인 화면에서 검색, 서치 결과 페이지
 	public List<PropertyVO> getPropertyListByCondition(int startRow, int propertyPerPage, boolean login, UserVO vo, String key, String value, String orderBy);
-	
+
+	// 조건별 매물 리스트 개수 계산하기
 	public int getPropertyListByConditionCount(boolean login, UserVO vo, String key, String value);
 		
 	// 특정 사용자가 올린 매물 리스트 가져오기
@@ -132,7 +133,7 @@ public interface PropertyDAO {
 	// 시 리스트 가져오기
 	// 메인 화면, 매물 상세보기 화면의 서치창
 	public List<String> getCityList();
-	
+
 	// 선택한 시의 구 리스트 가져오기
 	// 메인 화면, 매물 상세보기 화면의 서치창
 	public List<String> getGuList(String city);

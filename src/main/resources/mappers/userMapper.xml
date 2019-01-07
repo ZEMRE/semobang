@@ -9,13 +9,13 @@
 	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO user (user_email, user_pass, user_name, user_level)
-		VALUES (#{user_email}, #{user_pass}, ${user_name}, ${user_level})		
+		VALUES (#{user_email}, #{user_pass}, #{user_name}, #{user_level})			
 	</insert>
 	
 	<select id="duplicateCheck" parameterType="java.util.Map">
 		SELECT count(*)
 		FROM user
-		WHERE #{key} = #{value}
+		WHERE ${key} = #{value}
 	</select>	
 	
 	<!-- validateUser() 없음, 이메일로 getUser()로 vo 가져와서 vo.user_pass 확인 -->
@@ -30,10 +30,10 @@
 		UPDATE user
 		<choose>
 			<when test="value == 'Timestamp'">
-				SET #{key} = now()
+				SET ${key} = now()
 			</when>
 			<otherwise>
-				SET #{key} = #{value}
+				SET ${key} = #{value}
 			</otherwise>
 		</choose>			
 		WHERE user_email = #{user_email}
@@ -57,7 +57,7 @@
 		WHERE user_email = #{user_email}
 	</update>
 	
-	<select id="getUserPropertyCount" parameterType="String">
+	<select id="getUserPropertyCount" parameterType="String" resulType="int">
 		SELECT count(*)
 		FROM user u JOIN property p
 		ON u.user_email = p.property_user

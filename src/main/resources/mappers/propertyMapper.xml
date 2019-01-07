@@ -47,25 +47,25 @@
 		WHERE property_id = #{property_id}
 	</update>
 	
-	<select id="getPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
-		SELECT *
-		FROM property
-		WHERE property_status = 'open'
-		ORDER BY #{orderBy}
-		LIMIT #{startRow}, #{propertyPerPage}
-	</select>
-	
-	<select id="getPropertyListCount" parameterType="java.util.Map" resultType="int">
-		SELECT count(*)
-		FROM property
-		WHERE property_status = 'open'
-	</select>
-	
 	<select id="getPropertyListByAdmin" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		ORDER BY property_date DESC
-	</select>
+	</select>	
+
+	<select id="getPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
+		SELECT *
+		FROM property
+		WHERE property_status = 'open'
+		ORDER BY ${orderBy}
+		LIMIT #{startRow}, #{propertyPerPage}
+	</select>	
+
+	<select id="getPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+	</select>	
 	
 	<select id="getPropertyListByBadge" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
@@ -81,11 +81,19 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+      <choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+      </choose>	
 		</if>		  
-		ORDER BY property_love_count DESC, #{orderBy}
+		ORDER BY property_love_count DESC, ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
 	
@@ -94,63 +102,95 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
-		</if>
+      <choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+      </choose>	
+		</if>	
 	</select>
-	
+
 	<select id="getPopularPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+			<choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+		  </choose>	
 		</if>
-		ORDER BY property_read_count DESC, #{orderBy}
+		ORDER BY property_read_count DESC, ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
-	
+
 	<select id="getPopularPropertyListCount" parameterType="java.util.Map" resultType="int">
 		SELECT count(*)
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+			<choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+		  </choose>	
 		</if>
 	</select>
-	
+
 	<select id="getPropertyListByAgent" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_user = #{property_user}
 		AND property_status = 'open'
-		ORDER BY #{orderBy}
+		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
-	
+
 	<select id="getPropertyListByAgentCount" parameterType="String" resultType="int">
 		SELECT count(*)
 		FROM property
 		WHERE property_user = #{property_user}
 		AND property_status = 'open'
 	</select>
-	
+
 	<select id="getSimilarPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
-		AND property_category = #{property_category}
-		AND property_type = #{property_type}
-		AND property_city = #{property_city} 
+		<choose>
+			<when test="property_category != null and property_category != ''">
+				AND property_category = #{property_category}
+			</when>
+			<when test="property_type != null and property_type != ''">
+				AND property_type = #{property_type}
+			</when>
+			<when test="property_city != null and property_city != ''">
+				AND property_city = #{property_city}
+			</when>			
+		</choose>	
 		ORDER BY property_read_count DESC
 		LIMIT 0, #{showAmount}
 	</select>	
-	
+
 	<select id="getPropertyListBySearch" parameterType="SearchVO" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -278,18 +318,24 @@
 		</choose>		
 		AND property_option = #{search_option}	
 	</select>
-	
+
 	<select id="getPropertyListByCondition" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
-		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+    <if test="login == true">
+      <if test="property_category != null and property_category != ''">
+        AND property_category = #{property_category}
+      </if>
+      <if test="property_type != null and property_type != ''">
+        AND property_type = #{property_type}
+      </if>
+      <if test="property_city != null and property_city != ''">
+        AND property_city = #{property_city}
+      </if>			
 		</if>
-		AND #{key} = #{value}
-		ORDER BY #{orderBy}
+		AND ${key} = #{value}
+		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}		
 	</select>
 	
@@ -298,13 +344,19 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+      <if test="property_category != null and property_category != ''">
+        AND property_category = #{property_category}
+      </if>
+      <if test="property_type != null and property_type != ''">
+        AND property_type = #{property_type}
+      </if>
+      <if test="property_city != null and property_city != ''">
+        AND property_city = #{property_city}
+      </if>			
 		</if>
-		AND #{key} = #{value}		
+		AND ${key} = #{value}		
 	</select>
-	
+
 	<select id="getPropertyListByUser" parameterType="String" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -312,7 +364,7 @@
 		AND property_user = #{user_email}
 		ORDER BY property_date DESC
 	</select>
-	
+
 	<select id="getPropertyListByLove" parameterType="String" resultType="PropertyVO">
 		SELECT distinct property.*
 		FROM property
@@ -323,7 +375,7 @@
 		AND property_status = 'open'
 		ORDER BY love_id DESC
 	</select>
-		
+
 	<select id="getPropertySoldCount" parameterType="String">
 		SELECT count(*)
 		FROM property
@@ -334,13 +386,14 @@
 	<select id="getCityList" resultType="String">
 		SELECT property_city
 		FROM property
-		ORDER BY property_city ASC 
-	</select>
-	
+		GROUP BY property_city 
+	</select>	
+
 	<select id="getGuList" parameterType="String" resultType="String">
 		SELECT property_gu
 		FROM property
 		WHERE property_city = #{property_city}
-		ORDER BY property_gu ASC
+		GROUP BY property_gu
 	</select>
+	
 </mapper>

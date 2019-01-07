@@ -68,7 +68,9 @@ $(document).ready(function () {
     $('#property-geo').slider();
     $('#min-baths').slider();
     $('#min-bed').slider();
-
+    $('#property-geo2').slider();
+    
+    
     var RGBChange = function () {
         $('#RGB').css('background', '#FDC600')
     };

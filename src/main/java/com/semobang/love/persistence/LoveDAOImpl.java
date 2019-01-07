@@ -19,7 +19,7 @@ public class LoveDAOImpl implements LoveDAO {
 	@Override
 	public int insertLove(LoveVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.insert("insertLove", vo);
 	}
 
 	@Override
@@ -36,12 +36,12 @@ public class LoveDAOImpl implements LoveDAO {
 	@Override
 	public int deleteLove(int love_id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete("deleteLove", love_id);
 	}
 
 	@Override
 	public int getLoveCount(int property_id) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("getLoveCount",property_id);
 	}
 }

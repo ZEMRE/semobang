@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%-- <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %> --%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -43,6 +44,23 @@
     <style>
 	    .footer-area { background: #fff;	/* 푸터 배경 이미지 삭제 */ }		
 		.form-control:focus { color: #535353;	/* 푸터 퀵 서치 글자색 변경 */ }
+		#addressForm1,#addressForm2{width : 145px;}	/*시,구 셀렉트 너비 변경*/
+		.fa1{font-size: 50px; margin-top: 5px;}	/*tema search 아이콘 크기 변경*/
+		.welcome-estate a{fill: #FFF; color: #777;}
+		.welcome-icon:hover a{color: #fff;}
+	/* 	#searchGu{font-size: 13px;
+				box-sizing: border-box;
+				height : 40px;
+				line-height: 1.42857;
+				color: #eeeded;
+				background: rgba(252, 252, 252, 0.35) none repeat scroll 0% 0%;
+    			border-radius: 1px;
+   				 display: inline-block;
+    			overflow: hidden;
+    			width: 100%;
+    			text-align: left;
+		}
+ */
     </style>
     
     <body>
@@ -70,66 +88,92 @@
                                                 
                         <div class="search-form wow pulse" data-wow-delay="0.8s">
 
-                            <form action="" class=" form-inline">
+                            <form action="./list" class=" form-inline" name="searchForm" method="post">
+                            
+                            	<input type="hidden" name="search_option" id="search_option">
+                            
                                 <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Key word">
-                                </div>
-                                <div class="form-group">                                   
-                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
-
-                                        <option>New york, CA</option>
-                                        <option>Paris</option>
-                                        <option>Casablanca</option>
-                                        <option>Tokyo</option>
-                                        <option>Marraekch</option>
-                                        <option>kyoto , shibua</option>
+                                 <div class="form-group">                                   
+                                    <select id="lunchBegins" name="search_category" class="selectpicker" title="Select your category">
+                                        <option value="월세">월세</option>
+                                        <option value="전세">전세</option>
+                                        <option value="매매">매매</option>
                                     </select>
                                 </div>
                                 <div class="form-group">                                     
-                                    <select id="basic" class="selectpicker show-tick form-control">
-                                        <option> -Status- </option>
-                                        <option>Rent </option>
-                                        <option>Boy</option>
-                                        <option>used</option>  
+                                    <select id="basic" name="search_type" class="selectpicker show-tick form-control" title="Select your type">
+                                        <option value="원룸+">원룸+ </option>
+                                        <option value="오피스텔">오피스텔 </option>
+                                        <option value="빌라">빌라</option>
+                                        <option value="아파트">아파트</option>
+                                        <option value="상가/사무실">상가/사무실</option>  
 
                                     </select>
                                 </div>
-                                <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                
+                                <div class="form-group" id="addressForm1">                                   
+                                    <select id="searchCity" name="search_city" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Select your city">
+
+										<c:forEach var="cityList" items="${cityList}"> 
+                                        <option>${cityList}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group" id="addressForm2" data-live-search="true" data-live-search-style="begins" title="Select your district">  
+                                                               
+                                  <select id="searchGu" class="form-control" name="search_gu">
+                                  	<option>---</option>
+                                  </select>
+                                </div>
+                                
+                                <button class="btn search-btn" id="getCheckedAll"><i class="fa fa-search"></i></button>
 
                                 <div style="display: none;" class="search-toggle">
 
                                     <div class="search-row">   
 
-                                        <div class="form-group mar-r-20">
-                                            <label for="price-range">Price range ($):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[0,450]" id="price-range" ><br />
-                                            <b class="pull-left color">2000$</b> 
-                                            <b class="pull-right color">100000$</b>
+                                        <div class="form-group mar-r-20" id="priceRange1">
+                                            <label for="price-range">가격 (￦/만원) : </label>
+                                            <input type="text" class="span2" value="1000,100000" data-slider-min="1000" 
+                                                   data-slider-max="100000" data-slider-step="500" 
+                                                   data-slider-value="[10000,30000]" id="price-range" name="search_price"><br />
+                                            <b class="pull-left color">1000</b> 
+                                            <b class="pull-right color">100000 이상</b>
                                         </div>
                                         <!-- End of  -->  
-
-                                        <div class="form-group mar-l-20">
-                                            <label for="property-geo">Property geo (m2) :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[50,450]" id="property-geo" ><br />
-                                            <b class="pull-left color">40m</b> 
-                                            <b class="pull-right color">12000m</b>
+                                   
+                                        <div class="form-group mar-l-20" id="priceRange2" style="margin-left:-5px; margin-right: 15px;">
+	                                            <label for="property-geo">월세 (￦/만원) : </label>
+	                                            <input type="text" class="span2" value="30,500" data-slider-min="30" 
+	                                                   data-slider-max="500" data-slider-step="5" 
+	                                                   data-slider-value="[50,100]" id="property-geo" name="search_price2"><br />
+	                                            <b class="pull-left color">30 이하</b> 
+	                                            <b class="pull-right color">500 이상</b>
                                         </div>
+                                        
+                                          <div class="form-group mar-l-20">
+                                        	<div id="hidetest">
+	                                            <label for="property-geo2">보증금 (￦/만원) : </label>
+	                                            <input type="text" class="span2" value="500,10000" data-slider-min="500" 
+	                                                   data-slider-max="10000" data-slider-step="100" 
+	                                                   data-slider-value="[1000,3000]" id="property-geo2" name="search_deposit"><br />
+	                                            <b class="pull-left color">500 이하</b> 
+	                                            <b class="pull-right color">10000 이상</b>
+                                            </div>
+                                        </div>
+                                        
                                         <!-- End of  --> 
                                     </div>
 
                                     <div class="search-row">
 
                                         <div class="form-group mar-r-20">
-                                            <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-baths" ><br />
+                                            <label for="price-range">수용면적 (평형)  :</label>
+                                            <input type="text" class="span2" value="0,100" data-slider-min="0" 
+                                                   data-slider-max="100" data-slider-step="5" 
+                                                   data-slider-value="[10,30]" id="min-baths" name="search_size"><br />
                                             <b class="pull-left color">1</b> 
                                             <b class="pull-right color">120</b>
                                         </div>
@@ -137,22 +181,23 @@
 
                                         <div class="form-group mar-l-20">
                                             <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-bed" ><br />
+                                            <input type="text" class="span2" value="1,10" data-slider-min="1" 
+                                                   data-slider-max="10" data-slider-step="1" 
+                                                   data-slider-value="[1,3]" id="min-bed" name="search_bedroom"><br />
                                             <b class="pull-left color">1</b> 
                                             <b class="pull-right color">120</b>
                                         </div>
                                         <!-- End of  --> 
 
                                     </div>
+                                    
                                     <br>
                                     <div class="search-row">  
 
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Fire Place(3100)
+                                                    <input type="checkbox" id="opFull" name="optionValue" value="1"> FullOption
                                                 </label>
                                             </div>
                                         </div>
@@ -161,7 +206,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Dual Sinks(500)
+                                                    <input type="checkbox" id="opParking" name="optionValue" value="2"> 주차
                                                 </label>
                                             </div>
                                         </div>
@@ -170,7 +215,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Hurricane Shutters(99)
+                                                    <input type="checkbox" id="opEle" name="optionValue" value="4"> 엘리베이터
                                                 </label>
                                             </div>
                                         </div>
@@ -179,10 +224,10 @@
 
                                     <div class="search-row">  
 
-                                        <div class="form-group">
+                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Swimming Pool(1190)
+                                                    <input type="checkbox" id="opPet" name="optionValue" value="8"> 반려동물
                                                 </label>
                                             </div>
                                         </div>
@@ -191,7 +236,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> 2 Stories(4600)
+                                                    <input type="checkbox" id="opHeat" name="optionValue" value="16"> 개별난방
                                                 </label>
                                             </div>
                                         </div>
@@ -200,7 +245,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Emergency Exit(200)
+                                                    <input type="checkbox" id="opVer" name="optionValue" value="32"> 베란다
                                                 </label>
                                             </div>
                                         </div>
@@ -209,10 +254,10 @@
 
                                     <div class="search-row">  
 
-                                        <div class="form-group">
+                                      <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Laundry Room(10073)
+                                                    <input type="checkbox" id="opInternet" name="optionValue" value="64"> 인터넷
                                                 </label>
                                             </div>
                                         </div>
@@ -221,7 +266,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Jog Path(1503)
+                                                    <input type="checkbox" id="opSta" name="optionValue" value="128"> 역세권
                                                 </label>
                                             </div>
                                         </div>
@@ -230,7 +275,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> 26' Ceilings(1200)
+                                                    <input type="checkbox" id="opSouth" name="optionValue" value="256"> 남향
                                                 </label>
                                             </div>
                                         </div>
@@ -261,106 +306,21 @@
 
                 <div class="row">
                     <div class="proerty-th">
+                        <c:forEach var="mainList" items="${mainList}">
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-two proerty-item">
                                 <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="resources/assets/img/demo/property-1.jpg"></a>
+                                    <a href="./${mainList.property_id}" ><img src="resources/images/property/demo/property-2.jpg"></a>
                                 </div>
                                 <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
+                                    <h5><a href="./${mainList.property_id}" >${mainList.property_title} </a></h5>
                                     <div class="dot-hr"></div>
                                     <span class="pull-left"><b>Area :</b> 120m </span>
                                     <span class="proerty-price pull-right">$ 300,000</span>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="resources/assets/img/demo/property-2.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src="resources/assets/img/demo/property-3.jpg"></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="resources/assets/img/demo/property-4.jpg"></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src="resources/assets/img/demo/property-2.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="resources/assets/img/demo/property-4.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="resources/assets/img/demo/property-3.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
+						</c:forEach>
 
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-tree more-proerty text-center">
@@ -401,17 +361,17 @@
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                                <i class="pe-7s-home pe-4x"></i>
+                                               <a href="./list/searchList1/property_deposit=<1000"> <i class="pe-7s-home pe-4x"></i></a>
                                             </div>
-                                            <h3>Any property</h3>
+                                            <h3>보증금 1000만원 이하 오피스텔</h3>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                                <i class="pe-7s-users pe-4x"></i>
+                                                <a href="./list/searchList1/property_option=2"><i class="fa fa-automobile fa1"></i></a>
                                             </div>
-                                            <h3>More Clients</h3>
+                                            <h3>주차장 완비 상가</h3>
                                         </div>
                                     </div>
 
@@ -423,9 +383,9 @@
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                                <i class="pe-7s-notebook pe-4x"></i>
+                                                 <a href="./list/searchList1/property_option=8"><i class="fa fa-paw fa1"></i></a>
                                             </div>
-                                            <h3>Easy to use</h3>
+                                            <h3>반려동물과 함꼐하는 원룸</h3>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 m-padding">
@@ -459,149 +419,23 @@
                     <div class="row testimonial">
                         <div class="col-md-12">
                             <div id="testimonial-slider">
+                                <c:forEach var="popularUserList" items="${popularUserList}" end="5">
+                                
                                 <div class="item">
                                     <div class="client-text">                                
                                         <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
-                                        <h4><strong>Ohidul Islam, </strong><i>Web Designer</i></h4>
+                                        <h4><strong>${popularUserList.user_email }, </strong><i>Web Designer</i></h4>
                                     </div>
                                     <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
                                         <img src="resources/images/user/client-face1.png" alt="">
                                     </div>
                                 </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
-                                        <h4><strong>Ohidul Islam, </strong><i>Web Designer</i></h4>
-                                    </div>
-                                    <div class="client-face">
-                                        <img src="resources/images/user/client-face2.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
-                                        <h4><strong>Ohidul Islam, </strong><i>Web Designer</i></h4>
-                                    </div>
-                                    <div class="client-face">
-                                        <img src="resources/images/user/client-face1.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Nulla quis dapibus nisl. Suspendisse llam sed arcu ultried arcu ultricies !</p>
-                                        <h4><strong>Ohidul Islam, </strong><i>Web Designer</i></h4>
-                                    </div>
-                                    <div class="client-face">
-                                        <img src="resources/images/user/client-face2.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
+                               </c:forEach>
+                               
+                             
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
-
-        <!-- Count area -->
-        <div class="count-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
-                        <h2>You can trust Us </h2> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 percent-blocks m-main" data-waypoint-scroll="true">
-                        <div class="row">
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-users"></span>
-                                    </div>
-                                    <div class="chart" data-percent="5000">
-                                        <h2 class="percent" id="counter">0</h2>
-                                        <h5>HAPPY CUSTOMER </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-home"></span>
-                                    </div>
-                                    <div class="chart" data-percent="12000">
-                                        <h2 class="percent" id="counter1">0</h2>
-                                        <h5>Properties in stock</h5>
-                                    </div>
-                                </div> 
-                            </div> 
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-flag"></span>
-                                    </div>
-                                    <div class="chart" data-percent="120">
-                                        <h2 class="percent" id="counter2">0</h2>
-                                        <h5>City registered </h5>
-                                    </div>
-                                </div> 
-                            </div> 
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-graph2"></span>
-                                    </div>
-                                    <div class="chart" data-percent="5000">
-                                        <h2 class="percent"  id="counter3">5000</h2>
-                                        <h5>DEALER BRANCHES</h5>
-                                    </div>
-                                </div> 
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- boy-sale area -->
-        <div class="boy-sale-area">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-md-6 col-sm-10 col-sm-offset-1 col-md-offset-0 col-xs-12">
-                        <div class="asks-first">
-                            <div class="asks-first-circle">
-                                <span class="fa fa-search"></span>
-                            </div>
-                            <div class="asks-first-info">
-                                <h2>ARE YOU LOOKING FOR A Property?</h2>
-                                <p> varius od lio eget conseq uat blandit, lorem auglue comm lodo nisl no us nibh mas lsa</p>                                        
-                            </div>
-                            <div class="asks-first-arrow">
-                                <a href="properties.html"><span class="fa fa-angle-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-10 col-sm-offset-1 col-xs-12 col-md-offset-0">
-                        <div  class="asks-first">
-                            <div class="asks-first-circle">
-                                <span class="fa fa-usd"></span>
-                            </div>
-                            <div class="asks-first-info">
-                                <h2>DO YOU WANT TO SELL A Property?</h2>
-                                <p> varius od lio eget conseq uat blandit, lorem auglue comm lodo nisl no us nibh mas lsa</p>
-                            </div>
-                            <div class="asks-first-arrow">
-                                <a href="properties.html"><span class="fa fa-angle-right"></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12">
-                        <p  class="asks-call">QUESTIONS? CALL US  : <span class="strong"> + 3-123- 424-5700</span></p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -652,7 +486,59 @@
 					
 		    		alert("허위매물 신고 처리");
 				});
-		     })
+		    	
+		    	$("#priceRange2").hide();
+		    	
+		    	$("#lunchBegins").change(function() {
+		    		if($("#lunchBegins").val() == '전세' | $("#lunchBegins").val() == '매매'){
+					$("#hidetest").hide();
+					$("#priceRange2").hide();
+					$("#priceRange1").show();
+
+		    		}else{
+		    			$("#hidetest").show();
+		    			
+		    			$("#priceRange1").hide();	
+		    			$("#priceRange1").attr("style","display:none");
+		    			$("#priceRange2").show();
+
+		    		}
+				});
+		    	
+		    	$("#searchCity").change(function() {
+		    		
+		    		$("#searchGu").empty();
+		    		
+		    		$.ajax({
+		 		 		dataType : 'json',
+						url:'./searchGu',
+						type : 'POST',
+						data : {'propertyCity' : $("#searchCity").val()},
+						success : function(data){
+
+							$.each(data, function( index, value ) {
+				                  var option = "<option>"+value+"</option>";
+				                   $("#searchGu").append(option);
+				                });		
+							}			
+					});
+				});
+		    	
+		    	$("#getCheckedAll").click(function() {
+
+					sum=0;
+					
+					$("input[name=optionValue]:checked").each(function() {
+						
+						propertyOptionValue = parseInt($(this).val());
+						sum += propertyOptionValue;
+					});
+
+					document.searchForm.search_option.value = sum;
+					document.searchForm.submit();
+				});
+		    	
+		     });
 		</script>
     </body>
 </html>

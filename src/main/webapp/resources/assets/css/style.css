@@ -1959,11 +1959,11 @@ single property page
     overflow: hidden;
 }
 .single-property-content .lSAction > .lSNext {
-    background-image: url("../../assets/img/arrow-right.svg");
+    background-image: url("../../images/etc/arrow-right.svg");
     background-position: center center;
 }
 .single-property-content .lSAction > .lSPrev {
-    background-image: url("../../assets/img/arrow-left.svg");
+    background-image: url("../../images/etc/arrow-left.svg");
     background-position: center center;
 }
 
@@ -2019,7 +2019,6 @@ single property page
     font-size: 30px;
     letter-spacing: 1.5px;
     right: 0px;
-    border-bottom: 2px solid;
     line-height: 42px;
 } 
 .clearfix {
@@ -2224,7 +2223,7 @@ single property page
 Welcom 
 ======================================*/
 .Welcome-area{
-    background: #F3F3F3 url("../../assets/img/welcome-bg.png") no-repeat scroll left top;
+    background: #F3F3F3 url("../../images/main/welcome-bg.png") no-repeat scroll left top;
     position: relative;
 
 
@@ -2696,7 +2695,7 @@ padding-bottom: 15px;
     float: left;
     width: 24px;
     height: 24px;
-    content: "";
+    content: "�겎";
     color: #FDC600;
     font-size: 16px;
     line-height: 24px;
