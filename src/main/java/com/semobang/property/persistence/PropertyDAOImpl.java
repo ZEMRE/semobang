@@ -24,7 +24,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
 	public int increasePropertyHits(int property_id) {
 		
@@ -39,6 +39,7 @@ public class PropertyDAOImpl implements PropertyDAO {
  		
  		return result;
 	}
+	
 
 	@Override
 	public int updateLoveCount(int property_id, int count) {
@@ -52,11 +53,13 @@ public class PropertyDAOImpl implements PropertyDAO {
 		return sqlSession.update("updateLoveCount", map);
 	}
 
+	
 	@Override
 	public PropertyVO getProperty(int property_id) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne("getProperty",property_id);
 	}
+	
 
 	@Override
 	public int deleteProperty(int property_id) {
@@ -70,9 +73,11 @@ public class PropertyDAOImpl implements PropertyDAO {
 		return 0;
 	}
 
+
+	
 	@Override
 	public List<PropertyVO> getPropertyList(Criteria cri) {
-/*		// TODO Auto-generated method stub
+		/*
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("startRow", startRow);
@@ -81,7 +86,16 @@ public class PropertyDAOImpl implements PropertyDAO {
 		
 		return sqlSession.selectList("getPropertyList", cri);
 	}
+	
+	
+	@Override
+	public int getPropertyListCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
+
+	
 	@Override
 	public List<PropertyVO> getPropertyListByAdmin() {
 		// TODO Auto-generated method stub
@@ -90,7 +104,9 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public List<PropertyVO> getPropertyListByBadge(int showAmount, String property_badge) {
-		Map<String, Object> map = new HashMap<>();
+
+		Map<String, Object> map = new HashMap();
+    
 		map.put("showAmount", showAmount);
 		map.put("property_badge", property_badge);
 		
@@ -99,29 +115,41 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public List<PropertyVO> getRecommendPropertyList(int startRow, int propertyPerPage, boolean login, UserVO vo, String orderBy) {
-		// TODO Auto-generated method stub
+		
 		Map<String, Object> map = new HashMap<>();
-
+		
 		map.put("startRow", startRow);
 		map.put("propertyPerPage", propertyPerPage);
 		map.put("login", login);
-		
 		map.put("property_category", vo.getUser_interest_category());
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
 		map.put("orderBy", orderBy);
+
 		return sqlSession.selectList("getRecommendPropertyList", map);
+	}
+	
+	@Override
+	public int getRecommendPropertyListCount(boolean login, UserVO vo) {
+
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("login", login);
+		map.put("property_category", vo.getUser_interest_category());
+		map.put("property_type", vo.getUser_interest_type());
+		map.put("property_city", vo.getUser_interest_city());
+		
+		return 0;
 	}
 
 	@Override
 	public List<PropertyVO> getPopularPropertyList(int startRow, int propertyPerPage, boolean login, UserVO vo, String orderBy) {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<>();
 
+		Map<String, Object> map = new HashMap<>();
+		
 		map.put("startRow", startRow);
 		map.put("propertyPerPage", propertyPerPage);
 		map.put("login", login);
-		
 		map.put("property_category", vo.getUser_interest_category());
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
@@ -129,10 +157,23 @@ public class PropertyDAOImpl implements PropertyDAO {
 		
 		return null;
 	}
+	
+	@Override
+	public int getPopularPropertyListCount(boolean login, UserVO vo) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("login", login);
+		map.put("property_category", vo.getUser_interest_category());
+		map.put("property_type", vo.getUser_interest_type());
+		map.put("property_city", vo.getUser_interest_city());
+		
+		return 0;
+	}
 
 	@Override
 	public List<PropertyVO> getPropertyListByAgent(int startRow, int propertyPerPage, String property_user, String orderBy) {
-		// TODO Auto-generated method stub
+
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("startRow", startRow);
@@ -142,10 +183,17 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 		return sqlSession.selectList("getPropertyListByAgent", map);
 	}
-
+	
+	
+	@Override
+	public int getPropertyListByAgentCount(String property_user) {
+		// TODO Auto-generated method stub		
+		return 0;
+	}
+	
 	@Override
 	public List<PropertyVO> getSimilarPropertyList(int showAmount, PropertyVO vo) {
-
+		
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("showAmount", showAmount);
@@ -158,12 +206,33 @@ public class PropertyDAOImpl implements PropertyDAO {
 
 	@Override
 	public List<PropertyVO> getPropertyListBySearch(int startRow, int propertyPerPage, SearchVO vo, String orderBy) {
-
+		
 		vo.setSearch_startRow(startRow);
 		vo.setSearch_propertyPerPage(propertyPerPage);
 		vo.setSearch_order_by(orderBy); 	// property_date DESC, property_date ASC, property_price DESC, property_price ASC
-
+		
 		return null;
+	}
+	
+	@Override
+	public int getPropertyListBySearchCount(SearchVO vo) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	@Override
+	public int getPropertyListByConditionCount(boolean login, UserVO vo, String key, String value) {
+		
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("login", login);
+		map.put("property_category", vo.getUser_interest_category());
+		map.put("property_type", vo.getUser_interest_type());
+		map.put("property_city", vo.getUser_interest_city());
+		map.put("key", key);
+		map.put("value", value);
+		
+		return 0;
 	}
 
 	@Override
@@ -207,14 +276,15 @@ public class PropertyDAOImpl implements PropertyDAO {
 	
 	@Override
 	public List<String> getCityList() {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectList("getCityList");
+
 	}
 
 	@Override
 	public List<String> getGuList(String city) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectList("getGuList", city);
 	}
-	
-}
+
+}	

@@ -5,7 +5,6 @@
 	
 <mapper namespace="PropertyDAO">
 
-
 	<!-- property 테이블에 대한 SQL 구문 작성 -->
 	
 	<insert id="openProperty" parameterType="PropertyVO">
@@ -25,13 +24,13 @@
 		WHERE property_id = #{property_id}
 	</update>
 	
-	<update id="updateLoveCount" parameterType="Map">
+	<update id="updateLoveCount" parameterType="java.util.Map">
 		UPDATE property
 		SET property_love_count = #{count}
 		WHERE property_id = #{property_id}
 	</update>
 	
-	<select id="getProperty" parameterType="int" resultType="com.semobang.property.domain.PropertyVO">
+	<select id="getProperty" parameterType="int" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_id = #{property_id} 
@@ -52,8 +51,8 @@
 		SELECT *
 		FROM property
 		ORDER BY property_date DESC
-	</select>
-	
+	</select>	
+
 	<select id="getPropertyList" resultType="PropertyVO">
 		<![CDATA[
 		select * 
@@ -62,14 +61,12 @@
 		limit #{pageStart}, #{perPageNum}
 		]]>
 	</select>
-	
-<!-- 	<select id="getPropertyList" parameterType="Map" resultType="PropertyVO">
-		SELECT *
+
+	<select id="getPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
 		FROM property
 		WHERE property_status = 'open'
-		ORDER BY ${orderBy}
-		LIMIT #{startRow}, #{propertyPerPage}
-	</select> -->
+	</select>	
 	
 	<select id="getPropertyListByBadge" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
@@ -85,43 +82,81 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-		<choose>
-			<when test="property_category != null and property_category != ''">
-				AND property_category = #{property_category}
-			</when>
-			<when test="property_type != null and property_type != ''">
-				AND property_type = #{property_type}
-			</when>
-			<when test="property_city != null and property_city != ''">
-				AND property_city = #{property_city}
-			</when>			
-		</choose>	
+      <choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+      </choose>	
 		</if>		  
-		ORDER BY property_love_count DESC, #{orderBy}
+		ORDER BY property_love_count DESC, ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
 	
+	<select id="getRecommendPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="login == true">
+      <choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+      </choose>	
+		</if>	
+	</select>
+
 	<select id="getPopularPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
 			<choose>
-			<when test="property_category != null and property_category != ''">
-				AND property_category = #{property_category}
-			</when>
-			<when test="property_type != null and property_type != ''">
-				AND property_type = #{property_type}
-			</when>
-			<when test="property_city != null and property_city != ''">
-				AND property_city = #{property_city}
-			</when>			
-		</choose>	
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+		  </choose>	
 		</if>
-		ORDER BY property_read_count DESC, #{orderBy}
+		ORDER BY property_read_count DESC, ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
-	
+
+	<select id="getPopularPropertyListCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="login == true">
+			<choose>
+        <when test="property_category != null and property_category != ''">
+          AND property_category = #{property_category}
+        </when>
+        <when test="property_type != null and property_type != ''">
+          AND property_type = #{property_type}
+        </when>
+        <when test="property_city != null and property_city != ''">
+          AND property_city = #{property_city}
+        </when>			
+		  </choose>	
+		</if>
+	</select>
+
 	<select id="getPropertyListByAgent" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -130,7 +165,14 @@
 		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
 	</select>
-	
+
+	<select id="getPropertyListByAgentCount" parameterType="String" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_user = #{property_user}
+		AND property_status = 'open'
+	</select>
+
 	<select id="getSimilarPropertyList" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
@@ -148,7 +190,7 @@
 		</choose>	
 		ORDER BY property_read_count DESC
 		LIMIT 0, #{showAmount}
-	</select>	
+	</select>		
 
 	<select id="getPropertyListBySearch" parameterType="SearchVO" resultType="PropertyVO">
 		SELECT *
@@ -215,19 +257,88 @@
 		LIMIT #{search_startRow}, #{search_propertyPerPage}		
 	</select>
 	
+	<select id="getPropertyListBySearchCount" parameterType="SearchVO" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="search_category != null and search_category != ''">
+			AND property_category = #{search_category}
+		</if>
+		<if test="search_type != null and search_type != ''">
+			AND property_type = #{search_type}
+		</if>
+		<if test="search_city != null and search_city != ''">
+			AND property_city = #{search_city}
+		</if>
+		<if test="search_gu != null and search_gu != ''">
+			AND property_gu = #{search_gu}
+		</if>
+		<choose>
+			<when test="(search_min_price == null or search_min_price == '') and (search_max_price != null or search_max_price != '')">
+				AND property_price BETWEEN 0 AND #{search_max_price}
+			</when>
+			<when test="(search_min_price != null or search_min_price != '') and (search_max_price == null or search_max_price == '')">
+				AND property_price >= #{search_min_price}
+			</when>
+			<when test="(search_min_price != null or search_min_price != '') and (search_max_price != null or search_max_price != '')">
+				AND property_price BETWEEN #{search_min_price} AND #{search_max_price}
+			</when>			
+		</choose>
+		<choose>
+			<when test="(search_min_deposit == null or search_min_deposit == '') and (search_max_deposit != null or search_max_deposit != '')">
+				AND property_deposit BETWEEN 0 AND #{search_max_deposit}
+			</when>
+			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit == null or search_max_deposit == '')">
+				AND property_deposit >= #{search_min_deposit}
+			</when>
+			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit != null or search_max_deposit != '')">
+				AND property_deposit BETWEEN #{search_min_deposit} AND #{search_max_deposit}
+			</when>			
+		</choose>
+		<choose>
+			<when test="search_min_size == null or search_min_size == '') and search_max_size != null or search_max_size != '')">
+				AND property_size BETWEEN 0 AND #{search_max_size}
+			</when>
+			<when test="search_min_size != null or search_min_size != '') and search_max_size == null or search_max_size == '')">
+				AND property_size >= #{search_min_size}
+			</when>
+			<when test="search_min_size != null or search_min_size != '') and search_max_size != null or search_max_size != '')">
+				AND property_size BETWEEN #{search_min_size} AND #{search_max_size}
+			</when>			
+		</choose>
+		<choose>
+			<when test="search_min_bedroom == null or search_min_bedroom == '') and search_max_bedroom != null or search_max_bedroom != '')">
+				AND property_bedroom BETWEEN 0 AND #{search_max_bedroom}
+			</when>
+			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom == null or search_max_bedroom == '')">
+				AND property_bedroom >= #{search_min_bedroom}
+			</when>
+			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom != null or search_max_bedroom != '')">
+				AND property_bedroom BETWEEN #{search_min_bedroom} AND #{search_max_bedroom}
+			</when>			
+		</choose>		
+		AND property_option = #{search_option}	
+	</select>
+
 	<select id="getPropertyListByCondition" parameterType="java.util.Map" resultType="PropertyVO">
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
-		<if test="login == true">
-			AND property_category = #{property_category}
-			AND property_type = #{property_type}
-			AND property_city = #{property_city}
+    <if test="login == true">
+      <if test="property_category != null and property_category != ''">
+        AND property_category = #{property_category}
+      </if>
+      <if test="property_type != null and property_type != ''">
+        AND property_type = #{property_type}
+      </if>
+      <if test="property_city != null and property_city != ''">
+        AND property_city = #{property_city}
+      </if>			
 		</if>
-		AND #{key} = #{value}
+		AND ${key} = #{value}
 		ORDER BY ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}		
-	</select>
+	</select>	
 		
 	<select id="getPropertyListByUser" parameterType="String" resultType="PropertyVO">
 		SELECT *
@@ -237,6 +348,25 @@
 		ORDER BY property_date DESC
 	</select>
 		
+	
+	<select id="getPropertyListByConditionCount" parameterType="java.util.Map" resultType="int">
+		SELECT count(*)
+		FROM property
+		WHERE property_status = 'open'
+		<if test="login == true">
+      <if test="property_category != null and property_category != ''">
+        AND property_category = #{property_category}
+      </if>
+      <if test="property_type != null and property_type != ''">
+        AND property_type = #{property_type}
+      </if>
+      <if test="property_city != null and property_city != ''">
+        AND property_city = #{property_city}
+      </if>			
+		</if>
+		AND ${key} = #{value}		
+	</select>
+
 	<select id="getPropertyListByLove" parameterType="String" resultType="PropertyVO">
 		SELECT distinct property.*
 		FROM property
@@ -247,7 +377,7 @@
 		AND property_status = 'open'
 		ORDER BY love_id DESC
 	</select>
-	
+
 	<select id="getPropertySoldCount" parameterType="String">
 		SELECT count(*)
 		FROM property
@@ -259,7 +389,7 @@
 		SELECT property_city
 		FROM property
 		GROUP BY property_city 
-	</select>
+	</select>	
 
 	<select id="getGuList" parameterType="String" resultType="String">
 		SELECT property_gu
@@ -267,5 +397,5 @@
 		WHERE property_city = #{property_city}
 		GROUP BY property_gu
 	</select>
-	
+
 </mapper>

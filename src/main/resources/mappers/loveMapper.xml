@@ -12,7 +12,7 @@
 		VALUES (#{love_id}, #{love_user}, #{love_property})
 	</insert>
 	
-	<select id="getLove" parameterType="Map" resultType="LoveVO">
+	<select id="getLove" parameterType="java.util.Map" resultType="LoveVO">
 		SELECT *
 		FROM love
 		WHERE love_user = #{love_user}
@@ -24,7 +24,7 @@
 		WHERE love_id = #{love_id}
 	</delete>
 	
-	<select id="getLoveCount" parameterType="int" resultType="Integer">
+	<select id="getLoveCount" parameterType="int" resultType="int">
 		SELECT count(*)
 		FROM love
 		WHERE love_property = #{property_id}

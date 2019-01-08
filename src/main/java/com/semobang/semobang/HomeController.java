@@ -46,8 +46,8 @@ public class HomeController {
 		List<String> cityList = pdao.getCityList();
 		
 		//로그인 세션 얻기
-		UserVO member = udao.getUser("a@abc.com");
-/*		UserVO member = (UserVO)session.getAttribute("member");*/
+/*		UserVO member = udao.getUser("a@abc.com");*/
+		UserVO member = (UserVO)session.getAttribute("member");
 		session.setAttribute("member",member);
 		
 		//메인리스트 얻기

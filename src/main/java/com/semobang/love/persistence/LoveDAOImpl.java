@@ -24,12 +24,13 @@ public class LoveDAOImpl implements LoveDAO {
 
 	@Override
 	public LoveVO getLove(String love_user, int love_property) {
+		
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("love_user", love_user);
-		map.put("love_property", love_property);
+		map.put("love_property", love_property);		
 		
-		return sqlSession.selectOne("getLove",map);
+		return sqlSession.selectOne("getLove", map);
 	}
 
 	@Override
