@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-	<head>
+<head>
 		<meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>searchList</title>
@@ -40,30 +41,34 @@
         
         
 	</head>
+
+
+<body>
 	
 	<div id="preloader">
-            <div id="status">&nbsp;</div>
-        </div>
-        <!-- Body content -->
-    
-    <!-- Start Header -->
-		<jsp:include page="../header.jsp"></jsp:include>
-	<!-- End Header --
-
-        <!-- property area -->
+        <div id="status">&nbsp;</div>
+    </div>
+    <!-- Body content -->
+	
+	<!-- Start Header -->
+	<jsp:include page="../header.jsp"></jsp:include>
+	<!-- End Header -->
+	
+	<!-- property area -->
         <div class="properties-area recent-property" style="background-color: #FFF;">
             <div class="container">  
                 <div class="row">
-                     
-                <div class="col-md-3 p0 padding-top-40">
+                	<div class="col-md-3 p0 padding-top-40">
                     <div class="blog-asside-right pr0">
                         <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
                             <div class="panel-heading">
                                 <h3 class="panel-title">Smart search</h3>
                             </div>
+                            
                             <div class="panel-body search-widget">
-                                <form action="" class=" form-inline"> 
-                                    <fieldset>
+                                <form action="" class=" form-inline" name="searchform" id="searchform">
+                                
+                                	 <fieldset>
                                         <div class="row">
                                         	<div class="col-xs-6">
 
@@ -87,7 +92,7 @@
                                              
                                         </div>
                                     </fieldset>
-
+                                    
                                     <fieldset>
                                         <div class="row">
                                             <div class="col-xs-6">
@@ -110,8 +115,8 @@
                                             </div>
                                         </div>
                                     </fieldset>
-
-                                    <fieldset class="padding-5">
+                                    
+                                     <fieldset class="padding-5">
                                         <div class="row">
                                              <div class="col-xs-6">
                                                 
@@ -145,8 +150,8 @@
                                                 </div>
                                                 </div>                                              
                                         </div>
-                                    </fieldset>                                
-
+                                    </fieldset> 
+                                    
                                     <fieldset class="padding-5">
                                         <div class="row">
                                              <div class="col-xs-6">
@@ -168,8 +173,8 @@
                                                 </div>
                                         </div>
                                     </fieldset>
-
-                                    <fieldset class="padding-5">
+                                    
+                                     <fieldset class="padding-5">
 
                                            <div class="row">
                                                 <div class="col-xs-6">
@@ -194,7 +199,7 @@
                                             </div>                                          
                                        
                                     </fieldset>
-
+                                    
                                     <fieldset class="padding-5">
                                         <div class="row">
                                             <div class="col-xs-6"> 
@@ -215,7 +220,7 @@
                                                 </div>  
                                             </div> 
                                     </fieldset>
-
+                                    
                                     <fieldset class="padding-5">
                                        <div class="row">
                                                 <div class="col-xs-6"> 
@@ -236,8 +241,8 @@
                                                 </div>  
                                             </div>
                                     </fieldset>
-
-                                    <fieldset class="padding-5">
+                                    
+                                     <fieldset class="padding-5">
                                          <div class="row">
                                                 <div class="col-xs-6"> 
                                                     <div class="checkbox">
@@ -257,7 +262,8 @@
                                                 </div>  
                                             </div>
                                     </fieldset>
-
+                                    
+                                    
                                     <fieldset class="padding-5">
                                         <div class="row">
                                                 <div class="col-xs-12"> 
@@ -269,13 +275,13 @@
                                                     </div>
                                                 </div>  
                                             </div>
-                                    </fieldset>
-                                                                        
-                                </form>
+                                    </fieldset> 
+                                
+                            	</form>
                             </div>
                         </div>
-
-                        <div class="panel panel-default sidebar-menu wow fadeInRight animated">
+                        
+                         <div class="panel panel-default sidebar-menu wow fadeInRight animated">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Recommended</h3>
                             </div>
@@ -300,11 +306,11 @@
                                     </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-md-9  pr0 padding-top-40 properties-page">
-                    <div class="col-md-12 clear"> 
+	                </div>
+	                </div>
+	                
+	                 <div class="col-md-9  pr0 padding-top-40 properties-page">
+	                 	<div class="col-md-12 clear"> 
                         <div class="col-xs-10 page-subheader sorting pl0">
                             <ul class="sort-by-list">
                                 <li class="active">
@@ -317,23 +323,8 @@
                                         Property Price <i class="fa fa-sort-numeric-desc"></i>						
                                     </a>
                                 </li>
-                            </ul><!--/ .sort-by-list-->
+                            </ul>
 
-  <!--                           <div class="items-per-page">
-                                <label for="items_per_page"><b>Property per page :</b></label>
-                                <div class="sel">
-                                    <select id="items_per_page" name="per_page">
-                                        <option value="3">3</option>
-                                        <option value="6">6</option>
-                                        <option value="9">9</option>
-                                        <option selected="selected" value="12">12</option>
-                                        <option value="15">15</option>
-                                        <option value="30">30</option>
-                                        <option value="45">45</option>
-                                        <option value="60">60</option>
-                                    </select>
-                                </div>/ .sel
-                            </div>/ .items-per-page -->
                         </div>
 
                         <div class="col-xs-2 layout-switcher">
@@ -341,20 +332,41 @@
                             <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>                          
                         </div><!--/ .layout-switcher-->
                     </div>
-
-                    <div class="col-md-12 clear"> 
+	                 
+	                 <div class="col-md-12 clear"> 
                         <div id="list-type" class="proerty-th">
                         
                         <c:forEach var="propertyList" items="${propertyList}">
-                        
+                        		
                             <div class="col-sm-6 col-md-4 p0">
+
                                     <div class="box-two proerty-item">
+                                    
+									
                                         <div class="item-thumb">
-                                            <a href="#" onclick="getCheckedAll()" ><img src="../resources/images/property/demo/property-3.jpg"></a>
+                                        <form name="searchfr" id="searchfr" action="/semobang/${propertyList.property_id}" method="post">
+                                        <button class="btn" id="getChecked" type="submit"><img class="btn-img" src="../resources/images/property/demo/property-3.jpg""></button>
+                                           
+                                    <input type="hidden" name="search_option"  value="${svo.search_option}">
+									<input type="hidden" name="search_category" value="${svo.search_category}">
+									<input type="hidden" name="search_type"  value="${svo.search_type}">
+									<input type="hidden" name="search_city"  value="${svo.search_city}">
+									<input type="hidden" name="search_gu"  value="${svo.search_gu}">
+									<input type="hidden" name="search_min_price" value="${svo.search_min_price}">
+									<input type="hidden" name="search_max_price" value="${svo.search_max_price}">
+									<input type="hidden" name="search_min_price2" value="${svo.search_min_price2}">
+									<input type="hidden" name="search_max_price2" value="${svo.search_max_price2}">
+									<input type="hidden" name="search_min_deposit" value="${svo.search_min_deposit}">
+									<input type="hidden" name="search_max_deposit" value="${svo.search_max_deposit}">
+									<input type="hidden" name="search_min_size" value="${svo.search_min_size}">
+									<input type="hidden" name="search_max_size" value="${svo.search_max_size}">
+									<input type="hidden" name="search_min_bedroom" value="${svo.search_min_bedroom}">
+									<input type="hidden" name="search_max_bedroom" value="${svo.search_max_bedroom}">
+									</form>
                                         </div>
 
                                         <div class="item-entry overflow">
-                                            <h5><a href="/semobang/${propertyList.property_id}"> ${propertyList.property_title } </a></h5>
+                                            <h5><a href="#"> ${propertyList.property_title } </a></h5>
                                             <div class="dot-hr"></div>
                                             <span class="pull-left"><b> 매물번호 :</b> ${propertyList.property_id} </span>
                                             <span class="proerty-price pull-right"> $ 300,000</span>
@@ -366,21 +378,24 @@
                                             </div>
                                         </div>
 
-
+                                                                        
                                     </div>
+
                                 </div> 
+
+                                
 					</c:forEach>
 					
                         </div>
                     </div>
-                    
-                    <div class="col-md-12"> 
+	                 
+	                  <div class="col-md-12"> 
                         <div class="pull-right">
                             <div class="pagination">
 
                                 <ul>
                                 <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                                  	 <li><a href="./searchList?page=${num }&amount=15">${num }</a></li>
+                                  	 <li><a href="./searchList?page=${num }">${num }</a></li>
                                     </c:forEach>
                                     <!-- <li><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
@@ -391,151 +406,15 @@
                             </div>
                         </div>                
                     </div>
-                </div>  
-                </div>              
+	                 
+	               </div>
+	                
+                </div>
             </div>
         </div>
 
-          <!-- Footer area-->
-        <div class="footer-area">
 
-            <div class=" footer">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                            <div class="single-footer">
-                                <h4>About us </h4>
-                                <div class="footer-title-line"></div>
-
-                                <img src="assets/img/footer-logo.png" alt="" class="wow pulse" data-wow-delay="1s">
-                                <p>Lorem ipsum dolor cum necessitatibus su quisquam molestias. Vel unde, blanditiis.</p>
-                                <ul class="footer-adress">
-                                    <li><i class="pe-7s-map-marker strong"> </i> 9089 your adress her</li>
-                                    <li><i class="pe-7s-mail strong"> </i> email@yourcompany.com</li>
-                                    <li><i class="pe-7s-call strong"> </i> +1 908 967 5906</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                            <div class="single-footer">
-                                <h4>Quick links </h4>
-                                <div class="footer-title-line"></div>
-                                <ul class="footer-menu">
-                                    <li><a href="properties.html">Properties</a>  </li> 
-                                    <li><a href="#">Services</a>  </li> 
-                                    <li><a href="submit-property.html">Submit property </a></li> 
-                                    <li><a href="contact.html">Contact us</a></li> 
-                                    <li><a href="faq.html">fqa</a>  </li> 
-                                    <li><a href="faq.html">Terms </a>  </li> 
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                            <div class="single-footer">
-                                <h4>Last News</h4>
-                                <div class="footer-title-line"></div>
-                                <ul class="footer-blog">
-                                    <li>
-                                        <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                            <a href="single.html">
-                                                <img src="assets/img/demo/small-proerty-2.jpg">
-                                            </a>
-                                            <span class="blg-date">12-12-2016</span>
-
-                                        </div>
-                                        <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                            <h6> <a href="single.html">Add news functions </a></h6> 
-                                            <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                                        </div>
-                                    </li> 
-
-                                    <li>
-                                        <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                            <a href="single.html">
-                                                <img src="assets/img/demo/small-proerty-2.jpg">
-                                            </a>
-                                            <span class="blg-date">12-12-2016</span>
-
-                                        </div>
-                                        <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                            <h6> <a href="single.html">Add news functions </a></h6> 
-                                            <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                                        </div>
-                                    </li> 
-
-                                    <li>
-                                        <div class="col-md-3 col-sm-4 col-xs-4 blg-thumb p0">
-                                            <a href="single.html">
-                                                <img src="assets/img/demo/small-proerty-2.jpg">
-                                            </a>
-                                            <span class="blg-date">12-12-2016</span>
-
-                                        </div>
-                                        <div class="col-md-8  col-sm-8 col-xs-8  blg-entry">
-                                            <h6> <a href="single.html">Add news functions </a></h6> 
-                                            <p style="line-height: 17px; padding: 8px 2px;">Lorem ipsum dolor sit amet, nulla ...</p>
-                                        </div>
-                                    </li> 
-
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6 wow fadeInRight animated">
-                            <div class="single-footer news-letter">
-                                <h4>Stay in touch</h4>
-                                <div class="footer-title-line"></div>
-                                <p>Lorem ipsum dolor sit amet, nulla  suscipit similique quisquam molestias. Vel unde, blanditiis.</p>
-
-                                <form>
-                                    <div class="input-group">
-                                        <input class="form-control" type="text" placeholder="E-mail ... ">
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-primary subscribe" type="button"><i class="pe-7s-paper-plane pe-2x"></i></button>
-                                        </span>
-                                    </div>
-                                    <!-- /input-group -->
-                                </form> 
-
-                                <div class="social pull-right"> 
-                                    <ul>
-                                        <li><a class="wow fadeInUp animated" href="https://twitter.com/kimarotec"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://www.facebook.com/kimarotec" data-wow-delay="0.2s"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://plus.google.com/kimarotec" data-wow-delay="0.3s"><i class="fa fa-google-plus"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://instagram.com/kimarotec" data-wow-delay="0.4s"><i class="fa fa-instagram"></i></a></li>
-                                        <li><a class="wow fadeInUp animated" href="https://instagram.com/kimarotec" data-wow-delay="0.6s"><i class="fa fa-dribbble"></i></a></li>
-                                    </ul> 
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-copy text-center">
-                <div class="container">
-                    <div class="row">
-                        <div class="pull-left">
-                            <span> (C) <a href="http://www.KimaroTec.com">KimaroTheme</a> , All rights reserved 2016  </span> 
-                        </div> 
-                        <div class="bottom-menu pull-right"> 
-                            <ul> 
-                                <li><a class="wow fadeInUp animated" href="#" data-wow-delay="0.2s">Home</a></li>
-                                <li><a class="wow fadeInUp animated" href="#" data-wow-delay="0.3s">Property</a></li>
-                                <li><a class="wow fadeInUp animated" href="#" data-wow-delay="0.4s">Faq</a></li>
-                                <li><a class="wow fadeInUp animated" href="#" data-wow-delay="0.6s">Contact</a></li>
-                            </ul> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        
-        <script src="../resources/assets/js/modernizr-2.6.2.min.js"></script>
+ 	 <script src="../resources/assets/js/modernizr-2.6.2.min.js"></script>
 
         <script src="../resources/assets/js/jquery-1.10.2.min.js"></script> 
         <script src="../resources/bootstrap/js/bootstrap.min.js"></script>
@@ -553,7 +432,7 @@
 
         <script src="../resources/assets/js/main.js"></script>
         
-        <script type="text/javascript">
+         <script type="text/javascript">
         $(document).ready(function () {
         	
         	$("#searchCity").change(function() {
@@ -612,14 +491,8 @@
         	
         });
         
-        </script>
-        
-        <script type="text/javascript">
-        	function getCheckedAll() {
-				alert("클릭클릭")	
-			}
-        </script>
-        
-        
-    </body>
+        </script>		
+
+
+</body>
 </html>

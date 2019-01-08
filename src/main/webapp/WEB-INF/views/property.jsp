@@ -57,6 +57,12 @@
         	.favorite-and-print i{color: #fff; font-size:35px;}
         	.favorite-and-print i:hover {cursor: pointer; color: #f00;}
         	#propertyID {font-size: 17px;}
+        	
+        	.add-d-title{ text-align: right;
+        	}
+        	
+        	.dealer-contacts i{ width: 18px;}
+        	#property-price{font-size: 20px; line-height:25px;}
         </style>
         
     </head>
@@ -162,7 +168,8 @@
                                 <div class="section">
                                     <h4 class="s-property-title">매물 설명</h4>
                                     <div class="s-property-content">
-                                        <p>${pvo.property_content } </p>
+                                    
+                                        <pre>${pvo.property_content } </pre>
                                     </div>
                                 </div>
                                 <!-- End description area  -->
@@ -173,37 +180,37 @@
 
                                     <ul class="additional-details-list clearfix">
                                         <li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">주소</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_address }</span>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">주소</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_address }</span>
                                         </li>
 
                                         <li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">카테고리</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_category }</span>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">카테고리</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_category }</span>
                                         </li>
                                         <li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">타입</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_type }</span>
-                                        </li>
-                                        
-                                        <li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">관리비</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_cost }</span>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">타입</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_type }</span>
                                         </li>
                                         
                                         <li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">수용면적</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_size }</span>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">관리비</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_cost }</span>
+                                        </li>
+                                        
+                                        <li>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">수용면적</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_size }</span>
                                         </li>
 
 										<li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">방 개수</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_bedroom }</span>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">방 개수</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_bedroom }</span>
                                         </li>
                                         
                                         <li>
-                                            <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">화장실</span>
-                                            <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">${pvo.property_bathroom }</span>
+                                            <span class="col-xs-6 col-sm-3 col-md-3 add-d-title">화장실</span>
+                                            <span class="col-xs-6 col-sm-9 col-md-9 add-d-entry">${pvo.property_bathroom }</span>
                                         </li>
 
                                     </ul>
@@ -306,11 +313,11 @@
                                             <h1 class="property-title">${pvo.property_title}</h1>
                                             <c:set var="propertyCategory" value="${pvo.property_category}"></c:set>
                                             <c:if test="${propertyCategory == '월세'}" >
-                                            <span class="property-price">보증금 :  ${pvo.property_deposit}</span>  <br>
-                                            <span class="property-price">월세 :  ${pvo.property_price}</span> 
+                                            <span class="property-price" id="property-price">보증금 :  ${pvo.property_deposit}</span>  <br>
+                                            <span class="property-price" id="property-price">월세 :  ${pvo.property_price}</span> 
                                             </c:if>
                                             <c:if test="${propertyCategory == '전세' || propertyCategory == '매매'}">
-                                            <span class="property-price">가격 :  ${pvo.property_price}</span>
+                                            <span class="property-price" id="property-price">가격 :  ${pvo.property_price}</span>
                                             </c:if>
                                         </div>
 
@@ -411,7 +418,7 @@
                                             </div>
                                             <div class="col-xs-8 col-sm-8 ">
                                                 <h3 class="dealer-name">
-                                                    <a href="">${pvo.property_user}</a> <br>
+                                                    <a href="">${uvo.user_name}</a> <br>
                                                     <span>${uvo.user_company }</span>        
                                                 </h3>
                                                 <div class="dealer-social-media">
@@ -432,7 +439,7 @@
                                         <div class="clear">
                                             <ul class="dealer-contacts">                                       
                                                 <li><i class="pe-7s-map-marker strong"> </i> ${uvo.user_address }</li>
-                                                <li><i class="pe-7s-mail strong"> </i>${uvo.user_email }</li>
+                                                <li><i class="pe-7s-mail strong"> </i> ${uvo.user_email }</li>
                                                 <li><i class="pe-7s-call strong"> </i> ${uvo.user_telephone }</li>
                                                 <li><i class="pe-7s-phone strong"> </i> ${uvo.user_mobile }</li>                      
                                                 <li>통화가능 시간 : <%-- ${uvo.user_telephone_time } --%></li>
@@ -774,7 +781,7 @@
 	            if((${pvo.property_option}&128) != 0){	 $("#search_option8").show();}
 	            if((${pvo.property_option}&256) != 0){	 $("#search_option9").show();}
 	            
-	            if(${pvo.property_video}==null){$("#propertyVideo").hide();}
+	            if('${pvo.property_video}'==null){$("#propertyVideo").hide();}
 	            
 	        	$("#search_category").val('${svo.search_category}');
 	        	$("#search_type").val('${svo.search_type}');

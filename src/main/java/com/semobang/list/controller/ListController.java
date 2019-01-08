@@ -59,6 +59,7 @@ public class ListController {
 		System.out.println(svo.getSearch_min_size());
 		System.out.println(svo.getSearch_option());*/
 		
+		
 		//시 리스트 얻기
 		List<String> cityList = pdao.getCityList();
 		
@@ -130,8 +131,7 @@ public class ListController {
 		pageMaker.setTotalCount(15);
 		
 		model.addAttribute("pageMaker", pageMaker);
-		
-		
+
 		return "list/searchList";
 	}
 	

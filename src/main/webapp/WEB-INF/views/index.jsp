@@ -48,6 +48,7 @@
 		.fa1{font-size: 50px; margin-top: 5px;}	/*tema search 아이콘 크기 변경*/
 		.welcome-estate a{fill: #FFF; color: #777;}
 		.welcome-icon:hover a{color: #fff;}
+		
 	/* 	#searchGu{font-size: 13px;
 				box-sizing: border-box;
 				height : 40px;
@@ -61,6 +62,14 @@
     			text-align: left;
 		}
  */
+ 	.client-face img{ width: 98px; height: 98px;}
+ 	.client-text p{ height: 70px; overflow: hidden; text-overflow: ellipsis; 
+ 	display: -webkit-box;
+	-webkit-line-clamp: 3; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap:break-word;}
+ 
+ 
     </style>
     
     <body>
@@ -423,16 +432,14 @@
                                 
                                 <div class="item">
                                     <div class="client-text">                                
-                                        <p>${popularUserList.user_about}</p>
-                                        <h4><strong>${popularUserList.user_email }, </strong><i>${popularUserList.user_company}</i></h4>
+                                       <p>${popularUserList.user_about }</p>
+                                        <h4><strong>${popularUserList.user_name }, </strong><i>${popularUserList.user_company}</i></h4>
                                     </div>
                                     <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
                                         <img src="resources/images/user/${popularUserList.user_photo }" alt="">
                                     </div>
                                 </div>
-                               </c:forEach>
-                               
-                             
+                               </c:forEach>                             
                         </div>
                     </div>
 

@@ -135,6 +135,17 @@ public class HomeController {
 		//Similar List 얻기
 		List<PropertyVO> similarList = pdao.getSimilarPropertyList(6, pvo);
 		
+		System.out.println(svo.getSearch_category());
+		System.out.println(svo.getSearch_city());
+		System.out.println(svo.getSearch_gu());
+		System.out.println(svo.getSearch_type());
+		System.out.println(svo.getSearch_option());
+		System.out.println(svo.getSearch_bedroom());
+		System.out.println(svo.getSearch_deposit());
+		System.out.println(svo.getSearch_price());
+		System.out.println(svo.getSearch_price2());
+		System.out.println(svo.getSearch_size());
+		
 		
 		//사용자가 검색한 '시'의  '구'리스트 얻기
 		List<String> guList = pdao.getGuList(svo.getSearch_city());
