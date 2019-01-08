@@ -1,5 +1,6 @@
 package com.semobang.user.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -15,17 +16,34 @@ public class UserDAOImpl implements UserDAO {
 	private SqlSession sqlSession;
 	
 	@Override
-	public int insertUser(UserVO vo) 
-	{
-		int result = sqlSession.update("insertUser", vo);
+	public int insertUser(UserVO uvo) {
 		
-		return result;
+		System.out.println("insertUser in UserDAOImp");
+		
+		return sqlSession.insert("UserDAO.insertUser", uvo);
+		
+		
+	}
+	@Override
+	public UserVO loginUser(UserVO uvo) {
+		
+		return sqlSession.selectOne("loginUser", uvo);
 	}
 
 	@Override
-	public int duplicateCheck(String key, String value) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int duplicateCheck(String user_email) {
+		
+		int result= -1;
+		
+		HashMap<String, Object> map = new HashMap<>();
+		
+		map.put("user_email", user_email);
+		
+		sqlSession.selectOne("duplicateCheck", map);
+		
+		result = (int)map.get("result");
+		
+		return result;
 	}
 
 	@Override
@@ -42,27 +60,8 @@ public class UserDAOImpl implements UserDAO {
 
 	@Override
 	public String randomPassword(int length) {
-		
-		char[] charSet = new char[] {
-										'0','1','2','3','4','5','6','7','8','9'
-										,'A','B','C','D','E','F','G','H','I','J','K','L','M'
-										,'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
-										,'a','b','c','d','e','f','g','h','i','j','k','l','m'
-										,'n','o','p','q','r','s','t','u','v','w','x','y','z'
-									};
-		
-		StringBuffer buffer = new StringBuffer();
-		
-		int index = 0;
-		
-		for (int i = 0; i < length; i++)
-		{
-			index = (int) (charSet.length * Math.random());
-			
-			buffer.append(charSet[index]);
-		}
-		
-		return buffer.toString();
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -71,12 +70,6 @@ public class UserDAOImpl implements UserDAO {
 		return 0;
 	}
 
-	@Override
-	public int updateUserProfileWithPhoto(UserVO vo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-	
 	@Override
 	public int updateUserProfile(UserVO vo) {
 		// TODO Auto-generated method stub
@@ -105,13 +98,5 @@ public class UserDAOImpl implements UserDAO {
 	public List<UserVO> getPopularUserList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("getPopularUserList");
-	}
-
-	@Override
-	public int updateUserSoldCount(String user_email, int count) {
-
-		// 실제 SQL 실행시에는 count를 String으로 넘겨줌
-		
-		return 0;
 	}
 }

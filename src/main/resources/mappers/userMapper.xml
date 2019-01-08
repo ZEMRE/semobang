@@ -7,11 +7,21 @@
 	
 	<!-- user 테이블에 대한 SQL 구문 작성 -->
 	
+	<!-- 로그인 -->
+	<select id="loginUser" resultType="UserVO" parameterType="String">
+		select *
+		from user
+		where user_email = #{user_email} and user_pass = #{user_pass}
+	</select>
+	
+	
 	<insert id="insertUser" parameterType="UserVO">
 		INSERT INTO user (user_email, user_pass, user_name, user_level)
 		VALUES (#{user_email}, #{user_pass}, ${user_name}, ${user_level})			
+
 	</insert>
 	
+
 	<select id="duplicateCheck" parameterType="String">
 		SELECT count(*)
 		FROM user
@@ -28,6 +38,7 @@
 	
 	<update id="updateUserColumn" parameterType="java.util.Map">
 		UPDATE user
+
 		<choose>
 			<when test="value == 'Timestamp'">
 				SET #{key} = now()
@@ -80,6 +91,7 @@
 		ORDER BY user_sold_count DESC
 	</select>
 	
+
 	<update id="updateUserSoldCount" parameterType="String">
 		UPDATE user
 		SET user_sold_count = #{count}
