@@ -44,7 +44,7 @@
 	                <span class="icon-bar"></span>
 	                <span class="icon-bar"></span>
 	            </button>
-	            <a class="navbar-brand" href="index"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo"></a>
+	            <a class="navbar-brand" href="${pageContext.request.contextPath}/index"><img src="${pageContext.request.contextPath}/resources/images/logo.png" alt="logo"></a>
 	        </div>
 	        
 	        <!-- Collect the nav links, forms, and other content for toggling -->
@@ -58,21 +58,21 @@
 	                <li class="wow fadeInDown" data-wow-delay="0.3s"><a href="list/recommendList">추천매물 보기</a></li>
 	                
 	                <li class="dropdown ymm-sw " data-wow-delay="0.4s">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">부동산 가이드 <b class="caret"></b></a>
+                        <a href="${pageContext.request.contextPath}/info/tipsList" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">부동산 가이드 <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
-                            <li><a href="info/tips2">분양정보 / 법률지식</a></li>
-                            <li><a href="info/tips1">부동산 상식</a></li>
-                            <li><a href="info/tips4">이사 꿀팁</a></li>
-                            <li><a href="info/tips3">생활 꿀팁</a></li>
+                            <li><a href="${pageContext.request.contextPath}/info/tips2">분양정보 / 법률지식</a></li>
+                            <li><a href="${pageContext.request.contextPath}/info/tips1">부동산 상식</a></li>
+                            <li><a href="${pageContext.request.contextPath}/info/tips4">이사 꿀팁</a></li>
+                            <li><a href="${pageContext.request.contextPath}/info/tips3">생활 꿀팁</a></li>
                         </ul>
                     </li> 
 	                
 	                <li class="dropdown ymm-sw " data-wow-delay="0.5s">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">고객 지원 <b class="caret"></b></a>
                         <ul class="dropdown-menu navbar-nav">
-                            <li><a href="info/faq">자주하는 질문</a></li>
+                            <li><a href="${pageContext.request.contextPath}/info/faq">자주하는 질문</a></li>
                             <li><a href="javascript:" class="report">허위매물 신고</a></li>
-                            <li><a href="info/contact"">문의하기</a></li>
+                            <li><a href="${pageContext.request.contextPath}/info/contact">문의하기</a></li>
                         </ul>
                     </li>
                   

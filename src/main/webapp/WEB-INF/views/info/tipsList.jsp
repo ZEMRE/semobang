@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> 
-<html class="no-js"> <!--<![endif]-->
+
+<html class="no-js">
      <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,132 +34,98 @@
         <link rel="stylesheet" href="../resources/assets/css/responsive.css">
     </head>
     <body>
-
-        <div id="preloader">
-            <div id="status">&nbsp;</div>
-        </div>
-        <!-- Body content -->
-		<!-- Start Header -->
+    	<!-- Start Header -->
 		<jsp:include page="../header.jsp"></jsp:include>
-		<!-- End Header -->   
-        
-        
-
-        <div class="page-head"> 
-            <div class="container">
-                <div class="row">
-                    <div class="page-head-content">
-                        <h1 class="page-title">부동산 가이드</h1>               
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End page header -->
-
-        <div class="content-area blog-page padding-top-40" style="background-color: #FCFCFC; padding-bottom: 55px;">
+		<!-- End Header --> .
+		 
+		<div class="page-head">
+		<div class="container">
+			<div class="row">
+				<div class="page-head-content">
+					<h1 class="page-title">부동산 가이드</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+    	<div class="content-area single-property" style="background-color: #FFF;">&nbsp;
             <div class="container">   
-                <div class="row">
-                    <div class="blog-lst col-md-12 pl0">
-                        <section class="post">
-                            <div class="text-center padding-b-50">
-                                <h2 class="wow fadeInLeft animated">FASHIN NOW 2015</h2>
-                                <div class="title-line wow fadeInRight animated"></div>
-                            </div>
 
-                            <!--
-                             <div class="row">
-                                <div class="col-sm-6">
-                                    <p class="author-category">
-                                        By <a href="#">John Snow</a>
-                                        in <a href="blog.html">Webdesign</a>
-                                    </p>
-                                </div>
-                                <div class="col-sm-6 right" >
-                                    <p class="date-comments">
-                                        <a href="single.html"><i class="fa fa-calendar-o"></i> June 20, 2013</a>
-                                        <a href="single.html"><i class="fa fa-comment-o"></i> 8 Comments</a>
-                                    </p>
-                                </div>
-                            </div>
-                             -->
-                            <div class="image wow fadeInLeft animated">
-                                <a href="tips1.jsp">
-                                    <img src="assets/img/blog2.jpg" class="img-responsive" alt="Example blog post alt">
-                                </a>
-                            </div>
-                            <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            <p class="read-more">
-                                <a href="single.html" class="btn btn-default btn-border">Continue reading</a>
-                            </p>
-                        </section>   
+                <div class="clearfix padding-top-40" >
+                   
+                    
+                    <div class="col-md-offset-0 col-md-12" style="background-color: rgb(251, 251, 251);">
+                        <div class="">
 
-                        <section class="post">
-                            <div class="text-center padding-b-50">
-                                <h2  class="wow fadeInLeft animated">FASHIN NOW 2015</h2>
-                                <div class="title-line wow fadeInRight animated"></div>
-                            </div>
+                            <div class="single-property-wrapper">
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <p class="author-category">
-                                        By <a href="#">John Snow</a>
-                                        in <a href="blog.html">Webdesign</a>
-                                    </p>
+                                <div class="section">
+                                    <h3 class="s-property-title"><b>부동산 가이드</b></h3>
+                                    <div class="s-property-content"><br>
+                                        <p>세모방이 알려주는 부동산 가이드 </p>
+                                    </div>
                                 </div>
-                                <div class="col-sm-6 right" >
-                                    <p class="date-comments">
-                                        <a href="single.html"><i class="fa fa-calendar-o"></i> June 20, 2013</a>
-                                        <a href="single.html"><i class="fa fa-comment-o"></i> 8 Comments</a>
-                                    </p>
-                                </div>
+                                <!-- End description area  -->
                             </div>
-                            <div class="image wow fadeInLeft animated">
-                                <a href="single.html">
-                                    <img src="assets/img/blog2.jpg" class="img-responsive" alt="Example blog post alt">
-                                </a>
-                            </div>
-                            <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            <p class="read-more">
-                                <a href="single.html" class="btn btn-default btn-border">Continue reading</a>
-                            </p>
-                        </section>  
+                        </div>
 
-                        <section class="post">
-                            <div class="text-center padding-b-50">
-                                <h2  class="wow fadeInLeft animated">FASHIN NOW 2015</h2>
-                                <div  class="title-line wow fadeInRight animated"></div>
+                        <div class="similar-post-section padding-top-40"> 
+                            <div id="prop-smlr-slide_0"> 
+                                <div class="box-two proerty-item">
+                                    <div class="item-thumb">
+                                        <a href="${pageContext.request.contextPath}/info/tips1" ><img src="../resources/images/info/tips1-1.png"></a>
+                                    </div>
+                                    <div class="item-entry overflow">
+                                        <h5><a href="${pageContext.request.contextPath}/info/tips1"> [부동산 상식] </a></h5>
+                                        <div class="dot-hr"></div>
+                                        <span class="pull-left"><b>ㅣ</b> 알쏭달쏭 부동산 용어 10선 </span>
+                                        <span class="proerty-price pull-right"> 1/4</span> 
+                                    </div>
+                                </div> 
+                                <div class="box-two proerty-item">
+                                    <div class="item-thumb">
+                                        <a href="${pageContext.request.contextPath}/info/tips2" ><img src="../resources/images/info/tips2-1.jpg"></a>
+                                    </div>
+                                    <div class="item-entry overflow">
+                                        <h5><a href="${pageContext.request.contextPath}/info/tips2">[분양정보 / 법률지식] </a></h5>
+                                        <div class="dot-hr"></div>
+                                        <span class="pull-left"><b>ㅣ</b> 임대차계약서 작성 상식 </span>
+                                        <span class="proerty-price pull-right"> 2/4</span> 
+                                    </div>
+                                </div> 
+                                <div class="box-two proerty-item">
+                                    <div class="item-thumb">
+                                        <a href="${pageContext.request.contextPath}/info/tips3" ><img src="../resources/images/info/tips3-1.png"></a>
+                                    </div>
+                                    <div class="item-entry overflow">
+                                        <h5><a href="${pageContext.request.contextPath}/info/tips3"> [생활꿀팁] </a></h5>
+                                        <div class="dot-hr"></div>
+                                        <span class="pull-left"><b> ㅣ</b>좋은 방 구하는 매물 체크리스트 </span>
+                                        <span class="proerty-price pull-right"> 3/4</span> 
+                                    </div>
+                                </div> 
+                                <div class="box-two proerty-item">
+                                    <div class="item-thumb">
+                                        <a href="${pageContext.request.contextPath}/info/tips4" ><img src="../resources/images/info/tips4-0.png"></a>
+                                    </div>
+                                    <div class="item-entry overflow">
+                                        <h5><a href="${pageContext.request.contextPath}/info/tips4"> [이사꿀팁] </a></h5>
+                                        <div class="dot-hr"></div>
+                                        <span class="pull-left"><b>ㅣ </b>이사비용 줄이는 꿀팁 </span>
+                                        <span class="proerty-price pull-right">4/4</span> 
+                                    </div>
+                                </div> 
                             </div>
+                        </div>
+                    </div>
 
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <p class="author-category">
-                                        By <a href="#">John Snow</a>
-                                        in <a href="blog.html">Webdesign</a>
-                                    </p>
-                                </div>
-                                <div class="col-sm-6 right" >
-                                    <p class="date-comments">
-                                        <a href="single.html"><i class="fa fa-calendar-o"></i> June 20, 2013</a>
-                                        <a href="single.html"><i class="fa fa-comment-o"></i> 8 Comments</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="image wow fadeInLeft animated">
-                                <a href="single.html">
-                                    <img src="assets/img/blog1.jpg" class="img-responsive" alt="Example blog post alt">
-                                </a>
-                            </div>
-                            <p class="intro">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-                            <p class="read-more">
-                                <a href="single.html" class="btn btn-default btn-border">Continue reading</a>
-                            </p>
-                        </section>  
+                    
 
-                    </div>  
                 </div>
 
             </div>
         </div>
+
+       
 
     	<!-- Start Footer -->
 		<jsp:include page="../footer.jsp"></jsp:include>
