@@ -12,7 +12,7 @@
         <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
-       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 
 
@@ -781,7 +781,7 @@
 	            if((${pvo.property_option}&128) != 0){	 $("#search_option8").show();}
 	            if((${pvo.property_option}&256) != 0){	 $("#search_option9").show();}
 	            
-	            if('${pvo.property_video}'==null){$("#propertyVideo").hide();}
+	            if('${pvo.property_video}'=='null'){$("#propertyVideo").hide();}
 	            
 	        	$("#search_category").val('${svo.search_category}');
 	        	$("#search_type").val('${svo.search_type}');

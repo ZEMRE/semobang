@@ -81,23 +81,14 @@ public class HomeController {
 		return guList;
 	}
 	
-/*	
-	// 사용자가 선택한 매물 상세보기로 이동
-	@RequestMapping("/list/searchList1/{searchoption}")
-	public String searchOption(Model model, @PathVariable String searchoption){
-		System.out.println(searchoption);
-		
-		//SQL 쿼리문
-		// property_deposit=<1000 : select * from property where property_deposit=<1000 AND property_type='studio apartment';
-		// property_option=2 : select * from property where (property_option&2) != 0  AND property_type='commerce';
-		// property_option=8 : select * from property where (property_option&8) != 0 AND property_type='one-room';
-		return null;
-	}*/
 	
 	// 사용자가 선택한 매물 상세보기로 이동
 	@RequestMapping("/{property_id}")
 	public String property(Model model,@PathVariable("property_id") int property_id,HttpSession session,@ModelAttribute SearchVO svo)
 	{	
+		//조회수 1증가
+		pdao.increasePropertyHits(property_id);
+
 		int heartval = 0;
 		//시 리스트 얻기
 		List<String> cityList = pdao.getCityList();
@@ -133,50 +124,38 @@ public class HomeController {
 		}
 		
 		//Similar List 얻기
-		List<PropertyVO> similarList = pdao.getSimilarPropertyList(6, pvo);
-		
-		System.out.println(svo.getSearch_category());
-		System.out.println(svo.getSearch_city());
-		System.out.println(svo.getSearch_gu());
-		System.out.println(svo.getSearch_type());
-		System.out.println(svo.getSearch_option());
-		System.out.println(svo.getSearch_bedroom());
-		System.out.println(svo.getSearch_deposit());
-		System.out.println(svo.getSearch_price());
-		System.out.println(svo.getSearch_price2());
-		System.out.println(svo.getSearch_size());
-		
+		List<PropertyVO> similarList = pdao.getSimilarPropertyList(6, pvo);		
 		
 		//사용자가 검색한 '시'의  '구'리스트 얻기
 		List<String> guList = pdao.getGuList(svo.getSearch_city());
 		
-		if(svo.getSearch_max_bedroom() == null) {
+		if(svo.getSearch_max_bedroom() == null || svo.getSearch_max_bedroom() == "" || svo.getSearch_max_bedroom().isEmpty()) {
 			svo.setSearch_max_bedroom("3");}
-		if(svo.getSearch_max_deposit() == null) {
+		if(svo.getSearch_max_deposit() == null || svo.getSearch_max_deposit() == "" || svo.getSearch_max_deposit().isEmpty()) {
 			svo.setSearch_max_deposit("3000");		
 		}
-		if(svo.getSearch_max_price()==null) {
+		if(svo.getSearch_max_price()==null || svo.getSearch_max_price() == "" || svo.getSearch_max_price().isEmpty()) {
 			svo.setSearch_max_price("30000");
 		}
-		if(svo.getSearch_max_price2()==null) {
+		if(svo.getSearch_max_price2()==null || svo.getSearch_max_price2() == "" || svo.getSearch_max_price2().isEmpty()) {
 			svo.setSearch_max_price2("100");
 		}
-		if(svo.getSearch_max_size()==null) {
+		if(svo.getSearch_max_size()==null || svo.getSearch_max_size() == "" || svo.getSearch_max_size().isEmpty()) {
 			svo.setSearch_max_size("30");
 		}
-		if(svo.getSearch_min_bedroom()==null) {
+		if(svo.getSearch_min_bedroom()==null || svo.getSearch_min_bedroom()==""|| svo.getSearch_min_bedroom().isEmpty()) {
 			svo.setSearch_min_bedroom("1");
 		}
-		if(svo.getSearch_min_deposit()==null) {
+		if(svo.getSearch_min_deposit()==null || svo.getSearch_min_deposit() == "" || svo.getSearch_min_deposit().isEmpty()) {
 			svo.setSearch_min_deposit("1000");
 		}
-		if(svo.getSearch_min_price()==null) {
+		if(svo.getSearch_min_price()==null || svo.getSearch_min_price() == "" || svo.getSearch_min_price().isEmpty()) {
 			svo.setSearch_min_price("10000");
 		}
-		if(svo.getSearch_min_price2()==null) {
+		if(svo.getSearch_min_price2()==null || svo.getSearch_min_price2() == "" || svo.getSearch_min_price2().isEmpty()) {
 			svo.setSearch_min_price2("50");
 		}
-		if(svo.getSearch_min_size()==null) {
+		if(svo.getSearch_min_size()==null || svo.getSearch_min_size() == "" || svo.getSearch_min_size().isEmpty()) {
 			svo.setSearch_min_size("10");
 		}
 		
@@ -184,17 +163,28 @@ public class HomeController {
 			pvo.setProperty_video("null");
 		}		
 		
-		int searchOption = svo.getSearch_option();
-		boolean searchOption1 = (searchOption&1) !=0;
-		boolean searchOption2 = (searchOption&2) !=0;
-		boolean searchOption4 = (searchOption&4) !=0;
-		boolean searchOption8 = (searchOption&8) !=0;
-		boolean searchOption16 = (searchOption&16) !=0;
-		boolean searchOption32 = (searchOption&32) !=0;
-		boolean searchOption64 = (searchOption&64) !=0;
-		boolean searchOption128 = (searchOption&128) !=0;
-		boolean searchOption256 = (searchOption&256) !=0;
-
+		boolean searchOption1 = false;
+		boolean searchOption2 = false;
+		boolean searchOption4 = false;
+		boolean searchOption8 = false;
+		boolean searchOption16 = false;
+		boolean searchOption32 = false;
+		boolean searchOption64 = false;
+		boolean searchOption128 = false;
+		boolean searchOption256 = false;
+		
+		if(svo.getSearch_option() != null && svo.getSearch_option() != "") {
+		int searchOption = Integer.parseInt(svo.getSearch_option());
+		searchOption1 = (searchOption&1) !=0;
+		searchOption2 = (searchOption&2) !=0;
+		searchOption4 = (searchOption&4) !=0;
+		searchOption8 = (searchOption&8) !=0;
+		searchOption16 = (searchOption&16) !=0;
+		searchOption32 = (searchOption&32) !=0;
+		searchOption64 = (searchOption&64) !=0;
+		searchOption128 = (searchOption&128) !=0;
+		searchOption256 = (searchOption&256) !=0;
+		}
 		
 		model.addAttribute("pvo",pvo);
 		model.addAttribute("agentList",agentList);
@@ -243,18 +233,43 @@ public class HomeController {
 		String propertyId = request.getParameter("propertyId");
 		String propertyUser = request.getParameter("propertyUser");
 		String contents = request.getParameter("contents");
-		
+/*		
 		System.out.println(userName);
 		System.out.println(propertyId);
 		System.out.println(propertyUser);
-		System.out.println(contents);
+		System.out.println(contents);*/
 		
 		return 0;
 	}
 	
+	@RequestMapping(value = "/quickSearch", method = RequestMethod.POST, produces = "application/json")
+	public @ResponseBody int quickSearch(HttpServletRequest request) throws Exception {
+	    int result = 5;
+		
+		int property_id = Integer.parseInt(request.getParameter("property_id"));
+		
+		PropertyVO pvo = pdao.getProperty(property_id);
+		
+		if(pvo != null) {
+		if(pvo.getProperty_status().equals("open")) {
+			result = 0;
+		}else if(pvo.getProperty_status().equals("hidden")) {
+			result = 1;
+		}else if(pvo.getProperty_status().equals("fake")) {
+			result = 2;
+		}else if(pvo.getProperty_status().equals("sold")) {
+			result = 3;
+		}else { result = 1;}
+		}else {result = 1; }
+		
+		return result;
+	}
 }
 
 /*
+ * 
+ * ./quickSearch
+ * 
  * ◆ alert창 plugin
 
 1. alertify - http://fabien-d.github.io/alertify.js/

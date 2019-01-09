@@ -38,9 +38,15 @@
         <link rel="stylesheet" href="../resources/assets/css/owl.transitions.css">
         <link rel="stylesheet" href="../resources/assets/css/style.css">
         <link rel="stylesheet" href="../resources/assets/css/responsive.css">
-        
-        
+               
 	</head>
+
+	<style>
+		#active-pagination{background-color: #d27e04; color: white;}
+		#getChecked{padding: 1px;}
+		#property-icon img{margin-top: 3px;}
+		.item-entry{height: 150px;}
+	</style>
 
 
 <body>
@@ -277,6 +283,14 @@
                                             </div>
                                     </fieldset> 
                                 
+                                <fieldset >
+                                        <div class="row">
+                                            <div class="col-xs-12">  
+                                                <input class="button btn largesearch-btn" value="Search" type="submit">
+                                            </div>  
+                                        </div>
+                                    </fieldset> 
+                                
                             	</form>
                             </div>
                         </div>
@@ -336,7 +350,7 @@
 	                 <div class="col-md-12 clear"> 
                         <div id="list-type" class="proerty-th">
                         
-                        <c:forEach var="propertyList" items="${propertyList}">
+                        <c:forEach var="searchList" items="${searchList}">
                         		
                             <div class="col-sm-6 col-md-4 p0">
 
@@ -344,9 +358,8 @@
                                     
 									
                                         <div class="item-thumb">
-                                        <form name="searchfr" id="searchfr" action="/semobang/${propertyList.property_id}" method="post">
+                                        <form name="searchfr" id="searchfr" action="/semobang/${searchList.property_id}" method="post">
                                         <button class="btn" id="getChecked" type="submit"><img class="btn-img" src="../resources/images/property/demo/property-3.jpg""></button>
-                                           
                                     <input type="hidden" name="search_option"  value="${svo.search_option}">
 									<input type="hidden" name="search_category" value="${svo.search_category}">
 									<input type="hidden" name="search_type"  value="${svo.search_type}">
@@ -366,15 +379,33 @@
                                         </div>
 
                                         <div class="item-entry overflow">
-                                            <h5><a href="#"> ${propertyList.property_title } </a></h5>
+                                            <h5><a href="#"> ${searchList.property_title } </a></h5>
                                             <div class="dot-hr"></div>
-                                            <span class="pull-left"><b> 매물번호 :</b> ${propertyList.property_id} </span>
+                                            <span class="pull-left"><b> 매물번호 :</b> ${searchList.property_id} </span>
                                             <span class="proerty-price pull-right"> $ 300,000</span>
                                             <p style="display: none;">Suspendisse ultricies Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium ...</p>
                                             <div class="property-icon">
-                                                <img src="assets/img/icon/bed.png">(5)|
-                                                <img src="assets/img/icon/shawer.png">(2)|
-                                                <img src="assets/img/icon/cars.png">(1)  
+                                                <c:set var="propertyOption" value="${searchList.property_option}" />
+                                            <% int propertyOption =  Integer.parseInt(pageContext.getAttribute("propertyOption").toString());                                         
+                                            if((propertyOption&1) != 0){%>
+                                                <img id="search_option1" src="../resources/images/icon/full_orange.png">| 
+                                                <%}  if((propertyOption&2) != 0){%>                                     
+                                                <img id="search_option2" src="../resources/images/icon/parking_orange.png">| 
+                                                <%}  if((propertyOption&4) != 0){%>                                              
+                                                <img id="search_option3" src="../resources/images/icon/lift_orange.png">|
+                                                <%}  if((propertyOption&8) != 0){%>  
+                                                <img id="search_option4" src="../resources/images/icon/animal_orange.png">|
+                                                <%}  if((propertyOption&16) != 0){%>  
+                                                <img id="search_option5" src="../resources/images/icon/heat_orange.png">|
+                                                <%}  if((propertyOption&32) != 0){%>  
+                                                <img id="search_option6" src="../resources/images/icon/veranda_orange.png">|
+                                                <%}  if((propertyOption&64) != 0){%>  
+                                                <img id="search_option7" src="../resources/images/icon/wifi_orange.png">|
+                                                <%}  if((propertyOption&128) != 0){%>  
+                                                <img id="search_option8" src="../resources/images/icon/Influence_orange.png">|
+                                                <%}  if((propertyOption&256) != 0){%>  
+                                                <img id="search_option9" src="../resources/images/icon/compass_orange.png">|
+                                                <%} %>  
                                             </div>
                                         </div>
 
@@ -392,17 +423,41 @@
 	                  <div class="col-md-12"> 
                         <div class="pull-right">
                             <div class="pagination">
-
+						
                                 <ul>
+                                <c:if test="${pageMaker.prev}"><li><a href='./searchList?page=${pageMaker.startPage-1}'>이전</a></li></c:if>
                                 <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                                  	 <li><a href="./searchList?page=${num }">${num }</a></li>
+                                
+                                  	<li>
+										<form name="pagingForm" id="pagingForm" action="">
+										<input type="hidden" name="page" id="page" value="${num}">
+										<input type="hidden" name="search_option"  value="${svo.search_option}">
+										<input type="hidden" name="search_category" value="${svo.search_category}">
+										<input type="hidden" name="search_type"  value="${svo.search_type}">
+										<input type="hidden" name="search_city"  value="${svo.search_city}">
+										<input type="hidden" name="search_gu"  value="${svo.search_gu}">
+										<input type="hidden" name="search_min_price" value="${svo.search_min_price}">
+										<input type="hidden" name="search_max_price" value="${svo.search_max_price}">
+										<input type="hidden" name="search_min_price2" value="${svo.search_min_price2}">
+										<input type="hidden" name="search_max_price2" value="${svo.search_max_price2}">
+										<input type="hidden" name="search_min_deposit" value="${svo.search_min_deposit}">
+										<input type="hidden" name="search_max_deposit" value="${svo.search_max_deposit}">
+										<input type="hidden" name="search_min_size" value="${svo.search_min_size}">
+										<input type="hidden" name="search_max_size" value="${svo.search_max_size}">
+										<input type="hidden" name="search_min_bedroom" value="${svo.search_min_bedroom}">
+										<input type="hidden" name="search_max_bedroom" value="${svo.search_max_bedroom}"> 
+										 </form>
+                                  	<a href="./searchList?page=${num}" id="<c:out value="${cri.page == num? 'active-pagination' : '' }"/>" class="pageA">${num}</a>
+                                   </li>
                                     </c:forEach>
+                                <c:if test="${pageMaker.next }"><li><a href='./searchList?page=${pageMaker.endPage +1}'>다음</a></li></c:if> 
                                     <!-- <li><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>
                                     <li><a href="#">4</a></li>
                                     <li><a href="#">Next</a></li> -->
                                 </ul>
+                               
                             </div>
                         </div>                
                     </div>
@@ -412,6 +467,8 @@
                 </div>
             </div>
         </div>
+
+
 
 
  	 <script src="../resources/assets/js/modernizr-2.6.2.min.js"></script>
@@ -489,6 +546,11 @@
 	    		}
 			});  
         	
+	            $(".pageA").click(function() {
+	            	
+	            	$('#pagingForm').submit();
+				});
+	            
         });
         
         </script>		

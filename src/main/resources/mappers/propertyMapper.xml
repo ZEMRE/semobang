@@ -55,14 +55,15 @@
 
 	<select id="getPropertyList" resultType="PropertyVO">
 		<![CDATA[
-		select * 
-		from property
-		order by property_id DESC
+		SELECT * 
+		FROM property
+		WHERE property_status = 'open'
+		ORDER BY property_date DESC
 		limit #{pageStart}, #{perPageNum}
 		]]>
 	</select>
 
-	<select id="getPropertyListCount" parameterType="java.util.Map" resultType="int">
+	<select id="getPropertyListCount" resultType="Integer">
 		SELECT count(*)
 		FROM property
 		WHERE property_status = 'open'
@@ -82,17 +83,15 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-      <choose>
-        <when test="property_category != null and property_category != ''">
-          AND property_category = #{property_category}
-        </when>
-        <when test="property_type != null and property_type != ''">
-          AND property_type = #{property_type}
-        </when>
-        <when test="property_city != null and property_city != ''">
-          AND property_city = #{property_city}
-        </when>			
-      </choose>	
+	        <if test="property_category != null and property_category != ''">
+	          AND property_category = #{property_category}
+	        </if>
+	        <if test="property_type != null and property_type != ''">
+	          AND property_type = #{property_type}
+	        </if>
+	        <if test="property_city != null and property_city != ''">
+	          AND property_city = #{property_city}
+	        </if>			
 		</if>		  
 		ORDER BY property_love_count DESC, ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
@@ -103,17 +102,15 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-      <choose>
-        <when test="property_category != null and property_category != ''">
+     	 <if test="property_category != null and property_category != ''">
           AND property_category = #{property_category}
-        </when>
-        <when test="property_type != null and property_type != ''">
+        </if>
+        <if  test="property_type != null and property_type != ''">
           AND property_type = #{property_type}
-        </when>
-        <when test="property_city != null and property_city != ''">
+        </if>
+        <if  test="property_city != null and property_city != ''">
           AND property_city = #{property_city}
-        </when>			
-      </choose>	
+        </if>	
 		</if>	
 	</select>
 
@@ -122,17 +119,15 @@
 		FROM property
 		WHERE property_status = 'open'
 		<if test="login == true">
-			<choose>
-        <when test="property_category != null and property_category != ''">
+		<if test="property_category != null and property_category != ''">
           AND property_category = #{property_category}
-        </when>
-        <when test="property_type != null and property_type != ''">
+        </if>
+        <if test="property_type != null and property_type != ''">
           AND property_type = #{property_type}
-        </when>
-        <when test="property_city != null and property_city != ''">
+        </if>
+        <if test="property_city != null and property_city != ''">
           AND property_city = #{property_city}
-        </when>			
-		  </choose>	
+        </if>	
 		</if>
 		ORDER BY property_read_count DESC, ${orderBy}
 		LIMIT #{startRow}, #{propertyPerPage}
@@ -188,6 +183,7 @@
 				AND property_city = #{property_city}
 			</when>			
 		</choose>	
+		AND property_id != #{property_id}
 		ORDER BY property_read_count DESC
 		LIMIT 0, #{showAmount}
 	</select>		
@@ -196,9 +192,10 @@
 		SELECT *
 		FROM property
 		WHERE property_status = 'open'
-		<if test="search_category != null and search_category != ''">
+
+<!--  		<if test="search_category != null and search_category != """>
 			AND property_category = #{search_category}
-		</if>
+		</if> -->
 		<if test="search_type != null and search_type != ''">
 			AND property_type = #{search_type}
 		</if>
@@ -208,52 +205,72 @@
 		<if test="search_gu != null and search_gu != ''">
 			AND property_gu = #{search_gu}
 		</if>
+ 		<if test='search_category != "월세" and search_category != null and search_category != ""'>
+ 		AND property_category = #{search_category}
 		<choose>
-			<when test="(search_min_price == null or search_min_price == '') and (search_max_price != null or search_max_price != '')">
+			<when test="(search_min_price == 1000) and (search_max_price != 100000)">
 				AND property_price BETWEEN 0 AND #{search_max_price}
 			</when>
-			<when test="(search_min_price != null or search_min_price != '') and (search_max_price == null or search_max_price == '')">
-				AND property_price >= #{search_min_price}
+			<when test="(search_min_price != 1000) and (search_max_price == 100000)">
+				<![CDATA[AND property_price >= #{search_min_price}]]>
 			</when>
-			<when test="(search_min_price != null or search_min_price != '') and (search_max_price != null or search_max_price != '')">
+			<when test="(search_min_price != 1000) and (search_max_price != 100000)">
 				AND property_price BETWEEN #{search_min_price} AND #{search_max_price}
 			</when>			
 		</choose>
+		</if>
+		<if test='search_category == "월세" and search_category != null and search_category != ""'>
+		AND property_category = #{search_category}
 		<choose>
-			<when test="(search_min_deposit == null or search_min_deposit == '') and (search_max_deposit != null or search_max_deposit != '')">
+			<when test="(search_min_price2 == 30) and (search_max_price2 != 500)">
+				AND property_price BETWEEN 0 AND #{search_max_price}
+			</when>
+			<when test="(search_min_price2 != 30) and (search_max_price2 == 500)">
+				<![CDATA[AND property_price >= #{search_min_price}]]>
+			</when>
+			<when test="(search_min_price2 != 30) and (search_max_price2 != 500)">
+				AND property_price BETWEEN #{search_min_price} AND #{search_max_price}
+			</when>			
+		</choose>
+		
+		<choose>
+			<when test="(search_min_deposit == 500) and (search_max_deposit != 10000)">
 				AND property_deposit BETWEEN 0 AND #{search_max_deposit}
 			</when>
-			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit == null or search_max_deposit == '')">
-				AND property_deposit >= #{search_min_deposit}
+			<when test="(search_min_deposit != 500) and (search_max_deposit == 10000)">
+				<![CDATA[AND property_deposit >= #{search_min_deposit}]]>
 			</when>
-			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit != null or search_max_deposit != '')">
+			<when test="(search_min_deposit != 500) and (search_max_deposit != 1000)">
 				AND property_deposit BETWEEN #{search_min_deposit} AND #{search_max_deposit}
 			</when>			
 		</choose>
+		</if>
 		<choose>
-			<when test="search_min_size == null or search_min_size == '') and search_max_size != null or search_max_size != '')">
+			<when test="search_min_size == 0 and search_max_size !=100">
 				AND property_size BETWEEN 0 AND #{search_max_size}
 			</when>
-			<when test="search_min_size != null or search_min_size != '') and search_max_size == null or search_max_size == '')">
-				AND property_size >= #{search_min_size}
+			<when test="search_min_size != 0 and search_max_size == 100">
+				<![CDATA[AND property_size >= #{search_min_size}]]>
 			</when>
-			<when test="search_min_size != null or search_min_size != '') and search_max_size != null or search_max_size != '')">
+			<when test="search_min_size != 0 and search_max_size != 100">
 				AND property_size BETWEEN #{search_min_size} AND #{search_max_size}
 			</when>			
 		</choose>
 		<choose>
-			<when test="search_min_bedroom == null or search_min_bedroom == '') and search_max_bedroom != null or search_max_bedroom != '')">
+			<when test="search_min_bedroom == 1 and search_max_bedroom != 10">
 				AND property_bedroom BETWEEN 0 AND #{search_max_bedroom}
 			</when>
-			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom == null or search_max_bedroom == '')">
-				AND property_bedroom >= #{search_min_bedroom}
+			<when test="search_min_bedroom != 1 and search_max_bedroom == 10">
+				<![CDATA[AND property_bedroom >= #{search_min_bedroom}]]>
 			</when>
-			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom != null or search_max_bedroom != '')">
+			<when test="search_min_bedroom != 1 and search_max_bedroom != 10">
 				AND property_bedroom BETWEEN #{search_min_bedroom} AND #{search_max_bedroom}
 			</when>			
-		</choose>		
+		</choose>
+		<if test='search_option != 0'>
 		AND property_option = #{search_option}
-		ORDER BY #{search_order_by}
+		</if>
+		ORDER BY ${search_order_by}
 		LIMIT #{search_startRow}, #{search_propertyPerPage}		
 	</select>
 	
@@ -261,9 +278,6 @@
 		SELECT count(*)
 		FROM property
 		WHERE property_status = 'open'
-		<if test="search_category != null and search_category != ''">
-			AND property_category = #{search_category}
-		</if>
 		<if test="search_type != null and search_type != ''">
 			AND property_type = #{search_type}
 		</if>
@@ -273,51 +287,71 @@
 		<if test="search_gu != null and search_gu != ''">
 			AND property_gu = #{search_gu}
 		</if>
+ 		<if test='search_category != "월세" and search_category != null and search_category != ""'>
+ 		AND property_category = #{search_category}
 		<choose>
-			<when test="(search_min_price == null or search_min_price == '') and (search_max_price != null or search_max_price != '')">
+			<when test="(search_min_price == 1000) and (search_max_price != 100000)">
 				AND property_price BETWEEN 0 AND #{search_max_price}
 			</when>
-			<when test="(search_min_price != null or search_min_price != '') and (search_max_price == null or search_max_price == '')">
-				AND property_price >= #{search_min_price}
+			<when test="(search_min_price != 1000) and (search_max_price == 100000)">
+				<![CDATA[AND property_price >= #{search_min_price}]]>
 			</when>
-			<when test="(search_min_price != null or search_min_price != '') and (search_max_price != null or search_max_price != '')">
+			<when test="(search_min_price != 1000) and (search_max_price != 100000)">
 				AND property_price BETWEEN #{search_min_price} AND #{search_max_price}
 			</when>			
 		</choose>
+		</if>
+		<if test='search_category == "월세" and search_category != null and search_category != ""'>
+		AND property_category = #{search_category}
 		<choose>
-			<when test="(search_min_deposit == null or search_min_deposit == '') and (search_max_deposit != null or search_max_deposit != '')">
+			<when test="(search_min_price2 == 30) and (search_max_price2 != 500)">
+				AND property_price BETWEEN 0 AND #{search_max_price}
+			</when>
+			<when test="(search_min_price2 != 30) and (search_max_price2 == 500)">
+				<![CDATA[AND property_price >= #{search_min_price}]]>
+			</when>
+			<when test="(search_min_price2 != 30) and (search_max_price2 != 500)">
+				AND property_price BETWEEN #{search_min_price} AND #{search_max_price}
+			</when>			
+		</choose>
+		
+		<choose>
+			<when test="(search_min_deposit == 500) and (search_max_deposit != 10000)">
 				AND property_deposit BETWEEN 0 AND #{search_max_deposit}
 			</when>
-			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit == null or search_max_deposit == '')">
-				AND property_deposit >= #{search_min_deposit}
+			<when test="(search_min_deposit != 500) and (search_max_deposit == 10000)">
+				<![CDATA[AND property_deposit >= #{search_min_deposit}]]>
 			</when>
-			<when test="(search_min_deposit != null or search_min_deposit != '') and (search_max_deposit != null or search_max_deposit != '')">
+			<when test="(search_min_deposit != 500) and (search_max_deposit != 1000)">
 				AND property_deposit BETWEEN #{search_min_deposit} AND #{search_max_deposit}
 			</when>			
 		</choose>
+		</if>
 		<choose>
-			<when test="search_min_size == null or search_min_size == '') and search_max_size != null or search_max_size != '')">
+			<when test="search_min_size == 0 and search_max_size !=100">
 				AND property_size BETWEEN 0 AND #{search_max_size}
 			</when>
-			<when test="search_min_size != null or search_min_size != '') and search_max_size == null or search_max_size == '')">
-				AND property_size >= #{search_min_size}
+			<when test="search_min_size != 0 and search_max_size == 100">
+				<![CDATA[AND property_size >= #{search_min_size}]]>
 			</when>
-			<when test="search_min_size != null or search_min_size != '') and search_max_size != null or search_max_size != '')">
+			<when test="search_min_size != 0 and search_max_size != 100">
 				AND property_size BETWEEN #{search_min_size} AND #{search_max_size}
 			</when>			
 		</choose>
 		<choose>
-			<when test="search_min_bedroom == null or search_min_bedroom == '') and search_max_bedroom != null or search_max_bedroom != '')">
+			<when test="search_min_bedroom == 1 and search_max_bedroom != 10">
 				AND property_bedroom BETWEEN 0 AND #{search_max_bedroom}
 			</when>
-			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom == null or search_max_bedroom == '')">
-				AND property_bedroom >= #{search_min_bedroom}
+			<when test="search_min_bedroom != 1 and search_max_bedroom == 10">
+				<![CDATA[AND property_bedroom >= #{search_min_bedroom}]]>
 			</when>
-			<when test="search_min_bedroom != null or search_min_bedroom != '') and search_max_bedroom != null or search_max_bedroom != '')">
+			<when test="search_min_bedroom != 1 and search_max_bedroom != 10">
 				AND property_bedroom BETWEEN #{search_min_bedroom} AND #{search_max_bedroom}
 			</when>			
-		</choose>		
-		AND property_option = #{search_option}	
+		</choose>
+		<if test='search_option != 0'>
+		AND property_option = #{search_option}
+		</if>
 	</select>
 
 	<select id="getPropertyListByCondition" parameterType="java.util.Map" resultType="PropertyVO">
@@ -397,5 +431,43 @@
 		WHERE property_city = #{property_city}
 		GROUP BY property_gu
 	</select>
+	
+	<select id="getConditionList" parameterType="Integer" resultType="PropertyVO">
+	
+		SELECT *
+		FROM property
+		<choose>
+			<when test="value == 1">
+				<![CDATA[WHERE property_deposit<=1000 AND property_type='오피스텔']]>
+			</when>
+			<when test="value == 2">
+				<![CDATA[WHERE property_option&2 != 0 AND property_type='상가/사무실']]>
+			</when>
+			<when test="value == 3">
+				<![CDATA[WHERE property_option&8 != 0 AND property_type='원룸+']]>
+			</when>			
+		</choose>	
+		
+		ORDER BY property_id DESC
+	</select>
+	
+	<select id="getConditionListCount" parameterType="Integer" resultType="Integer">
+	
+		SELECT count(*)
+		FROM property
+		<choose>
+			<when test="value == 1">
+				<![CDATA[WHERE property_deposit<=1000 AND property_type='오피스텔']]>
+			</when>
+			<when test="value == 2">
+				<![CDATA[WHERE property_option&2 != 0 AND property_type='상가/사무실']]>
+			</when>
+			<when test="value == 3">
+				<![CDATA[WHERE property_option&8 != 0 AND property_type='원룸+']]>
+			</when>			
+		</choose>	
+
+	</select>
+	
 
 </mapper>

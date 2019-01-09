@@ -27,17 +27,8 @@ public class PropertyDAOImpl implements PropertyDAO {
 	
 	@Override
 	public int increasePropertyHits(int property_id) {
-		
-		int count = sqlSession.selectOne("getLoveCount", property_id);
  		
- 		Map<String, Object> map = new HashMap<>();
- 		
- 		map.put("property_id", property_id);
- 		map.put("property_badge", count);
- 		
- 		int result = sqlSession.update("updateLoveCount", map);
- 		
- 		return result;
+ 		return sqlSession.update("increasePropertyHits",property_id);
 	}
 	
 
@@ -91,7 +82,7 @@ public class PropertyDAOImpl implements PropertyDAO {
 	@Override
 	public int getPropertyListCount() {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("getPropertyListCount");
 	}
 
 
@@ -121,9 +112,11 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("startRow", startRow);
 		map.put("propertyPerPage", propertyPerPage);
 		map.put("login", login);
+		if(vo != null) {
 		map.put("property_category", vo.getUser_interest_category());
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
+		}
 		map.put("orderBy", orderBy);
 
 		return sqlSession.selectList("getRecommendPropertyList", map);
@@ -135,11 +128,12 @@ public class PropertyDAOImpl implements PropertyDAO {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("login", login);
+		if(vo != null) {
 		map.put("property_category", vo.getUser_interest_category());
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
-		
-		return 0;
+		}
+		return sqlSession.selectOne("getRecommendPropertyListCount", map);
 	}
 
 	@Override
@@ -150,12 +144,14 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("startRow", startRow);
 		map.put("propertyPerPage", propertyPerPage);
 		map.put("login", login);
+		if(vo != null) {
 		map.put("property_category", vo.getUser_interest_category());
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
+		}
 		map.put("orderBy", orderBy);
 		
-		return null;
+		return sqlSession.selectList("getPopularPropertyList", map);
 	}
 	
 	@Override
@@ -164,11 +160,12 @@ public class PropertyDAOImpl implements PropertyDAO {
 		Map<String, Object> map = new HashMap<>();
 
 		map.put("login", login);
+		if(vo != null) {
 		map.put("property_category", vo.getUser_interest_category());
 		map.put("property_type", vo.getUser_interest_type());
 		map.put("property_city", vo.getUser_interest_city());
-		
-		return 0;
+		}
+		return sqlSession.selectOne("getPopularPropertyListCount");
 	}
 
 	@Override
@@ -200,24 +197,29 @@ public class PropertyDAOImpl implements PropertyDAO {
 		map.put("property_category", vo.getProperty_category());
 		map.put("property_type", vo.getProperty_type());
 		map.put("property_city", vo.getProperty_city());
+		map.put("property_id", vo.getProperty_id());
 
 		return sqlSession.selectList("getSimilarPropertyList", map);
 	}
 
 	@Override
-	public List<PropertyVO> getPropertyListBySearch(int startRow, int propertyPerPage, SearchVO vo, String orderBy) {
+	public List<PropertyVO> getPropertyListBySearch(Criteria cri, SearchVO vo, String orderBy) {
 		
-		vo.setSearch_startRow(startRow);
-		vo.setSearch_propertyPerPage(propertyPerPage);
 		vo.setSearch_order_by(orderBy); 	// property_date DESC, property_date ASC, property_price DESC, property_price ASC
 		
-		return null;
+		vo.setSearch_startRow(cri.getPageStart());
+		vo.setSearch_propertyPerPage(cri.getPerPageNum());
+		
+		System.out.println(cri.getPageStart());
+		System.out.println(cri.getPerPageNum());
+		
+		return sqlSession.selectList("getPropertyListBySearch", vo);
 	}
 	
 	@Override
 	public int getPropertyListBySearchCount(SearchVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("getPropertyListBySearchCount", vo);
 	}
 	
 	@Override
@@ -285,6 +287,17 @@ public class PropertyDAOImpl implements PropertyDAO {
 	public List<String> getGuList(String city) {
 		
 		return sqlSession.selectList("getGuList", city);
+	}
+	
+	@Override
+	public List<PropertyVO> getConditionList(int property_condition){
+		
+		return sqlSession.selectList("getConditionList",property_condition);
+	}
+	
+	public int getConditionListCount(int property_condition){
+		
+		return sqlSession.selectOne("getConditionListCount", property_condition);
 	}
 
 }	

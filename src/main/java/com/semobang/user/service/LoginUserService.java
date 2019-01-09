@@ -47,7 +47,7 @@ public class LoginUserService {
 			mav.addObject("member", member);
 			
 			
-			mav.setViewName("redirect:/");	//이동할 페이지
+			mav.setViewName("redirect:/index");	//이동할 페이지
 		}else {
 			
 			out.println("<script> alert('아이디 또는 비밀번호가 틀립니다!');");

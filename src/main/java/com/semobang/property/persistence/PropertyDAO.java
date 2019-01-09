@@ -1,6 +1,7 @@
 package com.semobang.property.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.semobang.property.domain.Criteria;
 import com.semobang.property.domain.PropertyVO;
@@ -99,7 +100,7 @@ public interface PropertyDAO {
 	// 2. 등록순: orderBy -> "property_date ASC"
 	// 3. 가격 낮은순: orderBy -> "property_price DESC"
 	// 4. 가격 높은순: orderBy -> "property_price ASC"
-	public List<PropertyVO> getPropertyListBySearch(int startRow, int propertyPerPage, SearchVO vo, String orderBy);
+	public List<PropertyVO> getPropertyListBySearch(Criteria cri, SearchVO vo, String orderBy);
 	
 	// 검색한 매물 리스트 개수 계산하기
 	public int getPropertyListBySearchCount(SearchVO vo);
@@ -138,4 +139,9 @@ public interface PropertyDAO {
 	// 선택한 시의 구 리스트 가져오기
 	// 메인 화면, 매물 상세보기 화면의 서치창
 	public List<String> getGuList(String city);
+	
+	public List<PropertyVO> getConditionList(int property_condition);
+	
+	public int getConditionListCount(int property_condition);
+	
 }

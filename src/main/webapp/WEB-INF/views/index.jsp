@@ -39,6 +39,10 @@
         
         <!-- IonIcons -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.0/css/ionicons.min.css">
+		
+		<!-- Toast -->
+		<link rel="stylesheet" href="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css" />
+       	<link rel="stylesheet" href="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.css" />
     </head>
     
     <style>
@@ -48,26 +52,14 @@
 		.fa1{font-size: 50px; margin-top: 5px;}	/*tema search 아이콘 크기 변경*/
 		.welcome-estate a{fill: #FFF; color: #777;}
 		.welcome-icon:hover a{color: #fff;}
-		
-	/* 	#searchGu{font-size: 13px;
-				box-sizing: border-box;
-				height : 40px;
-				line-height: 1.42857;
-				color: #eeeded;
-				background: rgba(252, 252, 252, 0.35) none repeat scroll 0% 0%;
-    			border-radius: 1px;
-   				 display: inline-block;
-    			overflow: hidden;
-    			width: 100%;
-    			text-align: left;
-		}
- */
- 	.client-face img{ width: 98px; height: 98px;}
- 	.client-text p{ height: 70px; overflow: hidden; text-overflow: ellipsis; 
- 	display: -webkit-box;
-	-webkit-line-clamp: 3; /* 라인수 */
-	-webkit-box-orient: vertical;
-	word-wrap:break-word;}
+		.item-tree-icon a{color: #777;}
+		.item-tree-icon a:hover a{color: #d27e04;}
+	 	.client-face img{ width: 98px; height: 98px;}
+	 	.client-text p{ height: 70px; overflow: hidden; text-overflow: ellipsis; 
+	 	display: -webkit-box;
+		-webkit-line-clamp: 3; /* 라인수 */
+		-webkit-box-orient: vertical;
+		word-wrap:break-word;}
  
  
     </style>
@@ -189,7 +181,7 @@
                                         <!-- End of  --> 
 
                                         <div class="form-group mar-l-20">
-                                            <label for="property-geo">Min bed :</label>
+                                            <label for="property-geo">방 개수 :</label>
                                             <input type="text" class="span2" value="1,10" data-slider-min="1" 
                                                    data-slider-max="10" data-slider-step="1" 
                                                    data-slider-value="[1,3]" id="min-bed" name="search_bedroom"><br />
@@ -309,7 +301,6 @@
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                         <!-- /.feature title -->
                         <h2>Top submitted property</h2>
-                        <p>Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies . </p>
                     </div>
                 </div>
 
@@ -333,13 +324,15 @@
 
                         <div class="col-sm-6 col-md-3 p0">
                             <div class="box-tree more-proerty text-center">
+                                
                                 <div class="item-tree-icon">
-                                    <i class="fa fa-th"></i>
+                                   <a href="./list/searchList"> <i class="fa fa-th"></i></a>
                                 </div>
+                                
                                 <div class="more-entry overflow">
-                                    <h5><a href="property-1.html" >CAN'T DECIDE ? </a></h5>
+                                    <h5><a href="./list/searchList" >CAN'T DECIDE ? </a></h5>
                                     <h5 class="tree-sub-ttl">Show all properties</h5>
-                                    <button class="btn border-btn more-black" value="All properties">All properties</button>
+                                    <button class="btn border-btn more-black" value="All properties" onclick="location.href='./list/searchList'">All properties</button>
                                 </div>
                             </div>
                         </div>
@@ -370,7 +363,7 @@
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                               <a href="./list/searchList1/property_deposit=<1000"> <i class="pe-7s-home pe-4x"></i></a>
+                                               <a href="./list/conditionList/1"> <i class="pe-7s-home pe-4x"></i></a>
                                             </div>
                                             <h3>보증금 1000만원 이하 오피스텔</h3>
                                         </div>
@@ -378,7 +371,7 @@
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                                <a href="./list/searchList1/property_option=2"><i class="fa fa-automobile fa1"></i></a>
+                                                <a href="./list/conditionList/2"><i class="fa fa-automobile fa1"></i></a>
                                             </div>
                                             <h3>주차장 완비 상가</h3>
                                         </div>
@@ -392,7 +385,7 @@
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                                 <a href="./list/searchList1/property_option=8"><i class="fa fa-paw fa1"></i></a>
+                                                 <a href="./list/conditionList/3"><i class="fa fa-paw fa1"></i></a>
                                             </div>
                                             <h3>반려동물과 함꼐하는 원룸</h3>
                                         </div>
@@ -469,9 +462,13 @@
 
         <script src="resources/assets/js/main.js"></script>
         
+        <script src="//rawgit.com/Soldier-B/jquery.toast/master/jquery.toast/jquery.toast.min.js"></script>
         
 		<script>
 		     $(function() {
+		    	 
+		    	 $.toast.config.align = 'right';
+	        	 $.toast.config.width = 200;
 		     	
 		    	// 푸터에 있는 퀵 서치창에 매물번호를 입력하고 버튼을 클릭
 		    	// DB에 있고 상태가 open이면 매물 상세보기 화면으로 이동
@@ -479,13 +476,39 @@
 				// 1. 없는 매물번호 입니다. (hidden 또는 없음)
 				// 2. 허위매물로 신고된 번호 입니다. (fake)
 				// 3. 거래완료된 번호 입니다. (sold)
-		     	$("#quickSearch").on("click", function() {
-			
-		     		// ajax 통신 결과값에 따라 if문으로 처리
-		     		
-		     		window.open("property/" + $("#property_id").val());		     		
+		     	$("#quickSearch").click(function() {
+		     		// ajax 통신 결과값에 따라 if문으로 처리	     		
+		     		  $.ajax({
+		 		 		dataType : 'json',
+						url:'./quickSearch',
+						type : 'POST',
+						data : {'property_id' : $("#property_id").val()},
+						success : function(data){
+						if(data==1) {	
+    	                    	$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">없는 매물 번호입니다. </div>', {
+    					            duration: 3000,
+    					            type: 'danger'
+    					          });
+						}else if(data == 2){
+							$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">허위매물로 신고된 번호입니다. </div>', {
+					            duration: 3000,
+					            type: 'danger'
+					          });
+						}else if(data == 3){
+							$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">거래완료된 번호입니다. </div>', {
+					            duration: 3000,
+					            type: 'danger'
+					          });
+						}else if(data == 0){
+							window.open("./" + $("#property_id").val());
+						}else{$.toast('<div style="text-align: center; height: 30px; margin-top:10px;">잘못된 요청입니다. </div>', {
+				            duration: 3000,
+				            type: 'danger'
+				          });}
+					}
+
 				});	        
-		    	
+		     	});
 		    	
 		    	// 푸터에 있는 허위매물 신고 링크 클릭
 		    	// 모달 다이얼로그창으로 띄워서 처리함
@@ -494,7 +517,7 @@
 		    		alert("허위매물 신고 처리");
 				});
 		    	
-		    	$("#priceRange2").hide();
+		    	$("#priceRange1").hide();
 		    	
 		    	$("#lunchBegins").change(function() {
 		    		if($("#lunchBegins").val() == '전세' | $("#lunchBegins").val() == '매매'){
