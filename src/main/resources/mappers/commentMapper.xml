@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.semobang.property.domain.CommentDAO">
+	
+	<select id="commentCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM COMMENT
+    </select>
+    
+    <select id="commentList" resultType="com.semobang.property.domain.CommentVO">
+        SELECT
+            *
+        FROM COMMENT
+        WHERE user_email = #{user_email}
+    </select>
+    
+    
+    <insert id="commentInsert" parameterType="com.semobang.property.domain.CommentVO">
+        INSERT INTO
+        COMMENT (CNO, user_email, CONTENT, WRITER, REG_DATE)
+        VALUES(#{cno},#{user_email},#{content},#{writer},now()) 
+    </insert>
+    
+    <update id="commentUpdate" parameterType="com.semobang.property.domain.CommentVO">
+        UPDATE COMMENT
+            SET
+            CONTENT = #{content}
+        WHERE CNO = #{cno}
+    </update>
+    
+    <delete id="commentDelete" parameterType="int">
+        DELETE FROM COMMENT WHERE CNO = #{cno}
+    </delete>
+	
+</mapper>

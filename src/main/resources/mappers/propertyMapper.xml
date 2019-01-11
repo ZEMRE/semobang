@@ -271,7 +271,7 @@
 		AND property_option = #{search_option}
 		</if>
 		ORDER BY ${search_order_by}
-		LIMIT #{search_startRow}, #{search_propertyPerPage}		
+ 		LIMIT #{search_startRow}, #{search_propertyPerPage}	
 	</select>
 	
 	<select id="getPropertyListBySearchCount" parameterType="SearchVO" resultType="int">

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.semobang.property.domain.Criteria;
 import com.semobang.property.domain.PageMaker;
+import com.semobang.property.domain.PageSearch;
 import com.semobang.property.domain.PropertyVO;
 import com.semobang.property.domain.SearchVO;
 import com.semobang.property.persistence.PropertyDAO;
@@ -36,23 +37,42 @@ public class ListController {
 	UserDAO udao;
 
 	// 에이전트가 보유한 매물 리스트 페이지로 이동
-	@RequestMapping("/agentList")
-	public String agentList()
-	{
+	@RequestMapping("/agentList/{user_email}")
+	public String agentList(Model model, @ModelAttribute("cri") Criteria cri,@PathVariable("user_email") String user_email)
+	{		
+		cri.setPerPageNum(12);
+		
+		int startRow = cri.getPageStart();
+		int propertyPerPage = cri.getPerPageNum();
+		
+		UserVO uvo = udao.getUser(user_email);
+		
+		List<PropertyVO> propertyListByAgent = pdao.getPropertyListByAgent(startRow, propertyPerPage, user_email, "property_id DESC");
+		
+		
+		model.addAttribute("propertyListByAgent",propertyListByAgent);
+		
+		String propertyUser = user_email;
+		
+		//페이징 처리
+		PageMaker pageMaker = new PageMaker();				
+		int propertyListCount = pdao.getPropertyListCount();		
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(propertyListCount);	
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("propertyUser",propertyUser);
+		model.addAttribute("uvo",uvo);
+		
 		return "list/agentList";
 	}
-	
 	
 	// 사용자가 검색한 매물 리스트 페이지로 이동
 	@RequestMapping("/searchList")
 	public String searchList(Model model,@ModelAttribute("cri") Criteria cri,  @ModelAttribute SearchVO svo)
 	{		
-		
-		System.out.println(svo.getSearch_category());
-		
-		List<PropertyVO> searchList = pdao.getPropertyListBySearch(cri, svo, "property_date DESC");
+		List<PropertyVO> searchList = pdao.getPropertyListBySearch(cri, svo, "property_id DESC");
+	
 		model.addAttribute("searchList", searchList);
-		
 		
 		//시 리스트 얻기
 		List<String> cityList = pdao.getCityList();
@@ -138,11 +158,11 @@ public class ListController {
 		pageMaker.setTotalCount(searchListCount);
 		
 		model.addAttribute("pageMaker", pageMaker);
-
+		model.addAttribute("cri",cri);
 		return "list/searchList";
 	}
-	
-	
+
+	//구리스트 얻기
 	@ResponseBody
 	@RequestMapping(value = "/searchGu", method = RequestMethod.POST, produces="application/json; charset=utf-8")
 	public List<String> searchGu(HttpServletRequest request,HttpSession session) throws Exception {
@@ -174,7 +194,6 @@ public class ListController {
 		pageMaker.setTotalCount(propertyListCount);	
 		model.addAttribute("pageMaker", pageMaker);
 		
-		
 		return "list/recentList";
 	}
 	
@@ -183,6 +202,8 @@ public class ListController {
 	@RequestMapping("/popularList")
 	public String popularList(Model model,@ModelAttribute("cri") Criteria cri,HttpSession session)
 	{
+		
+		
 	//public List<PropertyVO> getPopularPropertyList(int startRow, int propertyPerPage, boolean login, UserVO vo, String orderBy);
 		int startRow = cri.getPageStart();
 		int propertyPerPage = cri.getPerPageNum();

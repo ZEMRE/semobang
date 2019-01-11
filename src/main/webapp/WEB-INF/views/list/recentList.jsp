@@ -401,11 +401,11 @@
                             <div class="pagination">
 
                                 <ul>
-                                <c:if test="${pageMaker.prev}"><li><a href='./searchList?page=${pageMaker.startPage-1}'>이전</a></li></c:if>
+                                <c:if test="${pageMaker.prev}"><li><a href='./recentList?page=${pageMaker.startPage-1}'>이전</a></li></c:if>
                                 <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-                                  	 <li><a href="./searchList?page=${num}" id="<c:out value="${cri.page == num? 'active-pagination' : '' }"/>">${num}</a></li>
+                                  	 <li><a href="./recentList?page=${num}" id="<c:out value="${cri.page == num? 'active-pagination' : '' }"/>">${num}</a></li>
                                     </c:forEach>
-                                <c:if test="${pageMaker.next }"><li><a href='./searchList?page=${pageMaker.endPage +1}'>다음</a></li></c:if> 
+                                <c:if test="${pageMaker.next }"><li><a href='./recentList?page=${pageMaker.endPage +1}'>다음</a></li></c:if> 
                                     <!-- <li><a href="#">1</a></li>
                                     <li><a href="#">2</a></li>
                                     <li><a href="#">3</a></li>

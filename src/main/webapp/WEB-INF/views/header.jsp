@@ -55,7 +55,7 @@
 	                
 	                <li class="wow fadeInDown" data-wow-delay="0.2s"><a href="${pageContext.request.contextPath}/list/popularList">인기매물 보기</a></li>
 	                
-	                <li class="wow fadeInDown" data-wow-delay="0.3s"><a href="list/recommendList">추천매물 보기</a></li>
+	                <li class="wow fadeInDown" data-wow-delay="0.3s"><a href="${pageContext.request.contextPath}/list/recommendList">추천매물 보기</a></li>
 	                
 	                <li class="dropdown ymm-sw " data-wow-delay="0.4s">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">부동산 가이드 <b class="caret"></b></a>

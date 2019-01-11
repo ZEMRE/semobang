@@ -54,8 +54,9 @@
         	.property-info-label{
         		margin-top: 5px;
         	}
-        	.favorite-and-print i{color: #fff; font-size:35px;}
-        	.favorite-and-print i:hover {cursor: pointer; color: #f00;}
+
+        	.favorite-and-print i{color: #FDC600; font-size:35px;}
+        	.favorite-and-print i:hover {cursor: pointer; color: #fff;}
         	#propertyID {font-size: 17px;}
         	
         	.add-d-title{ text-align: right;
@@ -442,7 +443,6 @@
                                                 <li><i class="pe-7s-mail strong"> </i> ${uvo.user_email }</li>
                                                 <li><i class="pe-7s-call strong"> </i> ${uvo.user_telephone }</li>
                                                 <li><i class="pe-7s-phone strong"> </i> ${uvo.user_mobile }</li>                      
-                                                <li>통화가능 시간 : <%-- ${uvo.user_telephone_time } --%></li>
                                             </ul>
                                         </div>
 
@@ -478,7 +478,9 @@
                                     <h3 class="panel-title">Smart search</h3>
                                 </div>
                                 <div class="panel-body search-widget">
-                                    <form action="./list/searchList2" class=" form-inline"> 
+                                    <form action="./list/searchList" class=" form-inline" id="searchForm" name="searchForm"> 
+
+										 <input type="hidden" name="search_option" id="search_option">
 
                                         <fieldset>
                                             <div class="row">
@@ -554,7 +556,7 @@
                                                     <label for="property-geo">보증금</label>
                                                     <input type="text" class="span2" value="${svo.search_min_deposit },${svo.search_max_deposit }" data-slider-min="500" 
                                                            data-slider-max="10000" data-slider-step="100" 
-                                                           data-slider-value="[${svo.search_min_deposit },${svo.search_max_deposit }]" id="property-geo2" ><br />
+                                                           data-slider-value="[${svo.search_min_deposit },${svo.search_max_deposit }]" id="property-geo2" name="search_deposit"><br />
                                                     <b class="pull-left color">500 이하</b> 
                                                     <b class="pull-right color">10000 이상</b>                                                
                                                 </div>
@@ -568,7 +570,7 @@
                                                     <label for="price-range">수용면적 (평형) :</label>
                                                     <input type="text" class="span2" value="${svo.search_min_size },${svo.search_max_size}" data-slider-min="0" 
                                                            data-slider-max="100" data-slider-step="5" 
-                                                           data-slider-value="[${svo.search_min_size },${svo.search_max_size}]" id="min-baths" ><br />
+                                                           data-slider-value="[${svo.search_min_size },${svo.search_max_size}]" id="min-baths" name="search_size"><br />
                                                     <b class="pull-left color">1</b> 
                                                     <b class="pull-right color">100</b>                                                
                                                 </div>
@@ -577,7 +579,7 @@
                                                     <label for="property-geo">방개수 </label>
                                                     <input type="text" class="span2" value="${svo.search_min_bedroom },${svo.search_max_bedroom}" data-slider-min="1" 
                                                            data-slider-max="10" data-slider-step="1" 
-                                                           data-slider-value="[${svo.search_min_bedroom },${svo.search_max_bedroom}]" id="min-bed" ><br />
+                                                           data-slider-value="[${svo.search_min_bedroom },${svo.search_max_bedroom}]" id="min-bed" name="search_bedroom"><br />
                                                     <b class="pull-left color">1</b> 
                                                     <b class="pull-right color">10</b>
                                                 </div>
@@ -689,7 +691,7 @@
                                         <fieldset >
                                             <div class="row">
                                                 <div class="col-xs-12">  
-                                                    <input class="button btn largesearch-btn" value="Search" type="submit">
+                                                    <input class="button btn largesearch-btn" value="Search"  type="button" id="getCheckedAll">
                                                 </div>  
                                             </div>
                                         </fieldset>                                     
@@ -892,6 +894,20 @@
 						}			
 				});
 			});
+       	 
+       	$("#getCheckedAll").click(function() {
+
+			sum=0;
+			
+			$("input[name=optionValue]:checked").each(function() {
+				
+				propertyOptionValue = parseInt($(this).val());
+				sum += propertyOptionValue;
+			});
+
+			document.searchForm.search_option.value = sum;
+			document.searchForm.submit();
+		});
        	    
 		});
 

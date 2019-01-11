@@ -60,7 +60,7 @@
 		-webkit-line-clamp: 3; /* 라인수 */
 		-webkit-box-orient: vertical;
 		word-wrap:break-word;}
- 
+ 		.client-text{color: #777;}
  
     </style>
     
@@ -413,7 +413,7 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                         <!-- /.feature title -->
-                        <h2>Our Customers Said  </h2> 
+                        <h2>POPULAR AGENT</h2> 
                     </div>
                 </div>
 
@@ -422,16 +422,17 @@
                         <div class="col-md-12">
                             <div id="testimonial-slider">
                                 <c:forEach var="popularUserList" items="${popularUserList}" end="5">
-                                
+                                <a href="./list/agentList/${popularUserList.user_email} "> 
                                 <div class="item">
                                     <div class="client-text">                                
                                        <p>${popularUserList.user_about }</p>
                                         <h4><strong>${popularUserList.user_name }, </strong><i>${popularUserList.user_company}</i></h4>
                                     </div>
                                     <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
-                                        <img src="resources/images/user/${popularUserList.user_photo }" alt="">
+                                       <img src="resources/images/user/${popularUserList.user_photo }" alt="">
                                     </div>
                                 </div>
+                                </a>
                                </c:forEach>                             
                         </div>
                     </div>

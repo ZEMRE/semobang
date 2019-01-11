@@ -72,7 +72,9 @@
                             </div>
                             
                             <div class="panel-body search-widget">
-                                <form action="" class=" form-inline" name="searchform" id="searchform">
+                                <form action="./searchList" class=" form-inline" name="searchForm" id="searchForm" method="post">
+                                
+                                <input type="hidden" name="search_option" id="search_option">
                                 
                                 	 <fieldset>
                                         <div class="row">
@@ -150,7 +152,7 @@
                                                     <label for="property-geo">보증금</label>
                                                     <input type="text" class="span2" value="${svo.search_min_deposit },${svo.search_max_deposit }" data-slider-min="500" 
                                                            data-slider-max="10000" data-slider-step="100" 
-                                                           data-slider-value="[${svo.search_min_deposit },${svo.search_max_deposit }]" id="property-geo2" ><br />
+                                                           data-slider-value="[${svo.search_min_deposit },${svo.search_max_deposit }]" id="property-geo2" name="search_deposit"><br />
                                                     <b class="pull-left color">500 이하</b> 
                                                     <b class="pull-right color">10000 이상</b>                                                
                                                 </div>
@@ -164,7 +166,7 @@
                                                     <label for="price-range">수용면적 (평형) :</label>
                                                     <input type="text" class="span2" value="${svo.search_min_size },${svo.search_max_size}" data-slider-min="0" 
                                                            data-slider-max="100" data-slider-step="5" 
-                                                           data-slider-value="[${svo.search_min_size },${svo.search_max_size}]" id="min-baths" ><br />
+                                                           data-slider-value="[${svo.search_min_size },${svo.search_max_size}]" id="min-baths" name="search_size"><br />
                                                     <b class="pull-left color">1</b> 
                                                     <b class="pull-right color">100</b>                                                
                                                 </div>
@@ -173,7 +175,7 @@
                                                     <label for="property-geo">방개수 </label>
                                                     <input type="text" class="span2" value="${svo.search_min_bedroom },${svo.search_max_bedroom}" data-slider-min="1" 
                                                            data-slider-max="10" data-slider-step="1" 
-                                                           data-slider-value="[${svo.search_min_bedroom },${svo.search_max_bedroom}]" id="min-bed" ><br />
+                                                           data-slider-value="[${svo.search_min_bedroom },${svo.search_max_bedroom}]" id="min-bed" name="search_bedroom"><br />
                                                     <b class="pull-left color">1</b> 
                                                     <b class="pull-right color">10</b>
                                                 </div>
@@ -286,7 +288,7 @@
                                 <fieldset >
                                         <div class="row">
                                             <div class="col-xs-12">  
-                                                <input class="button btn largesearch-btn" value="Search" type="submit">
+                                                <input class="button btn largesearch-btn" value="Search" type="button" id="getCheckedAll">
                                             </div>  
                                         </div>
                                     </fieldset> 
@@ -350,7 +352,8 @@
 	                 <div class="col-md-12 clear"> 
                         <div id="list-type" class="proerty-th">
                         
-                        <c:forEach var="searchList" items="${searchList}">
+                        <c:set var="pageStart" value="${cri.pageStart }"/>
+                        <c:forEach var="searchList" items="${searchList}" >
                         		
                             <div class="col-sm-6 col-md-4 p0">
 
@@ -425,37 +428,16 @@
                             <div class="pagination">
 						
                                 <ul>
-                                <c:if test="${pageMaker.prev}"><li><a href='./searchList?page=${pageMaker.startPage-1}'>이전</a></li></c:if>
+                                <c:if test="${pageMaker.prev}"><li><a href='#' class="pageA" onclick="paging(${pageMaker.startPage-1}); return false;">이전</a></li></c:if>
                                 <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
                                 
-                                  	<li>
-										<form name="pagingForm" id="pagingForm" action="">
-										<input type="hidden" name="page" id="page" value="${num}">
-										<input type="hidden" name="search_option"  value="${svo.search_option}">
-										<input type="hidden" name="search_category" value="${svo.search_category}">
-										<input type="hidden" name="search_type"  value="${svo.search_type}">
-										<input type="hidden" name="search_city"  value="${svo.search_city}">
-										<input type="hidden" name="search_gu"  value="${svo.search_gu}">
-										<input type="hidden" name="search_min_price" value="${svo.search_min_price}">
-										<input type="hidden" name="search_max_price" value="${svo.search_max_price}">
-										<input type="hidden" name="search_min_price2" value="${svo.search_min_price2}">
-										<input type="hidden" name="search_max_price2" value="${svo.search_max_price2}">
-										<input type="hidden" name="search_min_deposit" value="${svo.search_min_deposit}">
-										<input type="hidden" name="search_max_deposit" value="${svo.search_max_deposit}">
-										<input type="hidden" name="search_min_size" value="${svo.search_min_size}">
-										<input type="hidden" name="search_max_size" value="${svo.search_max_size}">
-										<input type="hidden" name="search_min_bedroom" value="${svo.search_min_bedroom}">
-										<input type="hidden" name="search_max_bedroom" value="${svo.search_max_bedroom}"> 
-										 </form>
-                                  	<a href="./searchList?page=${num}" id="<c:out value="${cri.page == num? 'active-pagination' : '' }"/>" class="pageA">${num}</a>
+                                  	<li>		
+                                  	 <a href="#" id="<c:out value="${cri.page == num? 'active-pagination' : '' }"/>" class="pageA" onclick="paging(${num}); return false;">${num}</a> 
+                                  <%--	<a href="./searchList?page=${num}" id="<c:out value="${cri.page == num? 'active-pagination' : '' }"/>">${num}</a>--%>
                                    </li>
                                     </c:forEach>
-                                <c:if test="${pageMaker.next }"><li><a href='./searchList?page=${pageMaker.endPage +1}'>다음</a></li></c:if> 
-                                    <!-- <li><a href="#">1</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">Next</a></li> -->
+                                <c:if test="${pageMaker.next }"><li><a href="#" class="pageA" onclick="paging(${pageMaker.endPage +1}); return false;">다음</a></li></c:if> 
+
                                 </ul>
                                
                             </div>
@@ -468,6 +450,25 @@
             </div>
         </div>
 
+
+		<form name="pagingForm" id="pagingForm" action="./searchList" method="post">
+			<input type="hidden" name="page" id="page" value="${num}">
+			<input type="hidden" name="search_option"  value="${svo.search_option}">
+			<input type="hidden" name="search_category" value="${svo.search_category}">
+			<input type="hidden" name="search_type"  value="${svo.search_type}">
+			<input type="hidden" name="search_city"  value="${svo.search_city}">
+			<input type="hidden" name="search_gu"  value="${svo.search_gu}">
+			<input type="hidden" name="search_min_price" value="${svo.search_min_price}">
+			<input type="hidden" name="search_max_price" value="${svo.search_max_price}">
+			<input type="hidden" name="search_min_price2" value="${svo.search_min_price2}">
+			<input type="hidden" name="search_max_price2" value="${svo.search_max_price2}">
+			<input type="hidden" name="search_min_deposit" value="${svo.search_min_deposit}">
+			<input type="hidden" name="search_max_deposit" value="${svo.search_max_deposit}">
+			<input type="hidden" name="search_min_size" value="${svo.search_min_size}">
+			<input type="hidden" name="search_max_size" value="${svo.search_max_size}">
+			<input type="hidden" name="search_min_bedroom" value="${svo.search_min_bedroom}">
+			<input type="hidden" name="search_max_bedroom" value="${svo.search_max_bedroom}">
+		</form>
 
 
 
@@ -545,14 +546,28 @@
 
 	    		}
 			});  
-        	
-	            $(".pageA").click(function() {
-	            	
-	            	$('#pagingForm').submit();
+
+		    	$("#getCheckedAll").click(function() {
+
+					sum=0;
+					
+					$("input[name=optionValue]:checked").each(function() {
+						
+						propertyOptionValue = parseInt($(this).val());
+						sum += propertyOptionValue;
+					});
+
+					document.searchForm.search_option.value = sum;
+					document.searchForm.submit();
 				});
-	            
+        
         });
         
+        
+        function paging(num){
+        	document.pagingForm.page.value = num;
+        	document.pagingForm.submit();
+        }
         </script>		
 
 

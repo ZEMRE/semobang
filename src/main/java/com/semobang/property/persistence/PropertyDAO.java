@@ -1,7 +1,6 @@
 package com.semobang.property.persistence;
 
 import java.util.List;
-import java.util.Map;
 
 import com.semobang.property.domain.Criteria;
 import com.semobang.property.domain.PropertyVO;

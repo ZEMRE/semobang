@@ -210,9 +210,6 @@ public class PropertyDAOImpl implements PropertyDAO {
 		vo.setSearch_startRow(cri.getPageStart());
 		vo.setSearch_propertyPerPage(cri.getPerPageNum());
 		
-		System.out.println(cri.getPageStart());
-		System.out.println(cri.getPerPageNum());
-		
 		return sqlSession.selectList("getPropertyListBySearch", vo);
 	}
 	
