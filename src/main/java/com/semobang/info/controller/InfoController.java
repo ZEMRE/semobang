@@ -49,10 +49,28 @@ public class InfoController {
 	
 	
 	// 부동산 가이드 상세보기 페이지로 이동
-	@RequestMapping("/tips")
-	public String tips()
+	@RequestMapping("/tips1")
+	public String tips1()
 	{
-		return "info/tips";
+		return "info/tips1";
+	}
+	
+	@RequestMapping("/tips2")
+	public String tips2()
+	{
+		return "info/tips2";
+	}
+	
+	@RequestMapping("/tips3")
+	public String tips3()
+	{
+		return "info/tips3";
+	}
+	
+	@RequestMapping("/tips4")
+	public String tips4()
+	{
+		return "info/tips4";
 	}
 	
 	

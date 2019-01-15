@@ -27,8 +27,8 @@
 	                        <h4>Quick links </h4>
 	                        <div class="footer-title-line"></div>
 	                        <ul class="footer-menu">
-	                        	<li><a href="info/tipsList">부동산 가이드</a></li> 
-	                            <li><a href="info/faq">자주하는 질문</a></li>                                     
+	                        	<li><a href="${pageContext.request.contextPath}/info/tipsList">부동산 가이드</a></li> 
+	                            <li><a href="${pageContext.request.contextPath}/info/faq">자주하는 질문</a></li>                                     
 	                            <li><a href="javascript:" class="report"">허위매물 신고</a></li>                                     
 	                        </ul>
 	                    </div>
@@ -39,9 +39,9 @@
 	                        <h4>Property List </h4>
 	                        <div class="footer-title-line"></div>
 	                        <ul class="footer-menu">
-	                            <li><a href="list/recentList">최신 매물 리스트</a></li> 
-	                            <li><a href="list/popularList">인기 매물 리스트</a></li> 
-	                            <li><a href="list/recommendList">추천 매물 리스트</a></li> 
+	                            <li><a href="${pageContext.request.contextPath}/list/recentList">최신 매물 리스트</a></li> 
+	                            <li><a href="${pageContext.request.contextPath}/list/popularList">인기 매물 리스트</a></li> 
+	                            <li><a href="${pageContext.request.contextPath}/list/recommendList">추천 매물 리스트</a></li> 
 	                        </ul>
 	                    </div>
 	                </div>
@@ -79,10 +79,10 @@
 	                <div class="bottom-menu pull-right"> 
 	                    <ul> 
 	                        <li><a href="index" class="wow fadeInUp animated" data-wow-delay="0.2s">Home</a></li>
-	                        <li><a href="info/about" class="wow fadeInUp animated" data-wow-delay="0.3s">회사소개</a></li>
-	                        <li><a href="info/contact" class="wow fadeInUp animated" data-wow-delay="0.4s">제휴문의</a></li>
-	                        <li><a href="#" onclick="window.open('info/terms')" class="wow fadeInUp animated" data-wow-delay="0.5s">이용약관</a></li>
-	                        <li><a href="#" onclick="window.open('info/privacy')" class="wow fadeInUp animated" data-wow-delay="0.6s">개인정보처리방침</a></li>                                
+	                        <li><a href="${pageContext.request.contextPath}/info/about" class="wow fadeInUp animated" data-wow-delay="0.3s">회사소개</a></li>
+	                        <li><a href="${pageContext.request.contextPath}/info/contact" class="wow fadeInUp animated" data-wow-delay="0.4s">제휴문의</a></li>
+	                        <li><a href="#" onclick="window.open('${pageContext.request.contextPath}/info/terms')" class="wow fadeInUp animated" data-wow-delay="0.5s">이용약관</a></li>
+	                        <li><a href="#" onclick="window.open('${pageContext.request.contextPath}/info/privacy')" class="wow fadeInUp animated" data-wow-delay="0.6s">개인정보처리방침</a></li>                                
 	                    </ul> 
 	                </div>
 	            </div>
